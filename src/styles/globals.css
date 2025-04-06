@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import 'normalize.css';
+
+
+
+html {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+:root {
+  --background: #131417;
+  --foreground: #fafafa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-space: var(--font-spaceGames);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+
+  
+}

@@ -1,0 +1,67 @@
+.button {
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.button--primary {
+  background: linear-gradient(45deg, #E9312B 0%, #E8B77C 100%);
+  color: #444656;
+}
+
+
+ .button--primary:hover {
+  color: #faf0fa;
+ }
+
+
+.button--small {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.button--medium {
+  font-size: 15px;
+  padding: 10px 20px;
+
+}
+
+
+.button--large {
+  padding: 10px 32px;
+  font-size: var(--md);
+}
+
+.button--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button--loading {
+  position: relative;
+  cursor: wait;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+
+.no-hover:hover {
+  /* Loại bỏ hiệu ứng hover khi disabled */
+  background-color: initial !important; /* Giữ màu ban đầu */
+  cursor: not-allowed !important; /* Đảm bảo con trỏ không thay đổi */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
