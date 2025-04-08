@@ -8,6 +8,7 @@
     justify-content: space-between;
     padding: 62px 100px;
     border-top: solid 2px #E8B77C;
+    z-index: 500;
 
 }
 

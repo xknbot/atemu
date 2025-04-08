@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "../styles/globals.css";
-import Header from "../components/shared/Header"
-import Footer from "../components/shared/Footer";
+import Header from "../components/major/Header"
+import Footer from "../components/major/Footer";
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
+
 
 const ancientGod = localFont({
   src: './fonts/Ancient God.woff2',
