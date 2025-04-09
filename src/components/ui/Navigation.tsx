@@ -99,7 +99,7 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
                 <Link
                     key={link.href}
                     href={link.href}
-                    className="text-white hover:text-gray-300 block py-2 text-2xl font-space" // Style links
+                    className="text-white hover:text-gray-300 block py-2 text-lg font-space" // Style links
                     onClick={toggleMenu} // Close menu when a link is clicked
                 >
                     {link.label}

@@ -9,8 +9,6 @@ export const viewport = {
   initialScale: 1,
 };
 
-
-
 const ancientGod = localFont({
   src: './fonts/Ancient God.woff2',
   display: 'swap',
@@ -21,6 +19,7 @@ const spaceGames = localFont({
   display: 'swap',
   variable: '--font-spaceGames',
 })
+
 
 export const metadata: Metadata = {
   title: "Create Next App",

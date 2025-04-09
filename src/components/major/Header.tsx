@@ -24,9 +24,9 @@ const Header: React.FC = () => {
             </div>
 
             {/* row 2: Header */}
-            <header className='sticky top-10 z-40 flex justify-between items-center w-full h-20'>
+            <header className='sticky top-10 z-40 flex justify-between items-center w-full h-15'>
                 <div className='absolute inset-0 w-full h-full bg-[url(/main-page.png)] bg-cover bg-no-repeat bg-[position:0%_10%] md:bg-[position:0%_13%] z-0 blur-[5px]'></div>
-                    <div className='relative z-10 flex items-center w-full px-7'>
+                    <div className='relative z-10 flex items-center w-full px-2'>
                         <div className='flex-shrink-0'>
                             <Link href={'/'}>
                                 <Logo src="/LOGO.png" alt="Atemu Logo" width={100} height={141} />
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
                             ))}
                         </nav>
                          
-                        <div className='flex items-center justify-end w-full gap-7 lg:w-auto'>
+                        <div className='flex items-center justify-end w-full gap-3 lg:w-auto'>
                             <Button className="mx-auto">
                                 Play now
                             </Button>
