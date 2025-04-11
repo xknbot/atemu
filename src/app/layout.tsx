@@ -14,12 +14,23 @@ const ancientGod = localFont({
   display: 'swap',
 })
 
+const deSwash = localFont({
+  src: './fonts/DevinneSwash.woff2',
+  display: 'swap',
+  variable: '--font-deSwash',
+})
+
 const spaceGames = localFont({
   src: './fonts/Space Games.woff2',
   display: 'swap',
   variable: '--font-spaceGames',
 })
 
+const fe = localFont({
+  src: './fonts/FeFCrm2.woff2',
+  display: 'swap',
+  variable: '--font-fe',
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ancientGod.className} ${spaceGames.variable}`}>
+    <html lang="en" className={`${ancientGod.className} ${spaceGames.variable} ${deSwash.variable} ${fe.variable}`}>
       <body
         className={` antialiased`}
       >
