@@ -285,17 +285,19 @@ export default function IntroAtemu() {
     };
 
     return (
-        <div ref={sectionRef} className="w-full relative h-[938px] overflow-hidden">
+        <section ref={sectionRef} className="w-full relative h-[938px] overflow-hidden">
             {/* Background Image Section */}
-            <section className="absolute inset-0 flex justify-center bg-[url(/bg-1.png)] w-full h-full bg-cover bg-center bg-no-repeat z-0">
-            </section>
+            <div className="absolute inset-0 flex justify-center bg-[url(/bg-1.png)] w-full h-full bg-cover bg-center bg-no-repeat z-0">
+              {/* Top inset shadow overlay */}
+              <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100"></div>
+            </div>
 
             {/* Content Container - Positioned above background */}
             <div className="relative z-10 h-full flex flex-col items-center justify-start pt-20 px-4">
 
                 {/* Animated Text - Word by word */}
                 <motion.div 
-                    className="text-[30px] text-center text-[#E8B77C] px-1 mt-30 -mb-15 md:text-[36px] md:mb-20 flex flex-wrap justify-center gap-2"
+                    className="text-[29px] text-center text-[#E8B77C] px-1 mt-30 -mb-15 md:text-[36px] md:mb-20 flex flex-wrap justify-center gap-2"
                     variants={titleContainer}
                     initial="hidden"
                     animate={titleControls} // Use animation controls instead of "visible"
@@ -344,6 +346,6 @@ export default function IntroAtemu() {
                     })}
                 </motion.div>
             </div>
-        </div> 
+        </section> 
     );
 }

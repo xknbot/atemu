@@ -10,22 +10,22 @@ import Navigation from '@/components/ui/Navigation';
 
 const Header: React.FC = () => {
     const myNavLinks = [
-    { href: '/', label: 'CARDS' },
-    { href: '/gameplay', label: 'GAMEPLAY' },
-    { href: '/marketplace', label: 'MARKETPLACE' },
+    { href: '/', label: 'Cards' },
+    { href: '/gameplay', label: 'Gameplay' },
+    { href: '/marketplace', label: 'Marketplace' },
     ];
     
     return (
         <>
             {/* row 1: Partner */}
-            <div className='flex justify-center items-center gap-3 w-full h-[62px]'>
+            <div className='flex justify-center items-center gap-3 w-full h-[62px] bg-[#131417] z-10'>
                 <p className='text-[12px]'>POWERED BY</p>
                 <Image src='/STARKNET-LOGO.png' width={149} height={34} alt='starknetlogo'/>    
             </div>
 
             {/* row 2: Header */}
             <header className='sticky top-10 z-40 flex justify-between items-center w-full h-15'>
-                <div className='absolute inset-0 w-full h-full bg-[url(/main-page.png)] bg-cover bg-no-repeat bg-[position:0%_10%] md:bg-[position:0%_13%] z-0 blur-[5px]'></div>
+                <div className='absolute inset-0 w-full h-full bg-[url(/main-page.png)] bg-cover bg-no-repeat bg-[position:0%_10%] md:bg-[position:0%_13%] z-0 blur-[3px]'></div>
                     <div className='relative z-10 flex items-center w-full px-2'>
                         <div className='flex-shrink-0'>
                             <Link href={'/'}>
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="text-white hover:text-gray-300 font-space text-sm" // Example styling
+                                    className="text-white hover:text-gray-300 font-deswash text-sm" // Example styling
                                 >
                                     {link.label}
                                 </Link>
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
                          
                         <div className='flex items-center justify-end w-full gap-3 lg:w-auto'>
                             <Button className="mx-auto">
-                                Play now
+                                PLAY NOW
                             </Button>
                             <div className='md:hidden mt-1'>
                                 <Navigation links={myNavLinks} />

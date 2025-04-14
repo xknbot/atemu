@@ -24,3 +24,71 @@ body {
 
   
 }
+
+/* Update these animations in your globals.css file */
+@keyframes scrollTopToBottom {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-50%)); /* Move up by half the height (since we duplicated the cards) */
+  }
+}
+
+@keyframes scrollBottomToTop {
+  0% {
+    transform: translateY(calc(-50%)); /* Start from the middle */
+  }
+  100% {
+    transform: translateY(0); /* Move down to the beginning */
+  }
+}
+
+/* Update these utility classes */
+.animate-scrollTopToBottom {
+  animation: scrollTopToBottom 720s linear infinite;
+}
+
+.animate-scrollBottomToTop {
+  animation: scrollBottomToTop 720s linear infinite;
+}
+
+/* Keep hover pause functionality */
+.animate-scrollTopToBottom:hover,
+.animate-scrollBottomToTop:hover {
+  animation-play-state: paused;
+}
+
+/* Add these classes for touch interaction */
+.animation-paused {
+  animation-play-state: paused !important;
+}
+
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  min-width: max-content;
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+  min-width: max-content;
+}

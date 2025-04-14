@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
@@ -24,26 +24,6 @@ interface HeroSlideData {
 
 }
 
-// Example slide data - Replace with your actual content
-const slidesData: HeroSlideData[] = [
-  {
-    id: 1,
-    type: 'image',
-    src: '/Greece.png',
-  },
-  {
-    id: 2,
-    type: 'video',
-    src: '/Hell Born.mp4'
-  },
-  {
-    id: 3,
-    type: 'video',
-    src: '/OG collection.mp4',
-  },
-
-];
-
 
 export default function HeroSection() {
   // 4. State and Refs for controlling Swiper and Video
@@ -54,74 +34,118 @@ export default function HeroSection() {
   // const videoRef = useRef<HTMLVideoElement>(null);
   // Keep refs for potentially multiple video elements if Swiper duplicates
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
+  const autoplayPaused = useRef(false);
 
-  // Function to handle video ending
-  const handleVideoEnd = () => {
-    console.log('Video ended, sliding next');
-    swiperInstance?.slideNext();
-    // Ensure autoplay restarts for subsequent image slides
-    // It might be stopped if the next slide is also a video, handled in useEffect
-    if (slidesData[(realIndex + 1) % slidesData.length]?.type !== 'video') {
-         swiperInstance?.autoplay?.start();
-    }
-  };
+  // Memoize slide data to prevent recreation on each render
+  const slidesData: HeroSlideData[] = useMemo(() => [
+    {
+    id: 1,
+    type: 'image',
+    src: '/Greece.png',
+    },
+    {
+      id: 2,
+      type: 'video',
+      src: '/Hell Born.mp4'
+    },
+    {
+      id: 3,
+      type: 'video',
+      src: '/OG collection.mp4',
+    },
+    // Add other slides here
+  ], []);
 
-  // 5. Effect to handle video playback and transitions
+  // Memoize the video end handler
+  const handleVideoEnd = useMemo(() => {
+    return () => {
+      console.log('Video ended, sliding next');
+      if (swiperInstance) {
+        swiperInstance.slideNext();
+        
+        // Only start autoplay if the next slide is not a video
+        if (slidesData[(realIndex + 1) % slidesData.length]?.type !== 'video') {
+          swiperInstance.autoplay?.start();
+        }
+      }
+    };
+  }, [swiperInstance, realIndex, slidesData]);
+
+  // Optimize effect to run only when necessary
   useEffect(() => {
-    if (!swiperInstance) return; // Wait until Swiper is initialized
+    if (!swiperInstance) return;
 
     const currentSlideData = slidesData[realIndex];
     const videoElement = videoRefs.current[realIndex];
 
-    // --- Logic for the CURRENTLY active slide ---
-    if (currentSlideData.type === 'video' && videoElement) {
-      console.log(`Video slide active (realIndex: ${realIndex})`);
-      swiperInstance.autoplay?.stop(); // Stop Swiper's autoplay
-
-      // Add event listener (ensure it's not added multiple times)
-      videoElement.removeEventListener('ended', handleVideoEnd); // Remove previous just in case
-      videoElement.addEventListener('ended', handleVideoEnd);
-
-      // Attempt to play
-      videoElement.currentTime = 0; // Reset video to start
-      videoElement.play().catch((error) => {
-        console.error('Video autoplay failed:', error);
-        // If play fails, maybe advance slide after a short delay
-         setTimeout(() => {
-            handleVideoEnd(); // Trigger next slide manually
-         }, 100); // Short delay
-      });
-
-    } else {
-      // --- Logic for when the active slide is NOT a video ---
-      console.log(`Image slide active (realIndex: ${realIndex}), ensuring autoplay`);
-      // Ensure Swiper autoplay is running for image slides
-      swiperInstance.autoplay?.start();
-    }
-
-    // --- Cleanup logic for ALL video elements NOT currently active ---
-    // Pause any other videos that might exist due to looping/duplication
-    Object.entries(videoRefs.current).forEach(([indexStr, vidElement]) => {
-        const index = parseInt(indexStr, 10);
-        if (index !== realIndex && vidElement && !vidElement.paused) {
-            console.log(`Pausing inactive video at index ${index}`);
-            vidElement.pause();
-            // Crucially remove the listener if it's not the active video
-            vidElement.removeEventListener('ended', handleVideoEnd);
-        }
-    });
-
-    // General cleanup function when component unmounts or swiperInstance changes
-    return () => {
-      console.log('Cleaning up all video listeners on unmount/swiper change');
+    // Clean up function to handle all video elements
+    const cleanupVideos = () => {
       Object.values(videoRefs.current).forEach(vidElement => {
-        vidElement?.removeEventListener('ended', handleVideoEnd);
+        if (vidElement) {
+          vidElement.removeEventListener('ended', handleVideoEnd);
+          vidElement.pause();
+        }
       });
     };
 
-  // Depend on realIndex and swiperInstance
-  }, [realIndex, swiperInstance]);
+    // Handle current slide based on type
+    if (currentSlideData.type === 'video' && videoElement) {
+      // Stop autoplay for video slides
+      swiperInstance.autoplay?.stop();
+      autoplayPaused.current = true;
 
+      // Set up video playback
+      videoElement.removeEventListener('ended', handleVideoEnd);
+      videoElement.addEventListener('ended', handleVideoEnd);
+      videoElement.currentTime = 0;
+      
+      // Use a promise with timeout to handle autoplay failures
+      const playPromise = videoElement.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error('Video autoplay failed:', error);
+          setTimeout(handleVideoEnd, 100);
+        });
+      }
+    } else if (autoplayPaused.current) {
+      // Restart autoplay for image slides if it was paused
+      swiperInstance.autoplay?.start();
+      autoplayPaused.current = false;
+    }
+
+    // Pause other videos
+    Object.entries(videoRefs.current).forEach(([indexStr, vidElement]) => {
+      const index = parseInt(indexStr, 10);
+      if (index !== realIndex && vidElement && !vidElement.paused) {
+        vidElement.pause();
+        vidElement.removeEventListener('ended', handleVideoEnd);
+      }
+    });
+
+    return cleanupVideos;
+  }, [realIndex, swiperInstance, slidesData, handleVideoEnd]);
+
+  // Memoize static content to prevent unnecessary re-renders
+  const staticContent = useMemo(() => (
+    <div className="flex flex-col items-center relative z-10 pointer-events-auto">
+      <TextLogo
+        src="/ATEMU-TEXT.png"
+        width={300}
+        height={111}
+        alt="atemutextlogo"
+        className="mt-30 mb-8 md:mb-10"
+      />
+      <p className="text-[29px] md:text-xl text-white mt-5 mb-5 max-w-xl">
+        The First Fully On-Chain Card Game on Starknet
+      </p>
+      <p className="text-[15px] md:text-base font-fe text-gray-200 mb-10 max-w-3xl tracking-wide">
+        WHERE STRATEGY MEETS LEGENDS AND YOUR CARDS FUEL BATTLES
+      </p>
+      <Button variant='secondary' className="">
+        PLAY NOW
+      </Button>
+    </div>
+  ), []);
 
   return (
     // 3. Use Swiper component as the main container
@@ -183,31 +207,8 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-20 flex flex-col items-center px-4 text-center pointer-events-none">
         {/* Optional: Add a general overlay for text readability across all slides */}
         <div className="absolute inset-0 bg-black/30 z-0"></div>
-
-        {/* Your static content */}
-        <div className="flex flex-col items-center relative z-10 pointer-events-auto"> {/* Make content interactive */}
-          <TextLogo
-            src="/ATEMU-TEXT.png"
-            width={300}
-            height={111}
-            alt="atemutextlogo"
-            className="mt-30 mb-8 md:mb-10" // Adjust spacing
-          />
-          <p className="text-sm md:text-xl font-space text-white mt-5 mb-5 max-w-xl">
-            The First Fully On-Chain Card Game on Starknet
-          </p>
-          <p className="text-xs md:text-base font-deswash text-gray-200 mb-10 max-w-3xl">
-            WHERE STRATEGY MEETS LEGENDS AND YOUR CARDS FUEL BATTLES
-          </p>
-          <Button variant='secondary' className="">
-            Play now
-          </Button>
-        </div>
+        {staticContent}
       </div>
     </div>
-
-    
-
-    
   );
 }

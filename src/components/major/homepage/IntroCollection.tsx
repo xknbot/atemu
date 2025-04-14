@@ -3,8 +3,7 @@
 
 import React, { useRef } from 'react';
 import Image from "next/image";
-
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 
 
@@ -54,7 +53,7 @@ export default function IntroCollection() {
   // --- Image Animation ---
   // Define the scroll progress range for the image animation (e.g., 20% to 60%)
   const imageScrollStart = 0.1;
-  const imageScrollEnd = 0.5;
+  const imageScrollEnd = 0.4;
 
   // 1. Opacity: Fade in from 0 to 1 during the defined range
   const imageOpacity = useTransform(
@@ -86,38 +85,83 @@ export default function IntroCollection() {
   const glowOpacity = useTransform(
     scrollYProgress,
     [glowScrollStart, glowScrollEnd], // Range: e.g., 0.55 to 0.70
-    [0, 1], // Output: Opacity 0 to 1
+    [0, 0.5], // Output: Opacity 0 to 1
     { clamp: true } // Prevent opacity going beyond 0 or 1
   );
+
+  // --- Scroll Arrow Animation ---
+  // Hide the arrow when user has scrolled a bit
+  const arrowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2], // Hide arrow after 10% scroll
+    [1, 0]
+  );
+
+  // Animation variants for the bouncing arrow
+  const arrowVariants = {
+    initial: { y: -10 },
+    animate: {
+      y: 10,
+      transition: {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1,
+        ease: "easeInOut"
+      }
+    }
+  };
+
 
   return (
     <section ref={sectionRef} className="relative w-full h-[1200px] bg-[#000] overflow-hidden" style={{ perspective: '1000px' }}>
       <div className="absolute w-full bg-[#000] h-full blur-[100px] z-1"></div>
+
+      {/* Scroll Down Arrow */}
+      <AnimatePresence>
+        <motion.div 
+          className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[40px]"
+          style={{ opacity: arrowOpacity }}
+          initial="initial"
+          animate="animate"
+          variants={arrowVariants}
+        >
+          &dArr;
+        </motion.div>
+      </AnimatePresence>
 
       {/* Content Container - Needs to be relative and higher z-index */}
       {/* Ensure h-full so scroll tracking works correctly */}
       <div className="relative w-full h-full flex flex-col-reverse justify-center items-center px-4 z-10 gap-25 md:flex-row md:gap-60 "> {/* Adjusted gap, added padding */}
 
         {/* 5. Wrap the text paragraph with motion.p and apply the style */}
-        <div className='flex flex-col items-center gap-7 px-4'>
+        <div className='flex flex-col items-center gap-20 px-4'>
           <motion.p
-            className={`text-[19px] text-center text-[#E9312B] md:text-[36px]`}
+            className={`text-[29px] text-center text-[#E9312B] md:text-[36px]`}
             style={{
               filter: combinedFilterStyle, // Apply the brightness filter dynamically
               // Add will-change for performance hint (optional but good practice)
               willChange: 'filter',
             }}
           >
-            ATEMU OG COLLECTION <br/> DROPPING SOON!
+            ATEMU OG MINT <br/> GET READY. IT'S COMING.
           </motion.p>
           
 
-          <motion.p className='font-deswash text-[19px] text-center '>
+          <motion.p className='font-fe text-[15px] text-center tracking-wider leading-[18px]'>
             A finite collection, never to be seen again.
-            Inside awaits immense power: fifty cards from five legendary realms Egypt, Greece, Japan, Viking, and Hellborn.
-            Seek the god-tier: five ultra-rare characters (a mere 1% chance!), one from each realm, boasting incredible strength and unique skills.
+            Inside awaits immense power: fifty cards from five legendary realms: Egypt, Greece, Japan, Viking, and Hellborn.
+            Seek the god-tier, five ultra-rare characters (a mere 1% chance), one from each realm, boasting incredible strength and unique skills.
             Each card is a unique NFT. Own it, collect it, trade it.
           </motion.p>
+
+          <div className='flex justify-center items-center'>
+            <Image src='/Caster.png' width={150} height={170} alt='caster' />
+            <Image src='/Dragon.png' width={150} height={170} alt='dragon'/>
+            <Image src='/Hell Born.png' width={150} height={170} alt='hellborn'/>
+            <Image src='/Legend.png' width={150} height={170} alt='legend'/>
+            <Image src='/Warrior.png' width={150} height={170} alt='warrior'/>
+            
+          </div>
         </div>
 
         {/* Animated Image Wrapper */}
@@ -143,7 +187,7 @@ export default function IntroCollection() {
             />
             {/* 2. Yellow Glow Element */}
             <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[70%] bg-[#E8B77C] rounded-full blur-[200px] z-0" // Positioned below, centered, oval, blurred
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[10%] bg-[#E8B77C] blur-[30px] z-0 " // Positioned below, centered, oval, blurred
               style={{
                 opacity: glowOpacity, // Apply dynamic opacity
                 willChange: 'opacity',
