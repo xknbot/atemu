@@ -65,7 +65,7 @@ const Gameplay: React.FC = () => {
         if (!autoPlay) {
             const timeout = setTimeout(() => {
                 setAutoPlay(true);
-            }, 10000); // Resume auto-play after 10 seconds of inactivity
+            }, 2000); // Resume auto-play after 10 seconds of inactivity
             
             return () => clearTimeout(timeout);
         }
@@ -161,7 +161,7 @@ const Gameplay: React.FC = () => {
                                     whileTap={{ cursor: "grabbing" }}
                                 >
                                     {/* Card Content */}
-                                    <div className="relative h-full w-full bg-[#131417] flex flex-col">
+                                    <div className="relative h-full w-full bg-linear-to-t from-[#131417] from-20% to-[#444656] to-60% flex flex-col">
                                         {/* Card Image */}
                                         <div className="relative h-3/4 w-full">
                                             <Image
@@ -195,7 +195,7 @@ const Gameplay: React.FC = () => {
                                 setAutoPlay(false);
                                 setActiveIndex(index);
                             }}
-                            className={`w-3 h-3 rounded-full transition-colors ${
+                            className={`w-2 h-2 rounded-full transition-colors ${
                                 index === activeIndex ? 'bg-[#E8B77C]' : 'border border-[#E8B77C] hover:bg-gray-400'
                             }`}
                             aria-label={`Go to slide ${index + 1}`}

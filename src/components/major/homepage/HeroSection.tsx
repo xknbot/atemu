@@ -135,10 +135,10 @@ export default function HeroSection() {
         alt="atemutextlogo"
         className="mt-30 mb-8 md:mb-10"
       />
-      <p className="text-[29px] md:text-xl text-white mt-5 mb-5 max-w-xl">
+      <p className="text-[26px] tracking-wide md:text-xl text-white mt-5 mb-5 max-w-xl">
         The First Fully On-Chain Card Game on Starknet
       </p>
-      <p className="text-[15px] md:text-base font-fe text-gray-200 mb-10 max-w-3xl tracking-wide">
+      <p className="text-[15px] md:text-base font-fe text-gray-200 mb-10 max-w-3xl tracking-wide leading-6">
         WHERE STRATEGY MEETS LEGENDS AND YOUR CARDS FUEL BATTLES
       </p>
       <Button variant='secondary' className="">

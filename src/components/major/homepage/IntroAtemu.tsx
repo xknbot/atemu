@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import Image from "next/image";
-import { motion, useScroll, useTransform, useAnimation } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 // Define interfaces for clarity
 interface CharacterStyleProps {
@@ -23,11 +23,11 @@ interface CharacterData {
   alt: string;
   mobile: CharacterStyleProps; // Styles for mobile
   desktop: CharacterStyleProps; // Styles for desktop (and larger)
+  priority: boolean; // Whether this image should be prioritized
 }
 
-// Define the character image data
-
 // Define the character image data with both mobile and desktop positions
+// Move this outside the component to prevent recreation on each render
 const characterImages: CharacterData[] = [
   { 
     id: 1, 
@@ -40,7 +40,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '0%', left: '50%', translateX: '40%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 200, height: 250 
-    }
+    },
+    priority: true
   },
   { 
     id: 2, 
@@ -53,7 +54,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '0%', left: '50%', translateX: '-60%', translateY: '-35%', 
       rotate: 0, zIndex: 7, width: 150, height: 200 
-    }
+    },
+    priority: true
   },
   { 
     id: 3, 
@@ -66,7 +68,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '0%', left: '50%', translateX: '-120%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
-    }
+    },
+    priority: true
   },
   { 
     id: 4, 
@@ -79,7 +82,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-130%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
-    }
+    },
+    priority: true
   },
   { 
     id: 5, 
@@ -92,7 +96,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-40%', translateY: '-40%', 
       rotate: 0, zIndex: 4, flipX: true, width: 150, height: 200 
-    }
+    },
+    priority: true
   },
   { 
     id: 6, 
@@ -105,7 +110,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-100%', translateY: '-40%', 
       rotate: 0, zIndex: 7, width: 150, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 7, 
@@ -118,7 +124,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-110%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 8, 
@@ -131,7 +138,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-110%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 9, 
@@ -144,7 +152,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '20%', translateY: '-100%', 
       rotate: 0, zIndex: 3, width: 150, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 10, 
@@ -157,7 +166,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-20%', translateY: '-35%', 
       rotate: 0, zIndex: 5, flipX: true, width: 250, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 11, 
@@ -170,7 +180,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '0%', left: '50%', translateX: '50%', translateY: '-40%', 
       rotate: 0, zIndex: 6, flipX: true, width: 350, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 12, 
@@ -183,7 +194,8 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '-110%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 200, height: 200 
-    }
+    },
+    priority: false
   },
   { 
     id: 13, 
@@ -196,96 +208,151 @@ const characterImages: CharacterData[] = [
     desktop: { 
       top: '45%', left: '50%', translateX: '35%', translateY: '-40%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
-    }
+    },
+    priority: false
   },
-];
+].map((char, index) => ({
+  ...char,
+  priority: index < 5 // Set priority true for first 5 characters
+}));
 
-// Custom hook to detect screen size
+// Custom hook to detect screen size with debounce
 function useScreenSize() {
-  // Default to mobile layout
   const [isDesktop, setIsDesktop] = useState(false);
 
-  useEffect(() => {
-    // Function to check if screen is desktop size
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768); // 768px is standard md breakpoint in Tailwind
+  // Debounced resize handler
+  const debouncedResize = useCallback(() => {
+    let timeoutId: NodeJS.Timeout;
+    return () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsDesktop(window.innerWidth >= 768);
+      }, 100); // 100ms debounce
     };
-
-    // Check on mount
-    checkScreenSize();
-
-    // Add event listener for window resize
-    window.addEventListener('resize', checkScreenSize);
-
-    // Cleanup
-    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
+
+  useEffect(() => {
+    // Initial check
+    setIsDesktop(window.innerWidth >= 768);
+    
+    // Debounced resize listener
+    const handleResize = debouncedResize();
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, [debouncedResize]);
 
   return isDesktop;
 }
 
+// Title text - no longer split into words since we don't need animation
+const titleText = "The Genesis of Atemu";
 
 export default function IntroAtemu() {
     const sectionRef = useRef<HTMLDivElement>(null);
-    // Create animation controls for the title
-    const titleControls = useAnimation();
     const isDesktop = useScreenSize();
-
-    // Track scroll progress relative to the section
+    
+    // Track scroll progress with smoother options
     const { scrollYProgress } = useScroll({
       target: sectionRef,
-      offset: ["start end", "end start"]
+      offset: ["start end", "end start"],
+    });
+  
+    // Create a smoothed version of scrollYProgress
+    const smoothScrollYProgress = useSpring(scrollYProgress, { 
+      damping: 15, 
+      stiffness: 100 
     });
 
-    // --- Text Animation ---
-    // Define a threshold for when to trigger the text animation
-    const textAnimationTrigger = useTransform(scrollYProgress, [0.1, 0.2], [0, 1]);
-
     // --- Character Images Animation ---
-    const characterScale = useTransform(scrollYProgress, [0.1, 0.45], [3, 1]);
-    const characterOpacity = useTransform(scrollYProgress, [0.1, 0.45], [0, 1]);
+    // Simplified animation values for better performance
+    const characterScale = useTransform(
+      smoothScrollYProgress, 
+      [0.1, 0.4], // Shorter animation range
+      [2, 1]       // Less extreme scale change (2x instead of 3x)
+    );
+    
+    const characterOpacity = useTransform(
+      smoothScrollYProgress, 
+      [0.1, 0.35], 
+      [0, 1]
+    );
 
-    // Use effect to start the title animation when scrolled to the right position
-    useEffect(() => {
-        const unsubscribe = textAnimationTrigger.onChange(value => {
-            // When the scroll progress reaches the threshold (value >= 1), start the animation
-            if (value >= 0.7) {
-                titleControls.start("visible");
-            } else {
-                // Optional: reset animation when scrolling back up
-                titleControls.start("hidden");
-            }
+    // Memoize the title component - now static without animation
+    const titleComponent = useMemo(() => (
+        <div className="text-[29px] text-center text-[#E8B77C] px-1 mt-30 -mb-15 md:text-[36px] md:mb-20">
+            {titleText}
+        </div>
+    ), []);
+
+    // Memoize character images with progressive loading
+    const characterImagesComponent = useMemo(() => {
+        // Sort characters by priority to render important ones first
+        const sortedCharacters = [...characterImages].sort((a, b) => {
+            if (a.priority && !b.priority) return -1;
+            if (!a.priority && b.priority) return 1;
+            return 0;
         });
-        
-        // Cleanup subscription
-        return () => unsubscribe();
-    }, [textAnimationTrigger, titleControls]);
 
-    // Split the title into words for word-by-word animation
-    const titleWords = "The Genesis of Atemu".split(" ");
+        return (
+            <motion.div 
+                className="relative flex flex-nowrap justify-center items-center mt-60 w-full max-w-4xl md:gap-8"
+                style={{
+                    opacity: characterOpacity,
+                }}
+            >
+                {sortedCharacters.map((char) => {
+                    const styles = isDesktop ? char.desktop : char.mobile;
 
-    // Animation variants for the container and words
-    const titleContainer = {
-      hidden: { opacity: 0 },
-      visible: (i = 1) => ({
-        opacity: 1,
-        transition: { staggerChildren: 0.3, delayChildren: 0.3 * i }
-      })
-    };
-
-    const titleWord = {
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.5
-        }
-      }
-    };
+                    return (
+                        <motion.div 
+                            key={char.id} 
+                            className="absolute flex-shrink-0"
+                            style={{
+                                top: styles.top,
+                                left: styles.left,
+                                translateX: styles.translateX,
+                                translateY: styles.translateY,
+                                rotate: styles.rotate,
+                                zIndex: styles.zIndex,
+                                scale: characterScale,
+                                scaleX: styles.flipX ? -1 : 1,
+                                transformOrigin: 'center',
+                                willChange: 'transform, opacity',
+                                // Add hardware acceleration
+                                transform: 'translateZ(0)',
+                            }}
+                        >
+                            <Image
+                                width={styles.width}
+                                height={styles.height}
+                                src={char.src}
+                                alt={char.alt}
+                                loading={char.priority ? "eager" : "lazy"}
+                                priority={char.priority}
+                                style={{
+                                    // Add hardware acceleration for images
+                                    transform: 'translateZ(0)',
+                                }}
+                            />
+                        </motion.div>
+                    );
+                })}
+            </motion.div>
+        );
+    }, [isDesktop, characterOpacity, characterScale]);
 
     return (
-        <section ref={sectionRef} className="w-full relative h-[938px] overflow-hidden">
+        <section 
+            ref={sectionRef} 
+            className="w-full relative h-[938px] overflow-hidden"
+            style={{ 
+                // Add hardware acceleration to the entire section
+                transform: 'translateZ(0)',
+                // Add will-change hint for the browser
+                willChange: 'transform'
+            }}
+        >
             {/* Background Image Section */}
             <div className="absolute inset-0 flex justify-center bg-[url(/bg-1.png)] w-full h-full bg-cover bg-center bg-no-repeat z-0">
               {/* Top inset shadow overlay */}
@@ -294,57 +361,8 @@ export default function IntroAtemu() {
 
             {/* Content Container - Positioned above background */}
             <div className="relative z-10 h-full flex flex-col items-center justify-start pt-20 px-4">
-
-                {/* Animated Text - Word by word */}
-                <motion.div 
-                    className="text-[29px] text-center text-[#E8B77C] px-1 mt-30 -mb-15 md:text-[36px] md:mb-20 flex flex-wrap justify-center gap-2"
-                    variants={titleContainer}
-                    initial="hidden"
-                    animate={titleControls} // Use animation controls instead of "visible"
-                >
-                    {titleWords.map((word, index) => (
-                        <motion.span
-                            key={index}
-                            variants={titleWord}
-                            className="inline-block"
-                        >
-                            {word}
-                        </motion.span>
-                    ))}
-                </motion.div>
-
-                {/* Animated Character Images Container */}
-                <motion.div className="relative flex flex-nowrap justify-center items-center mt-60 w-full max-w-4xl md:gap-8"
-                    style={{
-                        opacity: characterOpacity,
-                    }}>
-                    {characterImages.map((char) => {
-                        const styles = isDesktop ? char.desktop : char.mobile;
-
-                        return (
-                            <motion.div key={char.id} className="absolute flex-shrink-0"
-                                style={{
-                                    top: styles.top,
-                                    left: styles.left,
-                                    translateX: styles.translateX,
-                                    translateY: styles.translateY,
-                                    rotate: styles.rotate,
-                                    zIndex: styles.zIndex,
-                                    scale: characterScale,
-                                    scaleX: styles.flipX ? -1 : 1,
-                                    transformOrigin: 'center',
-                                    willChange: 'transform, opacity',
-                                }}>
-                                <Image
-                                    width={styles.width}
-                                    height={styles.height}
-                                    src={char.src}
-                                    alt={char.alt}
-                                />
-                            </motion.div>
-                        );
-                    })}
-                </motion.div>
+                {titleComponent}
+                {characterImagesComponent}
             </div>
         </section> 
     );

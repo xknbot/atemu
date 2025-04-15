@@ -65,7 +65,7 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
 
       <button
           onClick={toggleMenu}
-          className="text-white relative z-60 " // Ensure button is clickable, higher z-index than menu
+          className="text-[#131417] relative z-60 " // Ensure button is clickable, higher z-index than menu
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
           aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -99,7 +99,7 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
                 <Link
                     key={link.href}
                     href={link.href}
-                    className="text-white hover:text-gray-300 block py-2 text-lg font-deswash" // Style links
+                    className="text-white hover:text-gray-300 block py-2 text-[26px] font-deswash" // Style links
                     onClick={toggleMenu} // Close menu when a link is clicked
                 >
                     {link.label}

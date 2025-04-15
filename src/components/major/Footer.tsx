@@ -22,27 +22,27 @@ const Footer = () => {
             
             <div className='relative z-10 flex flex-col justify-around items-center h-full w-full'>
                 <div className='flex justify-center items-center gap-5'>
-                    <div className='bg-[#444656] w-12 h-12 rounded-3xl flex justify-center items-center'>
+                    <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
                         <Link href={'/'}>
                             <TiSocialFacebookCircular className='text-[30px]'/>
                         </Link>
                     </div>
-                    <div className='bg-[#444656] w-12 h-12 rounded-3xl flex justify-center items-center'>
+                    <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
                         <Link href={'/'} >
                             <FaInstagram className='text-[30px]'/>
                         </Link>
                     </div>
-                    <div className='bg-[#444656] w-12 h-12 rounded-3xl flex justify-center items-center'>
+                    <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
                         <Link href={'/'} className='bg-[#444656] w-12 h-12 rounded-xl flex justify-center items-center'>
                             <FaXTwitter className='text-[30px]'/>
                         </Link>
                     </div>
-                    <div className='bg-[#444656] w-12 h-12 rounded-3xl flex justify-center items-center'>
+                    <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
                         <Link href={'/'} >
                             <RxDiscordLogo className='text-[30px]'/>
                         </Link>
                     </div>
-                    <div className='bg-[#444656] w-12 h-12 rounded-3xl flex justify-center items-center'>
+                    <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
                         <Link href={'/'} >
                             <LiaTelegramPlane className='text-[30px]'/>
                         </Link>

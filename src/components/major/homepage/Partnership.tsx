@@ -33,7 +33,7 @@ const partnersRow3 = [
 const Partnership = () => {
     return (
         <section className='w-full py-20 overflow-hidden bg-gradient-to-b from-[#E8B77c] from-3% to-[#131417] to-25%'>
-            <p className='text-[29px] pb-20 flex justify-center text-center text-[#1886F1] tracking-wide'>Our Partners</p>
+            <p className='text-[26px] pb-20 flex justify-center text-center text-[#Faf0fa] tracking-wide'>Our Partners</p>
 
             {/* Row 1 - Moving Left to Right */}
             <div className="relative w-full overflow-hidden mb-12">

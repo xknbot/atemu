@@ -3,8 +3,7 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   z-index: 1;
-  font-family: var(--font-deSwash);
-  font-style: bold;
+  font-size: 15px;
 }
 
 .button--primary {

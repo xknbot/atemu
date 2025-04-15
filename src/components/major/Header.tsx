@@ -17,19 +17,24 @@ const Header: React.FC = () => {
     
     return (
         <>
-            {/* row 1: Partner */}
-            <div className='flex justify-center items-center gap-3 w-full h-[62px] bg-[#131417] z-10'>
-                <p className='text-[12px]'>POWERED BY</p>
-                <Image src='/STARKNET-LOGO.png' width={149} height={34} alt='starknetlogo'/>    
-            </div>
+            
 
-            {/* row 2: Header */}
-            <header className='sticky top-10 z-40 flex justify-between items-center w-full h-15'>
-                <div className='absolute inset-0 w-full h-full bg-[url(/main-page.png)] bg-cover bg-no-repeat bg-[position:0%_10%] md:bg-[position:0%_13%] z-0 blur-[3px]'></div>
-                    <div className='relative z-10 flex items-center w-full px-2'>
+            <header className='sticky top-0 z-40 w-full h-25 flex flex-col '>
+                {/* row 1: Partner */}
+                <div className='flex justify-center items-center gap-1 w-full h-12 bg-linear-to-b from-[#131417] from-10% to-[#444656] to-100% px-10'>
+                    <p className='text-[15px]'>POWERED BY</p>
+                    <Image src='/STARKNET-LOGO.png' width={99} height={34} alt='starknetlogo'/>    
+                </div>
+
+                {/* row 2: Header */}
+                <div className='relative flex items-center w-full h-13'>
+                    <div className='absolute w-full h-13 bg-[#faf0fa] z-0'>
+                    </div>
+
+                    <div className='relative z-10 flex items-center justify-between w-full h-13 px-4'>
                         <div className='flex-shrink-0'>
                             <Link href={'/'}>
-                                <Logo src="/LOGO.png" alt="Atemu Logo" width={100} height={141} />
+                                <Logo src="/LOGO.png" alt="Atemu Logo" width={75} height={141} />
                             </Link>
                         </div>
                     
@@ -45,7 +50,7 @@ const Header: React.FC = () => {
                                 </Link>
                             ))}
                         </nav>
-                         
+                    
                         <div className='flex items-center justify-end w-full gap-3 lg:w-auto'>
                             <Button className="mx-auto">
                                 PLAY NOW
@@ -55,6 +60,7 @@ const Header: React.FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
             </header> 
         </>
     );
