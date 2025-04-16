@@ -9,7 +9,7 @@ import styles from '@/styles/button.module.css'; // Giả định có file CSS M
 interface ButtonProps {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'third';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   loading?: boolean;
@@ -34,22 +34,20 @@ const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  const classes = classNames(
-    styles.button,
-    styles[`button--${variant}`],
-    styles[`button--${size}`],
-    {
-      [styles['button--disabled']]: disabled,
-      [styles['button--loading']]: loading,
-      [styles['no-hover']]: disabled,
-    },    
-    className
-  );
+  const buttonClasses = `
+    ${styles.button}
+    ${styles[`button--${variant}`]}
+    ${styles[`button--${size}`]}
+    ${disabled ? styles['button--disabled'] : ''}
+    ${loading ? styles['button--loading'] : ''}
+    ${disabled ? styles['no-hover'] : ''}
+    ${className} // Thêm className từ props vào cuối
+  `;
 
   return (
     <button
       type={type}
-      className={classes}
+      className={buttonClasses}
       disabled={disabled}
       onClick={handleClick}
     >

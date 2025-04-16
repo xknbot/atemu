@@ -1,11 +1,9 @@
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoClose } from 'react-icons/io5';
-import classNames from 'classnames'; 
-
+import classNames from 'classnames';
+import { createPortal } from 'react-dom';
 
 interface NavLink {
   href: string;
@@ -18,101 +16,107 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ links }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Optional: Prevent body scroll when the mobile menu is open
+  // Mount effect for portal
   useEffect(() => {
-    const originalOverflow = document.body.style.overflow; // Store original value
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = originalOverflow; // Restore original
-    }
-    // Cleanup function
-    return () => {
-      document.body.style.overflow = originalOverflow; // Restore on unmount/close
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  // Toggle menu state
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Handle outside clicks
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
     };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  // Classes for the mobile menu overlay container
+  // Handle body scroll lock
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = isOpen ? 'hidden' : originalOverflow;
+    return () => { document.body.style.overflow = originalOverflow; };
+  }, [isOpen]);
+
+  // Menu classes
   const mobileMenuClasses = classNames(
-    'fixed',        // Use fixed positioning to cover the viewport
-    'top-0',        // Align to top
-    'right-0',      // Start position off-screen to the right
-    'w-screen',     // Full viewport width (use w-screen for full viewport)
-    'h-screen',     // Full viewport height (use h-screen for full viewport)
-    'bg-[#131417]',     // Black background
-    'text-white',   // White text color
-    'z-100',         // High z-index to appear on top of other content
-    'transform',    // Enable transformations
-    'transition-transform', // Apply transition effect to the transform property
-    'duration-300', // Set transition duration (adjust as needed)
-    'ease-in-out',  // Set transition timing function
-    'lg:hidden',    // Hide this mobile menu on large screens
+    'fixed inset-0 bg-black bg-opacity-50 flex justify-between items-center',
+    'z-[200] lg:hidden transition-opacity duration-300',
     {
-      'translate-x-0': isOpen,      // If open, translate to x=0 (slide in to view)
-      'translate-x-full': !isOpen,  // If closed, translate fully to the right (off-screen)
+      'opacity-100 pointer-events-auto': isOpen,
+      'opacity-0 pointer-events-none': !isOpen,
     }
   );
 
+  const menuContentClasses = classNames(
+    'bg-[#131417] text-white p-7 rounded-lg w-[100%] h-screen max-h-screen',
+    'relative transition-transform duration-300 my-auto',
+    {
+      'scale-100': isOpen,
+      'scale-95': !isOpen,
+    }
+  );
+  
   return (
     <> 
-
-      {/* Hamburger Icon Button (Visible below lg screens) */}
-
+      {/* Hamburger Button */}
       <button
-          onClick={toggleMenu}
-          className="text-[#131417] relative z-60 " // Ensure button is clickable, higher z-index than menu
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
+        onClick={toggleMenu}
+        className="text-[#E8B77C] relative z-50"
+        aria-expanded={isOpen}
+        aria-controls="mobile-menu"
+        aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-          {/* Only show the hamburger icon here. The close icon is inside the menu. */}
-          {/* Conditionally rendering icon here might cause layout shift, better to have close inside */}
-          <GiHamburgerMenu className="w-6 h-6" />
+        <GiHamburgerMenu className="w-6 h-6" />
       </button>
 
-
-      {/* Mobile Navigation Menu Overlay (Handles its own visibility via mobileMenuClasses) */}
-      <nav
-        className={mobileMenuClasses}
-        id="mobile-menu"
-        aria-hidden={!isOpen} // Hide from screen readers when closed
-      >
-         {/* Inner container for layout and padding */}
-         <div className="flex flex-col items-end justify-center h-full relative p-7">
-            {/* Close Button (Inside the menu) */}
+      {/* Modal Portal */}
+      {mounted && createPortal(
+        <div
+          className={mobileMenuClasses}
+          id="mobile-menu"
+          aria-hidden={!isOpen}
+        >
+          <div ref={menuRef} className={menuContentClasses}>
+            {/* Close Button */}
             <button
-                onClick={toggleMenu}
-                className="absolute top-5 right-7 text-white" // Position top-right (adjust padding if needed)
-                aria-label="Close menu"
+              onClick={toggleMenu}
+              className="absolute top-3 right-3 text-white"
+              aria-label="Close menu"
             >
-                <IoClose className="w-8 h-8" /> {/* Larger close icon */}
+              <IoClose className="w-8 h-8" />
             </button>
 
-            {/* Navigation Links Container */}
-            <div className="flex flex-col items-end gap-6 mt-8"> {/* Vertical layout with spacing, add margin-top */}
-                {links.map((link) => (
+            {/* Navigation Links */}
+            <div className="flex flex-col items-center justify-center gap-6 mt-12">
+              {links.map((link) => (
                 <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-white hover:text-gray-300 block py-2 text-[26px] font-deswash" // Style links
-                    onClick={toggleMenu} // Close menu when a link is clicked
+                  key={link.href}
+                  href={link.href}
+                  className="text-white hover:text-gray-300 block py-2 text-[26px] font-deswash"
+                  onClick={toggleMenu}
                 >
-                    {link.label}
+                  {link.label}
                 </Link>
-                ))}
+              ))}
             </div>
-         </div>
-      </nav>
-
-
+          </div>
+        </div>,
+        document.body
+      )}
     </>
   );
 };
 
 export default Navigation;
-

@@ -12,7 +12,7 @@ import Partnership from "@/components/major/homepage/Partnership";
 
 export default function Home() {
   return (
-    <main className="bg-[#000] w-full h-full overflow-hidden">
+    <main className="bg-[#000] w-screen h-full">
       <HeroSection />
       <IntroCollection />
       <IntroAtemu />

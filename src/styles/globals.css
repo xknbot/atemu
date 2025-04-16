@@ -2,9 +2,6 @@
 @import 'normalize.css';
 
 
-
-
-
 :root {
   --background: #131417;
   --foreground: #fafafa;
@@ -16,6 +13,8 @@
   --font-space: var(--font-spaceGames);
   --font-deswash: var(--font-deSwash);
   --font-fe: var(--font-fe);
+  --font-incon: var(--font-incon);
+
 }
 
 body {

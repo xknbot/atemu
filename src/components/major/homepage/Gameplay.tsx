@@ -2,28 +2,32 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import Image from 'next/image';
+import Button from '@/components/ui/Button';
 
 
 // Define the card data
 const gameplayCards = [
   {
     id: 1,
-    title: "SHAPE YOUR ARSENAL",
-    description: "Experience the thrill of owning truly unique digital assets. Expand your collection and connect with a vibrant community of fellow collectors and traders in this exciting new frontier.",
-    image: "/OG Teaser.png", // Replace with your actual image path
+    title: "OUTSMART RIVALS TO EMPTY THEIR DECK FIRST",
+    description: "The goal is simple: outmaneuver your opponents and leave them with nothing. Every decision counts as you deploy your cards, anticipate their moves, and relentlessly work to deplete their hand. Only the sharpest minds and most cunning tacticians will prevail in this thrilling race to zero!",
+        image: "/JinnCovenant.png", // Replace with your actual image path
+    buttonText: "READY TO WIN?" // Thêm nội dung button cho card 1
   },
   {
     id: 2,
-    title: "PLAY-TO-EARN",
-    description: "Stake your $STRK, pay a little fee. Play with skill, conquer your enemies, triumph in this battle of minds. Claim the total locked bounty, fuel your growing fortune. Unlock more ways to earn on Atemu.",
-    image: "/main-page.png", // Replace with your actual image path
-  },
-  {
-    id: 3,
     title: "SOLO, TEAM, ADVENTURE",
     description: "Mastering three epic modes: Unleash intricate scenarios and uncovering hidden lore with Adventurer. Sharpen your tactical mind in Solo Play against cunning AI. Step into the Multiplay arena to forge alliances or challenge rivals in thrilling contests of wit and skill. Start now!",
     image: "/J5.png", // Replace with your actual image path
-  }
+    buttonText: "MASTER THE GAME" // Thêm nội dung button cho card 3
+    },
+  {
+    id: 3,
+    title: "PLAY SMART. EARN. REPEAT",
+    description: "Stake your $STRK, pay a little fee. Play with skill, conquer your enemies, triumph in this battle of minds. Claim the total locked bounty, fuel your growing fortune. Unlock more ways to earn on Atemu.",
+      image: "/CardsMockup.png", // Replace with your actual image path
+    buttonText: "START EARNING NOW" // Thêm nội dung button cho card 2
+  },
 ];
 
 const Gameplay: React.FC = () => {
@@ -95,14 +99,16 @@ const Gameplay: React.FC = () => {
     };
 
     return (
-        <section className='bg-[#444656]'>
-            <p className="text-[29px] text-center text-[#E8B77C] tracking-wide py-20">Conquer the realms</p>
-            <div className='mx-auto w-[80%] h-[1px] bg-[#E8b77c] '></div>
-            <p className="font-fe text-[15px] text-center text-[#FAF0FA] tracking-wide leading-[20px] px-10 pt-10">Enter the universe of Monsters, Spell and Trap cards; accelerate strategic thinking, flexibility tactics
+        <section className='bg-[#444656] w-full max-w-full'>
+            <p className="text-[20px] text-center text-[#faf0fa] tracking-wide py-20">Conquer the realms</p>
+            <div className='mx-auto w-[15%] h-[1px] bg-[#E8b77c] '></div>
+            <p className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide leading-[20px] px-10 py-10">Enter the universe of Monsters, Spell and Trap cards; accelerate strategic thinking, flexibility tactics
                 and win the match against your opponents.</p>
+            <div className='mx-auto w-[15%] h-[1px] bg-[#E8b77c] '></div>
+            
             
             {/* Carousel Container */}
-            <div className="relative max-w-6xl mx-auto py-20">
+            <div className="relative w-full max-w-full mx-auto py-20 overflow-hidden">
                 {/* Navigation Arrows */}
                 <button 
                     onClick={handlePrev}
@@ -135,7 +141,7 @@ const Gameplay: React.FC = () => {
                             return (
                                 <motion.div
                                     key={card.id}
-                                    className={`absolute h-[520px] w-[310px] rounded-xs border border-[#E8B77C] overflow-hidden drop-shadow-xl
+                                    className={`absolute h-[520px] w-[310px] rounded-xs border border-[#E8B77C] overflow-x-hidden drop-shadow-xl
                                               ${normalizedPosition === 0 ? 'z-20' : 'z-10'}
                                               cursor-grab active:cursor-grabbing`}
                                     initial={{ 
@@ -176,9 +182,13 @@ const Gameplay: React.FC = () => {
                                         
                                         {/* Card Text */}
                                         <div className="p-4 flex flex-col justify-center items-center text-center h-1/2">
-                                            <h3 className="text-[#E8B77C] text-[20px] font-deswash mb-2">{card.title}</h3>
-                                            <p className="text-[15px] text-[#FAF0FA] font-fe tracking-wide">{card.description}</p>
+                                            <h3 className="text-[#E8B77C] text-[18px] font-deswash mb-2 tracking-tight">{card.title}</h3>
+                                            <p className="text-[15px] text-[#FAF0FA] font-fe tracking-wide leading-[18px]">{card.description}</p>
                                         </div>
+
+                                        <Button className='!rounded-none'>
+                                            {card.buttonText}
+                                        </Button>
                                     </div>
                                 </motion.div>
                             );

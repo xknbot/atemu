@@ -182,7 +182,7 @@ export default function CardShow() {
         {/* Background with inset shadow */}
         <div className="absolute w-full h-[300px]">
             {/* Main background image */}
-            <div className="absolute inset-0 bg-[url(/NFT-banner.png)] w-full h-full bg-cover bg-center bg-no-repeat">
+            <div className="absolute inset-0 bg-[url(/NFT-banner.avif)] w-full h-full bg-cover bg-center bg-no-repeat">
             </div>
             
             {/* Top inset shadow overlay */}
@@ -193,9 +193,9 @@ export default function CardShow() {
         </div>
 
         <div className="relative flex flex-col justify-center items-center w-full h-[400px] gap-3">
-            <p className="text-[20px] text-center">Experience next-gen card gaming</p>
-            <p className="text-[15px] text-center font-fe">BUILD YOUR ULTIMATE NFT DECK</p>
-            <Button>
+            <p className="text-[20px] text-center tracking-wide mt-10 text-[#E8B77C]">Experience next-gen card gaming</p>
+            <p className="text-[16px] text-center font-fe tracking-wide">Build, trade, and battle with your NFT deck.</p>
+            <Button variant="third" size="small">
                 EXPLORE
             </Button>
         </div>

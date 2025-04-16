@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import Image from "next/image";
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import Button from '@/components/ui/Button';
 
 // Define interfaces for clarity
 interface CharacterStyleProps {
@@ -247,6 +248,7 @@ function useScreenSize() {
 
 // Title text - no longer split into words since we don't need animation
 const titleText = "The Genesis of Atemu";
+const introText = "Before the battles, before the realms, there was the spark: a legendary birth shrouded in celestial wonder and untold power, a tale waiting to be told...";
 
 export default function IntroAtemu() {
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -280,10 +282,18 @@ export default function IntroAtemu() {
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
-        <div className="text-[29px] text-center text-[#E8B77C] px-1 mt-30 -mb-15 md:text-[36px] md:mb-20">
+        <div className="text-[20px] text-center text-[#faf0fa] tracking-wide px-1 mt-30 -mb-15">
             {titleText}
         </div>
     ), []);
+  
+    const introComponent = useMemo(() => (
+        <div className="font-fe text-[16px] text-left text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5 ">
+            {introText}
+        </div>
+    ), []);
+  
+  
 
     // Memoize character images with progressive loading
     const characterImagesComponent = useMemo(() => {
@@ -295,75 +305,84 @@ export default function IntroAtemu() {
         });
 
         return (
-            <motion.div 
-                className="relative flex flex-nowrap justify-center items-center mt-60 w-full max-w-4xl md:gap-8"
-                style={{
-                    opacity: characterOpacity,
-                }}
-            >
-                {sortedCharacters.map((char) => {
-                    const styles = isDesktop ? char.desktop : char.mobile;
+          <motion.div 
+              className="relative flex flex-nowrap justify-center items-center w-full max-w-full mt-10"
+              style={{
+                  opacity: characterOpacity,
+              }}
+          >
+            {sortedCharacters.map((char) => {
+                const styles = isDesktop ? char.desktop : char.mobile;
 
-                    return (
-                        <motion.div 
-                            key={char.id} 
-                            className="absolute flex-shrink-0"
-                            style={{
-                                top: styles.top,
-                                left: styles.left,
-                                translateX: styles.translateX,
-                                translateY: styles.translateY,
-                                rotate: styles.rotate,
-                                zIndex: styles.zIndex,
-                                scale: characterScale,
-                                scaleX: styles.flipX ? -1 : 1,
-                                transformOrigin: 'center',
-                                willChange: 'transform, opacity',
-                                // Add hardware acceleration
-                                transform: 'translateZ(0)',
-                            }}
-                        >
-                            <Image
-                                width={styles.width}
-                                height={styles.height}
-                                src={char.src}
-                                alt={char.alt}
-                                loading={char.priority ? "eager" : "lazy"}
-                                priority={char.priority}
-                                style={{
-                                    // Add hardware acceleration for images
-                                    transform: 'translateZ(0)',
-                                }}
-                            />
-                        </motion.div>
-                    );
-                })}
-            </motion.div>
-        );
-    }, [isDesktop, characterOpacity, characterScale]);
+                  return (
+                      <motion.div 
+                          key={char.id} 
+                          className="absolute flex-shrink-0"
+                          style={{
+                              top: styles.top,
+                              left: styles.left,
+                              translateX: styles.translateX,
+                              translateY: styles.translateY,
+                              rotate: styles.rotate,
+                              zIndex: styles.zIndex,
+                              scale: characterScale,
+                              scaleX: styles.flipX ? -1 : 1,
+                              transformOrigin: 'center',
+                              willChange: 'transform, opacity',
+                              // Add hardware acceleration
+                              transform: 'translateZ(0)',
+                          }}
+                      >
+                          <Image
+                              width={styles.width}
+                              height={styles.height}
+                              src={char.src}
+                              alt={char.alt}
+                              loading={char.priority ? "eager" : "lazy"}
+                              priority={char.priority}
+                              style={{
+                                  // Add hardware acceleration for images
+                                  transform: 'translateZ(0)',
+                              }}
+                          />
+                      </motion.div>
+                  );
+            })}
+          </motion.div>
+        );}, [isDesktop, characterOpacity, characterScale]);
 
     return (
         <section 
-            ref={sectionRef} 
-            className="w-full relative h-[938px] overflow-hidden"
-            style={{ 
-                // Add hardware acceleration to the entire section
-                transform: 'translateZ(0)',
-                // Add will-change hint for the browser
-                willChange: 'transform'
-            }}
+          ref={sectionRef} 
+          className="w-full relative h-[1200px] overflow-hidden"
+          style={{ 
+              // Add hardware acceleration to the entire section
+              transform: 'translateZ(0)',
+              // Add will-change hint for the browser
+              willChange: 'transform'
+          }}
         >
-            {/* Background Image Section */}
-            <div className="absolute inset-0 flex justify-center bg-[url(/bg-1.png)] w-full h-full bg-cover bg-center bg-no-repeat z-0">
-              {/* Top inset shadow overlay */}
-              <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100"></div>
-            </div>
+          {/* Background Image Section */}
+          <div className="absolute inset-0 flex justify-center bg-[url(/bg-1.avif)] w-full h-full bg-cover bg-center bg-no-repeat z-0">
+            {/* Top inset shadow overlay */}
+            <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100"></div>
+          </div>
 
-            {/* Content Container - Positioned above background */}
-            <div className="relative z-10 h-full flex flex-col items-center justify-start pt-20 px-4">
-                {titleComponent}
-                {characterImagesComponent}
+          {/* Content Container - Positioned above background */}
+          <div className="relative z-10 h-full flex flex-col items-center justify-start gap-20 pt-20 px-4">
+            <div>
+              {titleComponent}
             </div>
+            <div className="w-full max-w-full flex flex-col">
+                {introComponent}
+                <Button size='small' className='self-center' variant='third'>
+                  DISCOVER THE LORE
+                </Button>
+            </div>
+            <div className='w-full max-w-full'>
+              {characterImagesComponent}
+            </div>
+          </div>
         </section> 
-    );
+      );
 }

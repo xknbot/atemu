@@ -127,29 +127,29 @@ export default function HeroSection() {
 
   // Memoize static content to prevent unnecessary re-renders
   const staticContent = useMemo(() => (
-    <div className="flex flex-col items-center relative z-10 pointer-events-auto">
+    <div className="h-full flex flex-col items-center justify-center relative z-10 pointer-events-auto">
       <TextLogo
         src="/ATEMU-TEXT.png"
         width={300}
         height={111}
         alt="atemutextlogo"
-        className="mt-30 mb-8 md:mb-10"
+        className="mb-15 md:mb-10"
       />
-      <p className="text-[26px] tracking-wide md:text-xl text-white mt-5 mb-5 max-w-xl">
+      <p className="text-[20px] tracking-wide md:text-xl text-white mt-5 mb-5 max-w-xl">
         The First Fully On-Chain Card Game on Starknet
       </p>
-      <p className="text-[15px] md:text-base font-fe text-gray-200 mb-10 max-w-3xl tracking-wide leading-6">
-        WHERE STRATEGY MEETS LEGENDS AND YOUR CARDS FUEL BATTLES
+      <p className="text-[16px] font-fe text-[#faf0fa] max-w-3xl tracking-wide leading-6 mb-45">
+        Step into the battle of five legendary realms. Collect NFT cards and conquer! Join now!
       </p>
-      <Button variant='secondary' className="">
-        PLAY NOW
+      <Button variant="secondary">
+        JOIN THE BETA
       </Button>
     </div>
   ), []);
 
   return (
     // 3. Use Swiper component as the main container
-    <div className='relative h-[980px] w-full'>
+    <div className='relative h-[1200px] w-full overflow-hidden'>
       <Swiper
         // Pass Swiper instance to state
         onSwiper={setSwiperInstance}
@@ -176,11 +176,10 @@ export default function HeroSection() {
             <Image
               src={slide.src}
               alt={slide.altText || `Hero background ${slide.id}`}
-              layout="fill" // Fill the slide container
-              objectFit="cover" // Cover the area, might crop
-              objectPosition="center" // Center the image
+              fill // Fill the slide container
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
               priority={index === 1} // Prioritize loading the first slide's image
-              className="absolute inset-0 z-0" // Position behind content
+              className="absolute top-0 inset-0 z-0" // Position behind content
             />
             ) : ( 
           <video

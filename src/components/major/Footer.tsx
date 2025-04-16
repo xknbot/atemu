@@ -13,7 +13,7 @@ const Footer = () => {
         <footer className='relative h-[500px] w-full font-fe flex flex-col justify-around items-center py-3 px-10 border-t-2 border-t-[#E8B77C] overflow-hidden'> 
             {/* Background image */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-[url(/Hell-Born.png)] bg-cover bg-no-repeat bg-center"></div>
+                <div className="absolute inset-0 bg-[url(/Hell-Born.avif)] bg-cover bg-no-repeat bg-center"></div>
                 {/* Dimmed overlay */}
                 <div className="absolute inset-0"
                     style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
@@ -23,27 +23,27 @@ const Footer = () => {
             <div className='relative z-10 flex flex-col justify-around items-center h-full w-full'>
                 <div className='flex justify-center items-center gap-5'>
                     <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
-                        <Link href={'/'}>
+                        <Link href={'/'} aria-label='Facebook'>
                             <TiSocialFacebookCircular className='text-[30px]'/>
                         </Link>
                     </div>
                     <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
-                        <Link href={'/'} >
+                        <Link href={'/'} aria-label='Instagram' >
                             <FaInstagram className='text-[30px]'/>
                         </Link>
                     </div>
                     <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
-                        <Link href={'/'} className='bg-[#444656] w-12 h-12 rounded-xl flex justify-center items-center'>
+                        <Link href={'/'} aria-label='Twitter'>
                             <FaXTwitter className='text-[30px]'/>
                         </Link>
                     </div>
                     <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
-                        <Link href={'/'} >
+                        <Link href={'/'} aria-label='Discord'>
                             <RxDiscordLogo className='text-[30px]'/>
                         </Link>
                     </div>
                     <div className='bg-[#444656] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center'>
-                        <Link href={'/'} >
+                        <Link href={'/'} aria-label='Telegram'>
                             <LiaTelegramPlane className='text-[30px]'/>
                         </Link>
                     </div>
