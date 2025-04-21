@@ -107,7 +107,7 @@ const Gameplay: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 0.7 }}
             >
                 Enter the universe of Monsters, Spell and Trap cards; accelerate strategic thinking, flexibility tactics
                 and win the match against your opponents.

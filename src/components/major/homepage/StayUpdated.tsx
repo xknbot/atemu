@@ -52,8 +52,8 @@ const StayUpdated = () => {
                     className="max-w-full mx-auto text-center"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1 }}
+                    viewport={{ once: true, amount: 1 }}
+                    transition={{ duration: 0.7 }}
                 >
                     <h2 className="text-[20px] font-bold text-[#faf0fa] mb-4">
                         Stay Updated

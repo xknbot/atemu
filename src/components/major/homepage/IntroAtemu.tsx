@@ -268,8 +268,8 @@ export default function IntroAtemu() {
         className="font-fe text-[16px] text-left text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.7 }}
       >
         {introText}
       </motion.div>

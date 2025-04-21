@@ -142,7 +142,7 @@ export default function HeroSection() {
         className="text-[16px] font-fe text-[#faf0fa] max-w-3xl tracking-wide leading-6 mb-45"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.01 }}
         transition={{ duration: 0.5 }}
       >
         Step into the battle of five legendary realms. Collect NFT cards and conquer! Join now!
@@ -164,7 +164,7 @@ export default function HeroSection() {
         spaceBetween={0}
         loop={true}
         autoplay={{
-          delay: 1000,
+          delay: 2000,
           disableOnInteraction: false,
         }}
         pagination={{ clickable: true }}
