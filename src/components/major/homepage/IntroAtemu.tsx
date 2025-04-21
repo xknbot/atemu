@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import Image from "next/image";
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 
 // Define interfaces for clarity
@@ -32,7 +32,7 @@ interface CharacterData {
 const characterImages: CharacterData[] = [
   { 
     id: 1, 
-    src: '/champ png/egypt-god-5.png', 
+    src: '/champ png/egypt-god-5.webp', 
     alt: 'Character 1',
     mobile: { 
       top: '0%', left: '50%', translateX: '50%', translateY: '0%', 
@@ -42,11 +42,11 @@ const characterImages: CharacterData[] = [
       top: '0%', left: '50%', translateX: '40%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 200, height: 250 
     },
-    priority: true
+    priority: false
   },
   { 
     id: 2, 
-    src: '/champ png/greek-creep-1.png', 
+    src: '/champ png/greek-creep-1.webp', 
     alt: 'Character 2',
     mobile: { 
       top: '0%', left: '50%', translateX: '-45%', translateY: '30%', 
@@ -56,11 +56,11 @@ const characterImages: CharacterData[] = [
       top: '0%', left: '50%', translateX: '-60%', translateY: '-35%', 
       rotate: 0, zIndex: 7, width: 150, height: 200 
     },
-    priority: true
+    priority: false
   },
   { 
     id: 3, 
-    src: '/champ png/greek-creep-4.png', 
+    src: '/champ png/greek-creep-4.webp', 
     alt: 'Character 3',
     mobile: { 
       top: '0%', left: '50%', translateX: '-160%', translateY: '20%', 
@@ -70,11 +70,11 @@ const characterImages: CharacterData[] = [
       top: '0%', left: '50%', translateX: '-120%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
     },
-    priority: true
+    priority: false
   },
   { 
     id: 4, 
-    src: '/champ png/greek-god-1.png', 
+    src: '/champ png/greek-god-1.webp', 
     alt: 'Character 4',
     mobile: { 
       top: '0%', left: '50%', translateX: '-110%', translateY: '20%', 
@@ -84,11 +84,11 @@ const characterImages: CharacterData[] = [
       top: '45%', left: '50%', translateX: '-130%', translateY: '-50%', 
       rotate: 0, zIndex: 5, width: 150, height: 200 
     },
-    priority: true
+    priority: false
   },
   { 
     id: 5, 
-    src: '/champ png/greek-god-3.png', 
+    src: '/champ png/greek-god-3.webp', 
     alt: 'Character 5',
     mobile: { 
       top: '0%', left: '50%', translateX: '-28%', translateY: '20%', 
@@ -98,11 +98,11 @@ const characterImages: CharacterData[] = [
       top: '45%', left: '50%', translateX: '-40%', translateY: '-40%', 
       rotate: 0, zIndex: 4, flipX: true, width: 150, height: 200 
     },
-    priority: true
+    priority: false
   },
   { 
     id: 6, 
-    src: '/champ png/greek-legend-2.png', 
+    src: '/champ png/greek-legend-2.webp', 
     alt: 'Character 6',
     mobile: { 
       top: '0%', left: '50%', translateX: '-85%', translateY: '18%', 
@@ -112,7 +112,7 @@ const characterImages: CharacterData[] = [
       top: '45%', left: '50%', translateX: '-100%', translateY: '-40%', 
       rotate: 0, zIndex: 7, width: 150, height: 200 
     },
-    priority: false
+    priority: true
   },
   { 
     id: 7, 
@@ -130,7 +130,7 @@ const characterImages: CharacterData[] = [
   },
   { 
     id: 8, 
-    src: '/champ png/japan-creep-2.png', 
+    src: '/champ png/japan-creep-2.webp', 
     alt: 'Character 8',
     mobile: { 
       top: '0%', left: '50%', translateX: '-210%', translateY: '60%', 
@@ -144,7 +144,7 @@ const characterImages: CharacterData[] = [
   },
   { 
     id: 9, 
-    src: '/champ png/japan-creep-4.png', 
+    src: '/champ png/japan-creep-4.webp', 
     alt: 'Character 9',
     mobile: { 
       top: '0%', left: '50%', translateX: '0%', translateY: '-30%', 
@@ -158,7 +158,7 @@ const characterImages: CharacterData[] = [
   },
   { 
     id: 10, 
-    src: '/champ png/viking-creep-4.png', 
+    src: '/champ png/viking-creep-4.webp', 
     alt: 'Character 10',
     mobile: { 
       top: '0%', left: '50%', translateX: '-20%', translateY: '20%', 
@@ -172,10 +172,10 @@ const characterImages: CharacterData[] = [
   },
   { 
     id: 11, 
-    src: '/champ png/viking-creep-5.png', 
+    src: '/champ png/viking-creep-5.webp', 
     alt: 'Character 11',
     mobile: { 
-      top: '0%', left: '50%', translateX: '50%', translateY: '0%', 
+      top: '0%', left: '50%', translateX: '50%', translateY: '3%', 
       rotate: 0, zIndex: 8, flipX: true, width: 200, height: 150 
     },
     desktop: { 
@@ -186,7 +186,7 @@ const characterImages: CharacterData[] = [
   },
   { 
     id: 12, 
-    src: '/champ png/viking-god-2.png', 
+    src: '/champ png/viking-god-2.webp', 
     alt: 'Character 12',
     mobile: { 
       top: '0%', left: '50%', translateX: '-170%', translateY: '30%', 
@@ -200,7 +200,7 @@ const characterImages: CharacterData[] = [
   },
   { 
     id: 13, 
-    src: '/champ png/viking-god-3.png', 
+    src: '/champ png/viking-god-3.webp', 
     alt: 'Character 13',
     mobile: { 
       top: '0%', left: '50%', translateX: '40%', translateY: '5%', 
@@ -246,39 +246,15 @@ function useScreenSize() {
   return isDesktop;
 }
 
-// Title text - no longer split into words since we don't need animation
+
 const titleText = "The Genesis of Atemu";
 const introText = "Before the battles, before the realms, there was the spark: a legendary birth shrouded in celestial wonder and untold power, a tale waiting to be told...";
 
 export default function IntroAtemu() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isDesktop = useScreenSize();
-    
-    // Track scroll progress with smoother options
-    const { scrollYProgress } = useScroll({
-      target: sectionRef,
-      offset: ["start end", "end start"],
-    });
-  
-    // Create a smoothed version of scrollYProgress
-    const smoothScrollYProgress = useSpring(scrollYProgress, { 
-      damping: 15, 
-      stiffness: 100 
-    });
 
     // --- Character Images Animation ---
-    // Simplified animation values for better performance
-    const characterScale = useTransform(
-      smoothScrollYProgress, 
-      [0.1, 0.4], // Shorter animation range
-      [2, 1]       // Less extreme scale change (2x instead of 3x)
-    );
-    
-    const characterOpacity = useTransform(
-      smoothScrollYProgress, 
-      [0.1, 0.35], 
-      [0, 1]
-    );
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
@@ -288,13 +264,17 @@ export default function IntroAtemu() {
     ), []);
   
     const introComponent = useMemo(() => (
-        <div className="font-fe text-[16px] text-left text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5 ">
-            {introText}
-        </div>
+      <motion.div
+        className="font-fe text-[16px] text-left text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+      >
+        {introText}
+      </motion.div>
     ), []);
   
-  
-
     // Memoize character images with progressive loading
     const characterImagesComponent = useMemo(() => {
         // Sort characters by priority to render important ones first
@@ -305,11 +285,8 @@ export default function IntroAtemu() {
         });
 
         return (
-          <motion.div 
+          <div 
               className="relative flex flex-nowrap justify-center items-center w-full max-w-full mt-10"
-              style={{
-                  opacity: characterOpacity,
-              }}
           >
             {sortedCharacters.map((char) => {
                 const styles = isDesktop ? char.desktop : char.mobile;
@@ -325,47 +302,53 @@ export default function IntroAtemu() {
                               translateY: styles.translateY,
                               rotate: styles.rotate,
                               zIndex: styles.zIndex,
-                              scale: characterScale,
                               scaleX: styles.flipX ? -1 : 1,
                               transformOrigin: 'center',
                               willChange: 'transform, opacity',
-                              // Add hardware acceleration
                               transform: 'translateZ(0)',
                           }}
+
                       >
                           <Image
                               width={styles.width}
                               height={styles.height}
                               src={char.src}
                               alt={char.alt}
-                              loading={char.priority ? "eager" : "lazy"}
                               priority={char.priority}
+                              loading={char.priority ? "eager" : "lazy"}
+                              sizes={`(max-width: 768px) ${styles.width * 0.8}px, ${styles.width}px`}
                               style={{
-                                  // Add hardware acceleration for images
                                   transform: 'translateZ(0)',
                               }}
                           />
                       </motion.div>
                   );
             })}
-          </motion.div>
-        );}, [isDesktop, characterOpacity, characterScale]);
+          </div>
+        );}, [isDesktop]);
 
     return (
         <section 
           ref={sectionRef} 
-          className="w-full relative h-[1200px] overflow-hidden"
+          className="w-full relative h-[1100px] overflow-hidden"
           style={{ 
-              // Add hardware acceleration to the entire section
               transform: 'translateZ(0)',
-              // Add will-change hint for the browser
               willChange: 'transform'
           }}
         >
           {/* Background Image Section */}
-          <div className="absolute inset-0 flex justify-center bg-[url(/bg-1.avif)] w-full h-full bg-cover bg-center bg-no-repeat z-0">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/bg-1.avif" 
+              alt="Background"
+              fill 
+              style={{ objectFit: 'cover' }} 
+              priority 
+              sizes="100vw"
+              quality={100}
+            />
             {/* Top inset shadow overlay */}
-            <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100"></div>
+            <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100 z-10"></div>
           </div>
 
           {/* Content Container - Positioned above background */}

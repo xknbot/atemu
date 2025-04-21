@@ -16,7 +16,7 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[url(/Hell-Born.avif)] bg-cover bg-no-repeat bg-center"></div>
                 {/* Dimmed overlay */}
                 <div className="absolute inset-0"
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
                 ></div>
             </div>
             

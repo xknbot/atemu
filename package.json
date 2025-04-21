@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tsparticles/engine": "^3.8.1",
+    "@tsparticles/preset-stars": "^3.2.0",
+    "@tsparticles/react": "^3.0.0",
     "classnames": "^2.5.1",
     "framer-motion": "^12.6.3",
+    "motion": "^12.7.4",
     "next": "15.2.4",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",

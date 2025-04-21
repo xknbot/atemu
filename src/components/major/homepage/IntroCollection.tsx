@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence, useSpring, useAnimation} from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring} from 'framer-motion';
 import Button from '@/components/ui/Button';
 
 
@@ -16,11 +16,7 @@ export default function IntroCollection() {
     offset: ["start end", "end start"]
   });
 
-  // 3. Create a smoothed version of scrollYProgress
-  const smoothScrollYProgress = useSpring(scrollYProgress, {
-    damping: 20,
-    stiffness: 30
-  });
+
 
   // All transform hooks must be at the top level
 
@@ -28,12 +24,12 @@ export default function IntroCollection() {
   const imageScrollEnd = 0.3;
 
   // --- Glow Animation ---
-  const glowScrollStart = imageScrollEnd 
-  const glowScrollEnd = glowScrollStart 
+  const glowScrollStart = imageScrollEnd;
+  const glowScrollEnd = glowScrollStart + 0.1;
 
   // 1. Glow Opacity: Fade in from 0 to 1 during the defined range *after* image animates
   const glowOpacity = useTransform(
-    smoothScrollYProgress,
+    scrollYProgress,
     [glowScrollStart, glowScrollEnd],
     [0, 0.5],
     { clamp: true }
@@ -43,8 +39,8 @@ export default function IntroCollection() {
   // Arrow Animation
   // --- Scroll Arrow Animation ---
   const arrowOpacity = useTransform(
-    smoothScrollYProgress,
-    [0, 0.3],
+    scrollYProgress,
+    [0, 0.2],
     [1, 0]
   );
 
@@ -62,32 +58,40 @@ export default function IntroCollection() {
     }
   }), []);
 
-  // --- Card Rotation and Translation ---
-  // Add this new transform
-  const cardRotateY = useTransform(
-    smoothScrollYProgress,
-    [0, 0.2],
-    [180, 0],
-    { clamp: true }
-  );
-
-  const cardTranslateY = useTransform(
-    smoothScrollYProgress,
-    [0, 0.1],
-    [300, 0],
-    { clamp: true }
-  );
+  // Fix hydration mismatch by using client-side only rendering for the rotating cards
+  const [isMounted, setIsMounted] = useState(false);
+  const [animationReady, setAnimationReady] = useState(false);
+  
+  // Preload images để tránh lag khi hiển thị
+  useEffect(() => {
+    // Preload tất cả hình ảnh
+    const cardImages = [
+      '/Caster.png',
+      '/Dragon.png',
+      '/Hell Born.png',
+      '/Legend.png',
+      '/Warrior.png',
+      '/backcard.png'
+    ];
+    
+    const preloadImages = cardImages.map(src => {
+      const img = new window.Image();
+      img.src = src;
+      return img.decode().catch(() => {});
+    });
+    
+    // Khi tất cả hình ảnh đã được preload, bắt đầu animation
+    Promise.all(preloadImages).then(() => {
+      setIsMounted(true);
+      // Thêm một chút delay để đảm bảo DOM đã render
+      setTimeout(() => {
+        setAnimationReady(true);
+      }, 0);
+    });
+  }, []);
 
   // --- Classes circular animation ---
   const radius = 130;
-  // Fix hydration mismatch by using client-side only rendering for the rotating cards
-  const [isMounted, setIsMounted] = useState(false);
-  
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-
 
   // Static initial positions for server rendering
   const staticCardPositions = useMemo(() => {
@@ -109,7 +113,8 @@ export default function IntroCollection() {
         ...card,
         x,
         y,
-        zIndex: 10 // Fixed zIndex for all cards initially
+        zIndex: 10, // Fixed zIndex for all cards initially
+        priority: true
       };
     });
   }, [radius]);
@@ -117,27 +122,45 @@ export default function IntroCollection() {
   // Client-side animation state
   const [rotation, setRotation] = useState(0);
   
-  // Only run rotation animation on client side
+  // Sử dụng requestAnimationFrame thay vì setInterval để animation mượt hơn
   useEffect(() => {
-    if (!isMounted) return;
+    if (!animationReady) return;
     
-    const interval = setInterval(() => {
-      setRotation(prev => (prev + 1) % 360);
-    }, 50);
+    let animationId: number;
+    let lastTime = 0;
+    const rotationSpeed = 0.2; // Giảm tốc độ quay để giảm tải CPU
+    const updateInterval = 60; // Cập nhật mỗi ~30ms thay vì ~16ms
     
-    return () => clearInterval(interval);
-  }, [isMounted]);
+    const animate = (time: number) => {
+      if (lastTime === 0) lastTime = time;
+      const delta = time - lastTime;
+      
+
+      if (delta > updateInterval) {
+        setRotation(prev => (prev + rotationSpeed * (delta / 16)) % 360); // Điều chỉnh tốc độ theo delta thực tế
+        lastTime = time;
+      }
+      
+      animationId = requestAnimationFrame(animate);
+    };
+    
+    animationId = requestAnimationFrame(animate);
+    
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, [animationReady]);
   
   // Dynamic positions calculated on client side only
   const cardPositions = useMemo(() => {
     if (!isMounted) return staticCardPositions;
     
     const cards = [
-      { src: '/Caster.png', alt: 'caster' },
-      { src: '/Dragon.png', alt: 'dragon' },
-      { src: '/Hell Born.png', alt: 'hellborn' },
-      { src: '/Legend.png', alt: 'legend' },
-      { src: '/Warrior.png', alt: 'warrior' }
+      { src: '/Caster.webp', alt: 'caster' },
+      { src: '/Dragon.webp', alt: 'dragon' },
+      { src: '/Hell Born.webp', alt: 'hellborn' },
+      { src: '/Legend.webp', alt: 'legend' },
+      { src: '/Warrior.webp', alt: 'warrior' }
     ];
     
     return cards.map((card, index) => {
@@ -150,7 +173,8 @@ export default function IntroCollection() {
         ...card,
         x,
         y,
-        zIndex: Math.round(Math.sin(angle) * 10) + 10
+        zIndex: Math.round(Math.sin(angle) * 10) + 10,
+        priority: true
       };
     });
   }, [rotation, radius, isMounted, staticCardPositions]);
@@ -173,10 +197,12 @@ export default function IntroCollection() {
         <motion.div
           key={index}
           className="absolute"
-          style={{
-            x: card.x,
-            y: card.y,
+          initial={{ x: card.x, y: card.y, zIndex: card.zIndex }}
+          animate={{ 
+            x: card.x, 
+            y: card.y, 
             zIndex: card.zIndex,
+            transition: { duration: 0.1, ease: "linear" }
           }}
         >
           <Image 
@@ -185,8 +211,11 @@ export default function IntroCollection() {
             height={170} 
             alt={card.alt}
             className="transition-all duration-300"
+            priority={card.priority}
+            loading={card.priority ? "eager" : "lazy"} // Eager cho LCP, lazy cho các ảnh khác
             style={{
               scale: (card.zIndex - 10) / 10 * 0.3 + 0.7, // Scale based on z-index
+              transform: 'translateZ(0)', // Hardware acceleration
             }}
           />
         </motion.div>
@@ -226,7 +255,11 @@ export default function IntroCollection() {
             Own the Legends <br/> Atemu OG Mint
           </motion.p>
           
-          <motion.p className='font-fe text-[16px] text-center tracking-wide leading-[22px]'>
+          <motion.p className='font-fe text-[16px] text-center tracking-wide leading-[22px]'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}>
             A finite collection, never to be seen again.
             Inside awaits immense power: 50 cards from 5 legendary realms: Egypt, Greece, Japan, Viking, and Hellborn.
             Seek only 1% chance for god-tier legends, boasting incredible strength and unique skills.
@@ -239,19 +272,20 @@ export default function IntroCollection() {
         {/* Animated Image Wrapper */}
         <div>
           <motion.div
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true }}
-            transition={{ duration: 0.}}
+            initial={{ rotateY: 360 }}
+            whileInView={{ rotateY: 0 }}
+            viewport={{ once: true, amount: 0.1, margin: "100px 0px" }}
+            transition={{
+              rotateY: { duration: 1, ease: "easeOut" },
+            }}
             className="md:mt-0"
             style={{
               willChange: 'transform, opacity',
-              rotateY: cardRotateY,
-              y: cardTranslateY,
+              transform: 'translateZ(0)', // Hardware acceleration
             }}
           >
             <Image
-              src="/backcard.png"
+              src="/backcard.webp"
               width={300}
               height={483}
               alt="backcard"

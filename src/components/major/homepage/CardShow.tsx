@@ -2,7 +2,7 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Make sure framer-motion is imported
+import { motion, AnimatePresence } from "motion/react"; // Make sure framer-motion is imported
 
 // Define the card data
 const nftCards = [

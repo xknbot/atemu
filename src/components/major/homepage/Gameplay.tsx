@@ -102,8 +102,16 @@ const Gameplay: React.FC = () => {
         <section className='bg-[#444656] w-full max-w-full'>
             <p className="text-[20px] text-center text-[#faf0fa] tracking-wide py-20">Conquer the realms</p>
             <div className='mx-auto w-[15%] h-[1px] bg-[#E8b77c] '></div>
-            <p className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide leading-[20px] px-10 py-10">Enter the universe of Monsters, Spell and Trap cards; accelerate strategic thinking, flexibility tactics
-                and win the match against your opponents.</p>
+            <motion.p
+                className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide leading-[20px] px-10 py-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+            >
+                Enter the universe of Monsters, Spell and Trap cards; accelerate strategic thinking, flexibility tactics
+                and win the match against your opponents.
+            </motion.p>
             <div className='mx-auto w-[15%] h-[1px] bg-[#E8b77c] '></div>
             
             

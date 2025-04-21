@@ -16,6 +16,7 @@ const Header: React.FC = () => {
     const myNavLinks = [
     { href: '/', label: 'Home' },
     { href: '/cards', label: 'Cards' },
+    { href: '/lore', label: 'Lore' },
     { href: '/gameplay', label: 'Gameplay' },
     { href: '/marketplace', label: 'Marketplace' },
     { href: '/community', label: 'Community' },
@@ -45,30 +46,33 @@ const Header: React.FC = () => {
                     init={particlesInit}
                     className="absolute top-0 left-0 w-full h-full"
                     options={{
+                        background: {
+                            color: "transparent"
+                        },
                         particles: {
                             number: {
-                                value: 50,
+                                value: 400,
                                 density: {
                                     enable: true,
-                                    value_area: 800
+                                    value_area: 1000
                                 }
                             },
                             color: {
                                 value: ['#E8B77C', '#1886F1 ', '#E9312B', '#790762', '#FAF0FA']
                             },
                             shape: {
-                                type: 'circle'
+                                type: 'circle',
                             },
                             opacity: {
                                 value: { min: 0.1, max: 1 },
                                 animation: {
                                     enable: true,
-                                    speed: 1,
+                                    speed: 1.5,
                                     sync: false
                                 }
                             },
                             size: {
-                                value: { min: 1, max: 3 },
+                                value: { min: 0.1, max: 1 },
                                 animation: {
                                     enable: true,
                                     speed: 2,
@@ -81,15 +85,28 @@ const Header: React.FC = () => {
                             },
                             move: {
                                 enable: true,
-                                speed: { min: 0.5, max: 1 },
+                                speed: { min: 0.5, max: 0.7 },
                                 direction: 'none',
                                 random: true,
                                 straight: false,
                                 outModes: {
                                     default: 'out'
                                 }
-                            }
-                        },
+                            },
+                            glow: {
+                                enable: true,
+                                frequency: 1,
+                                color: {
+                                    value: ["#E8B77C", "#1886F1", "#E9312B", "#790762", "#FAF0FA"],
+                                    animation: {
+                                        enable: true,
+                                        speed: 1,
+                                        sync: false
+                                    }
+                                }
+                            },
+                            
+                            },
                         interactivity: {
                             events: {
                                 onHover: {
