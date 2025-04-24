@@ -5,6 +5,9 @@
 :root {
   --background: #131417;
   --foreground: #fafafa;
+  /* Example: Define different font sizes */
+  --base-font-size: 16px;
+  --heading-font-size: 3rem;
 }
 
 @theme inline {
@@ -20,74 +23,114 @@
 body {
   background: var(--background);
   color: var(--foreground);
-
-  
+  font-size: var(--base-font-size); /* Use base font size */
 }
 
-/* Update these animations in your globals.css file */
+h1 { /* Example heading style */
+  font-size: var(--heading-font-size);
+}
+
+/* --- Existing Animations --- */
+
+/* Vertical Scroll */
 @keyframes scrollTopToBottom {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(calc(-50%)); /* Move up by half the height (since we duplicated the cards) */
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(calc(-50%)); }
 }
-
 @keyframes scrollBottomToTop {
-  0% {
-    transform: translateY(calc(-50%)); /* Start from the middle */
-  }
-  100% {
-    transform: translateY(0); /* Move down to the beginning */
-  }
+  0% { transform: translateY(calc(-50%)); }
+  100% { transform: translateY(0); }
 }
-
-/* Update these utility classes */
-.animate-scrollTopToBottom {
-  animation: scrollTopToBottom 720s linear infinite;
-}
-
-.animate-scrollBottomToTop {
-  animation: scrollBottomToTop 720s linear infinite;
-}
-
-/* Keep hover pause functionality */
+.animate-scrollTopToBottom { animation: scrollTopToBottom 1400s linear infinite; }
+.animate-scrollBottomToTop { animation: scrollBottomToTop 720s linear infinite; }
 .animate-scrollTopToBottom:hover,
-.animate-scrollBottomToTop:hover {
-  animation-play-state: paused;
-}
+.animate-scrollBottomToTop:hover { animation-play-state: paused; }
+.animation-paused { animation-play-state: paused !important; }
 
-/* Add these classes for touch interaction */
-.animation-paused {
-  animation-play-state: paused !important;
-}
-
-
+/* Horizontal Marquee */
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
-
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 60s linear infinite;
   min-width: max-content;
 }
-
 @keyframes marquee-reverse {
-  0% {
-    transform: translateX(-50%);
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee-reverse {
+  animation: marquee-reverse 60s linear infinite;
+  min-width: max-content;
+}
+
+
+
+
+
+
+/* --- Media Queries Examples --- */
+
+/* Small devices (tablets, 640px and up) */
+@media (min-width: 640px) {
+  :root {
+    /* Increase base font size slightly on larger screens */
+    --base-font-size: 17px;
+    --heading-font-size: 2.25rem;
   }
-  100% {
-    transform: translateX(0);
+
+  /* Example: Change marquee speed */
+  .animate-marquee {
+    animation-duration: 40s; /* Make it slightly faster */
+  }
+  .animate-marquee-reverse {
+    animation-duration: 40s;
+  }
+
+
+}
+
+/* Medium devices (laptops, 768px and up) */
+@media (min-width: 768px) {
+  :root {
+    /* Further increase font size */
+    --base-font-size: 18px;
+    --heading-font-size: 2.5rem;
+  }
+
+   /* Example: Adjust padding on a specific container if needed */
+  .some-container-class { /* Replace with your actual class */
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
-.animate-marquee-reverse {
-  animation: marquee-reverse 30s linear infinite;
-  min-width: max-content;
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+   :root {
+    --heading-font-size: 2.75rem;
+  }
+
+  /* Example: Change vertical scroll speed */
+  .animate-scrollTopToBottom,
+  .animate-scrollBottomToTop {
+     animation-duration: 100s; /* Slow it down further on large screens */
+  }
 }
+
+/* Extra Large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+   :root {
+    --heading-font-size: 3rem;
+  }
+
+  /* Example: Maybe hide a mobile-specific element */
+  .mobile-only-element { /* Replace with your actual class */
+    display: none;
+  }
+}
+
+
+
+

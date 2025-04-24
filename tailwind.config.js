@@ -7,12 +7,10 @@ module.exports = {
    */
   content: [
     "./src/**/*.{html,js,jsx,ts,tsx}", // Scan files within the 'src' directory
-    "./pages/**/*.{js,ts,jsx,tsx}",    // Common directory for Next.js Pages Router
     "./components/**/*.{js,ts,jsx,tsx}", // Common directory for components
     "./app/**/*.{js,ts,jsx,tsx}",      // Common directory for Next.js App Router
-    "./public/index.html",             // If you have a static index.html
-    "./index.html",                    // If index.html is in the root
-    "./*.{html,js,jsx,ts,tsx}",         // Scan files directly in the root directory
+
+
   ],
 
   /**
@@ -25,6 +23,13 @@ module.exports = {
    * under `theme` instead of `theme.extend`.
    */
   theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       // Example: Adding custom colors
       // colors: {

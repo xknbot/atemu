@@ -99,9 +99,32 @@ const Gameplay: React.FC = () => {
     };
 
     return (
-        <section className='bg-[#444656] w-full max-w-full'>
+        <motion.section
+            className='bg-[#444656] w-full max-w-full'
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+        >
             <p className="text-[20px] text-center text-[#faf0fa] tracking-wide py-20">Conquer the realms</p>
-            <div className='mx-auto w-[15%] h-[1px] bg-[#E8b77c] '></div>
+            <div className='mx-auto flex justify-center items-center py-2'>
+              <svg width="400" height="10" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
+                {/* Đường ngang bên trái */}
+                <line x1="-200" y1="5" x2="20" y2="5" stroke="#E8B77C" strokeWidth="1" />
+                
+                {/* Hình tứ giác ở giữa */}
+                <polygon 
+                    points="50,8 53,5 50,2 47,5" 
+                  fill="#E8B77C" 
+                  stroke="#E8B77C" 
+                    strokeWidth="3" 
+                        
+                />
+                
+                {/* Đường ngang bên phải */}
+                <line x1="78" y1="5" x2="300" y2="5" stroke="#E8B77C" strokeWidth="1" />
+              </svg>
+            </div>
             <motion.p
                 className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide leading-[20px] px-10 py-10"
                 initial={{ opacity: 0, y: 20 }}
@@ -112,12 +135,12 @@ const Gameplay: React.FC = () => {
                 Enter the universe of Monsters, Spell and Trap cards; accelerate strategic thinking, flexibility tactics
                 and win the match against your opponents.
             </motion.p>
-            <div className='mx-auto w-[15%] h-[1px] bg-[#E8b77c] '></div>
+            <div className='mx-auto w-[10%] h-[1px] bg-[#E8b77c] '></div>
             
             
             {/* Carousel Container */}
             <div className="relative w-full max-w-full mx-auto py-20 overflow-hidden">
-                {/* Navigation Arrows */}
+                {/* Navigation Arrows
                 <button 
                     onClick={handlePrev}
                     className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-[#E8B77C]/20 hover:bg-[#E8B77C]/40 rounded-full p-3 transition-colors"
@@ -136,7 +159,7 @@ const Gameplay: React.FC = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M9 18l6-6-6-6" />
                     </svg>
-                </button>
+                </button> */}
                 
                 {/* Cards Container */}
                 <div className="flex justify-center items-center h-[520px] px-4">
@@ -183,7 +206,6 @@ const Gameplay: React.FC = () => {
                                                 alt={card.title}
                                                 fill
                                                 className="object-cover"
-                                                priority={normalizedPosition === 0}
                                                 draggable={false} // Prevent image dragging
                                             />
                                         </div>
@@ -221,7 +243,7 @@ const Gameplay: React.FC = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

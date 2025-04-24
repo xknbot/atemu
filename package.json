@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-virtual": "^3.13.6",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/preset-stars": "^3.2.0",
     "@tsparticles/react": "^3.0.0",

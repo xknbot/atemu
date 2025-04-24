@@ -39,7 +39,13 @@ const StayUpdated = () => {
     };
 
     return (
-        <section className="w-full py-16 relative">
+        <motion.section
+            className="w-full py-16 relative"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+        >
             {/* Background image with overlay */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-[url(/EgyptGOD.webp)] bg-center bg-cover bg-no-repeat"></div>
@@ -79,7 +85,7 @@ const StayUpdated = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Your email address"
-                                    className="w-full px-4 py-3 bg-transparent border-b-2 border-[#faf0fa] text-[#faf0fa] focus:outline-none focus:border-b-2 focus:border-[#444656]] transition-colors"
+                                    className="w-full px-4 py-3 bg-transparent border-b-2 border-[#E8B77C] text-[#faf0fa] focus:outline-none focus:border-b-2 focus:border-[#444656]] transition-colors"
                                     disabled={isSubmitting}
                                 />
                                 {error && (
@@ -101,14 +107,14 @@ const StayUpdated = () => {
                                 </Button>
                             </div>
                         
-                            <p className="text-[12px] text-[#faf0fa] font-fe mt-4 text-center tracking-wide">
+                            <p className="text-[14px] text-[#faf0fa] font-fe mt-4 text-center tracking-wide">
                                 By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
                             </p>
                         </form>
                     )}
                 </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

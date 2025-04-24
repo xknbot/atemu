@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence, useSpring} from 'framer-motion';
 import Button from '@/components/ui/Button';
 
-
 export default function IntroCollection() {
   // 1. Create a ref for the section element
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -16,7 +15,24 @@ export default function IntroCollection() {
     offset: ["start end", "end start"]
   });
 
+  // Thêm hook để kiểm tra kích thước màn hình
+  const [isDesktop, setIsDesktop] = useState(false);
 
+  // Thêm useEffect để kiểm tra kích thước màn hình
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    
+    // Kiểm tra ban đầu
+    checkScreenSize();
+    
+    // Thêm event listener
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   // All transform hooks must be at the top level
 
@@ -34,7 +50,6 @@ export default function IntroCollection() {
     [0, 0.5],
     { clamp: true }
   );
-
 
   // Arrow Animation
   // --- Scroll Arrow Animation ---
@@ -66,12 +81,12 @@ export default function IntroCollection() {
   useEffect(() => {
     // Preload tất cả hình ảnh
     const cardImages = [
-      '/Caster.png',
-      '/Dragon.png',
-      '/Hell Born.png',
-      '/Legend.png',
-      '/Warrior.png',
-      '/backcard.png'
+      '/Caster.webp',
+      '/Dragon.webp',
+      '/Hell Born.webp',
+      '/Legend.webp',
+      '/Warrior.webp',
+      '/backcard.avif'
     ];
     
     const preloadImages = cardImages.map(src => {
@@ -91,16 +106,16 @@ export default function IntroCollection() {
   }, []);
 
   // --- Classes circular animation ---
-  const radius = 130;
+  const radius = 120;
 
   // Static initial positions for server rendering
   const staticCardPositions = useMemo(() => {
     const cards = [
-      { src: '/Caster.png', alt: 'caster' },
-      { src: '/Dragon.png', alt: 'dragon' },
-      { src: '/Hell Born.png', alt: 'hellborn' },
-      { src: '/Legend.png', alt: 'legend' },
-      { src: '/Warrior.png', alt: 'warrior' }
+      { src: '/Caster.webp', alt: 'caster' },
+      { src: '/Dragon.webp', alt: 'dragon' },
+      { src: '/Hell Born.webp', alt: 'hellborn' },
+      { src: '/Legend.webp', alt: 'legend' },
+      { src: '/Warrior.webp', alt: 'warrior' }
     ];
     
     return cards.map((card, index) => {
@@ -174,17 +189,16 @@ export default function IntroCollection() {
         x,
         y,
         zIndex: Math.round(Math.sin(angle) * 10) + 10,
-        priority: true
       };
     });
   }, [rotation, radius, isMounted, staticCardPositions]);
 
-  // Replace the static cardImages with the animated version
+  // Thay đổi cardImages để render khác nhau dựa trên kích thước màn hình
   const cardImages = useMemo(() => (
-    <div className='relative flex justify-center items-center h-[340px] w-[340px]'>
-      {/* Center button */}
+    <div className='relative flex justify-center items-center h-[340px] w-full bottom-[50px]'>
+      {/* Center button - hiển thị ở cả hai chế độ */}
       <motion.div 
-        className="absolute z-20 flex justify-center items-center"
+        className={`${isDesktop ? 'absolute bottom-[-60px]' : 'absolute'} z-20 flex justify-center items-center`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -193,36 +207,76 @@ export default function IntroCollection() {
         </Button>
       </motion.div>
       
-      {cardPositions.map((card, index) => (
-        <motion.div
-          key={index}
-          className="absolute"
-          initial={{ x: card.x, y: card.y, zIndex: card.zIndex }}
-          animate={{ 
-            x: card.x, 
-            y: card.y, 
-            zIndex: card.zIndex,
-            transition: { duration: 0.1, ease: "linear" }
-          }}
-        >
-          <Image 
-            src={card.src} 
-            width={150} 
-            height={170} 
-            alt={card.alt}
-            className="transition-all duration-300"
-            priority={card.priority}
-            loading={card.priority ? "eager" : "lazy"} // Eager cho LCP, lazy cho các ảnh khác
-            style={{
-              scale: (card.zIndex - 10) / 10 * 0.3 + 0.7, // Scale based on z-index
-              transform: 'translateZ(0)', // Hardware acceleration
-            }}
-          />
-        </motion.div>
-      ))}
+      {isDesktop ? (
+        // Desktop layout - flex row với scale effect
+        <div className="flex flex-row justify-center items-center gap-4 w-full">
+          {cardPositions.map((card, index) => {
+            // Tính toán scale dựa trên vị trí trong mảng
+            // Thẻ ở giữa sẽ lớn nhất, các thẻ hai bên sẽ nhỏ dần
+            const totalCards = cardPositions.length;
+            const middleIndex = Math.floor(totalCards / 2);
+            const distanceFromMiddle = Math.abs(index - middleIndex);
+            const maxDistance = Math.max(middleIndex, totalCards - middleIndex - 1);
+            
+            // Scale từ 1 (ở giữa) đến 0.7 (ở ngoài cùng)
+            const scaleValue = 1 - (distanceFromMiddle / maxDistance) * 0.3;
+            
+            // zIndex cao nhất ở giữa, thấp dần ra hai bên
+            const zIndexValue = 20 - distanceFromMiddle;
+            
+            return (
+              <motion.div
+                key={index}
+                className="transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                style={{
+                  scale: scaleValue,
+                  zIndex: zIndexValue,
+                }}
+              >
+                <Image 
+                  src={card.src} 
+                  width={150} 
+                  height={170} 
+                  alt={card.alt}
+                  className="transition-all duration-300"
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+      ) : (
+        // Mobile layout - circular animation
+        <>
+          {cardPositions.map((card, index) => (
+            <motion.div
+              key={index}
+              className="absolute"
+              initial={{ x: card.x, y: card.y, zIndex: card.zIndex }}
+              animate={{ 
+                x: card.x, 
+                y: card.y, 
+                zIndex: card.zIndex,
+                transition: { duration: 0.1, ease: "linear" }
+              }}
+            >
+              <Image 
+                src={card.src} 
+                width={150} 
+                height={170} 
+                alt={card.alt}
+                className="transition-all duration-300"
+                style={{
+                  scale: (card.zIndex - 10) / 10 * 0.3 + 0.7, // Scale based on z-index
+                  transform: 'translateZ(0)', // Hardware acceleration
+                }}
+              />
+            </motion.div>
+          ))}
+        </>
+      )}
     </div>
-  ), [cardPositions]);
-
+  ), [cardPositions, isDesktop]);
 
   // return UI
   return (
@@ -247,7 +301,7 @@ export default function IntroCollection() {
       </AnimatePresence>
 
       {/* Content Container */}
-      <div className="relative w-full h-full flex flex-col-reverse justify-center items-center px-4 z-10 gap-20 md:flex-row md:gap-60">
+      <div className="relative w-full h-full flex flex-col-reverse justify-center items-center px-4 z-10 gap-20 md:gap-60">
         <div className='flex flex-col items-center gap-20 px-4'>
           <motion.p
             className="text-[20px] text-center text-[#E8B77C] tracking-wide"
@@ -285,12 +339,11 @@ export default function IntroCollection() {
             }}
           >
             <Image
-              src="/backcard.webp"
+              src="/backcard.avif"
               width={300}
               height={483}
               alt="backcard"
               className='relative z-10 mt-100'
-              priority
             />
             {/* Yellow Glow Element */}
             <motion.div

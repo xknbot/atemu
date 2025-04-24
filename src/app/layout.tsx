@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import "../styles/globals.css";
 import Header from "../components/major/Header"
 import Footer from "../components/major/Footer";
+import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
 export const viewport = {
   width: 'device-width',
@@ -53,6 +54,7 @@ export default function RootLayout({
       <body className={` antialiased`}>
         <Header/>
         {children}
+        <ScrollToTopButton /> {/* Thêm nút Go to Top ở đây */}
         <Footer />
       </body>
     </html>

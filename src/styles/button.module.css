@@ -1,51 +1,31 @@
+/* Keep all your existing base styles (.button, .button--primary, etc.) */
 .button {
   border-radius: 10px;
   cursor: pointer;
   z-index: 1;
   font-family: var(--font-incon);
   box-shadow: 0px 3px 5px #131417;
-
 }
 
 .button--primary {
   background: linear-gradient(45deg, #E9312B 100%, #E8B77C 0%);
   color: #faf0fa;
-  transition: all 0.5s ease-in-out; 
+  transition: all 0.5s ease-in-out;
 }
-
- .button--primary:hover {
-  color: #131417;
-  background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
-
- }
 
 .button--secondary {
   background: linear-gradient(45deg, #E9312B 100%, #E8B77C 0%);
   color: #faf0fa;
-  transition: all 0.5s ease-in-out; 
+  transition: all 0.5s ease-in-out;
   border: 1px solid #faf0fa;
-
-}
-
-.button--secondary:hover {
-  color: #131417;
-  background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
-  box-shadow: inset 0 0 4px #000;
-
- 
 }
 
 .button--third {
   background: linear-gradient(45deg, #E9312B 100%, #E8B77C 0%);
   color: #faf0fa;
-  transition: all 0.5s ease-in-out; 
+  transition: all 0.5s ease-in-out;
   position: relative;
   overflow: hidden;
-}
-
-.button--third:hover {
-  color: #131417;
-  background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
 }
 
 .button--third::before {
@@ -62,41 +42,22 @@
     rgba(255, 255, 255, 0) 100%
   );
   transform: skewX(-45deg);
-  animation: flash 5s infinite;
+  animation: flash 4s infinite;
   z-index: 2;
   animation-play-state: running;
 }
 
-.button--third:hover::before {
-  animation-play-state: paused;
-}
-
-@keyframes flash {
-  0% {
-    left: -150%;
-  }
-  20%, 100% {
-    left: 150%;
-  }
-}
-
-
-
-
+/* Keep size, disabled, loading, spinner styles */
 .button--small {
   padding: 6px 15px;
   font-size: 14px;
-
 }
 
 .button--medium {
   font-size: 18px;
   padding: 8px 15px;
   font-weight: bold;
-
-
 }
-
 
 .button--large {
   padding: 10px 32px;
@@ -123,11 +84,14 @@
   animation: spin 1s linear infinite;
 }
 
-
-.no-hover:hover {
-  /* Loại bỏ hiệu ứng hover khi disabled */
-  background-color: initial !important; /* Giữ màu ban đầu */
-  cursor: not-allowed !important; /* Đảm bảo con trỏ không thay đổi */
+/* Keep keyframes */
+@keyframes flash {
+  0% {
+    left: -150%;
+  }
+  20%, 100% {
+    left: 150%;
+  }
 }
 
 @keyframes spin {
@@ -135,3 +99,37 @@
     transform: rotate(360deg);
   }
 }
+
+/* --- Media Query for Hover Effects --- */
+/* Apply hover styles ONLY on screens 1024px and wider */
+@media (min-width: 1024px) {
+  .button--primary:hover {
+    color: #131417;
+    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
+  }
+
+  .button--secondary:hover {
+    color: #131417;
+    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
+    box-shadow: inset 0 0 4px #000;
+  }
+
+  .button--third:hover {
+    color: #131417;
+    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
+  }
+
+  .button--third:hover::before {
+    /* Pauses the flash animation on hover only on larger screens */
+    animation-play-state: paused;
+  }
+
+}
+
+/* Keep .no-hover outside if it's for disabled state regardless of screen size */
+.no-hover:hover {
+  /* Loại bỏ hiệu ứng hover khi disabled */
+  background-color: initial !important; /* Giữ màu ban đầu */
+  cursor: not-allowed !important; /* Đảm bảo con trỏ không thay đổi */
+}
+

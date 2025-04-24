@@ -234,7 +234,7 @@ function useScreenSize() {
 
   useEffect(() => {
     // Initial check
-    setIsDesktop(window.innerWidth >= 768);
+    setIsDesktop(window.innerWidth >= 1024);
     
     // Debounced resize listener
     const handleResize = debouncedResize();
@@ -254,7 +254,7 @@ export default function IntroAtemu() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isDesktop = useScreenSize();
 
-    // --- Character Images Animation ---
+    // --- Character Images ---
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
@@ -265,7 +265,7 @@ export default function IntroAtemu() {
   
     const introComponent = useMemo(() => (
       <motion.div
-        className="font-fe text-[16px] text-left text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5"
+        className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
@@ -314,9 +314,7 @@ export default function IntroAtemu() {
                               height={styles.height}
                               src={char.src}
                               alt={char.alt}
-                              priority={char.priority}
-                              loading={char.priority ? "eager" : "lazy"}
-                              sizes={`(max-width: 768px) ${styles.width * 0.8}px, ${styles.width}px`}
+                              sizes={`(max-width: 1024px) ${styles.width * 0.8}px, ${styles.width}px`}
                               style={{
                                   transform: 'translateZ(0)',
                               }}
@@ -343,7 +341,6 @@ export default function IntroAtemu() {
               alt="Background"
               fill 
               style={{ objectFit: 'cover' }} 
-              priority 
               sizes="100vw"
               quality={100}
             />

@@ -10,7 +10,7 @@ import SwiperCore from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 
 // Import hero images statically 
@@ -142,8 +142,8 @@ export default function HeroSection() {
         className="text-[16px] font-fe text-[#faf0fa] max-w-3xl tracking-wide leading-6 mb-45"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.01 }}
-        transition={{ duration: 0.5 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 4  }}
       >
         Step into the battle of five legendary realms. Collect NFT cards and conquer! Join now!
       </motion.p>
@@ -164,7 +164,7 @@ export default function HeroSection() {
         spaceBetween={0}
         loop={true}
         autoplay={{
-          delay: 2000,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         pagination={{ clickable: true }}
@@ -177,13 +177,14 @@ export default function HeroSection() {
           <SwiperSlide key={slide.id} className="relative">
             {slide.type === 'image' ? (
             <Image
-              src={slide.src}
+              src={HeroImage}
               alt={slide.altText || `Hero background ${slide.id}`}
               priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
               sizes="100vw"
               quality={80}
-              width={1920}
-              height={1080}
+              width={1600}
+              height={900}
               style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }}
               className="absolute top-0 inset-0 z-0"
             />
@@ -193,11 +194,11 @@ export default function HeroSection() {
                 src={slide.src as string}
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="absolute inset-0 z-0 h-full w-full object-cover"
               ></video>
             )}
-            <div className="absolute inset-0 bg-black/30 z-10"></div>
+            <div className="absolute inset-0 bg-black/0 z-10"></div>
             <div className="relative z-20 h-full flex flex-col justify-center items-center px-4 text-center">
             </div>
           </SwiperSlide>
@@ -205,7 +206,7 @@ export default function HeroSection() {
       </Swiper>
 
       <div className="absolute inset-0 z-20 flex flex-col items-center px-4 text-center pointer-events-none">
-        <div className="absolute inset-0 bg-black/30 z-0"></div>
+        <div className="absolute inset-0 bg-black/10 z-0"></div>
         {staticContent}
       </div>
     </div>

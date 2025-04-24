@@ -36,7 +36,7 @@ const Header: React.FC = () => {
             {/* row 1: Partner */}
             <div className=' flex justify-center items-center gap-3 w-full bg-gradient-to-b from-[#131417] from-10% to-[#444656] to-100% px-10 py-1'>
                 <p className='text-[16px] font-incon'>POWERED BY</p>
-                <Image src='/STARKNET-LOGO.png' width={99} height={34} alt='starknetlogo'/>
+                <Image src='/STARKNET-LOGO.avif' width={99} height={34} alt='starknetlogo'/>
             </div>
 
             {/* row 2: Header */}
@@ -130,14 +130,14 @@ const Header: React.FC = () => {
                 />
                 <div className='z-20'>
                     <Link href={'/'}>
-                        <Logo src="/LOGO.png" alt="Atemu Logo" width={70} height={141} />
+                        <Logo src="/LOGO.avif" alt="Atemu Logo" width={70} height={141} />
                     </Link>
                 </div>
                 <div className='relative flex items-center justify-center gap-5 z-20'>
                     <Button className="mx-auto">
                         PLAY NOW
                     </Button>
-                    <div className='md:hidden mt-1'>
+                    <div className='lg:hidden mt-1'>
                         <Navigation links={myNavLinks} />
                     </div>
         
