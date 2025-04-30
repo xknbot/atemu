@@ -92,7 +92,7 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
             {/* Close Button */}
             <button
               onClick={toggleMenu}
-              className="absolute top-3 right-3 text-white"
+              className="absolute top-3 right-3 text-[#faf0fa]"
               aria-label="Close menu"
             >
               <IoClose className="w-8 h-8" />
@@ -104,7 +104,7 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-white hover:text-gray-300 block py-2 text-[26px] font-deswash"
+                  className="text-[#faf0fa] lg:hover:text-[#E8B77C] block py-2 text-[26px] font-deswash"
                   onClick={toggleMenu}
                 >
                   {link.label}

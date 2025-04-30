@@ -249,7 +249,7 @@ export default function CardShow() {
 
       <div className="relative flex flex-col justify-center items-center w-full h-[400px] gap-3">
         <p className="text-[20px] text-center tracking-wide mt-19 text-[#E8B77C]">Experience next-gen card gaming</p>
-        <p className="text-[16px] text-center font-fe tracking-wide">Build, trade, and battle with your NFT deck.</p>
+        <p className="text-[16px] text-center font-fe tracking-wide">Build, trade, and battle with your NFT deck</p>
         <Button variant="third" size="small">
           EXPLORE
         </Button>

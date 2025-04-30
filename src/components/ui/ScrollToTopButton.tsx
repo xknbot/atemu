@@ -39,7 +39,7 @@ const ScrollToTopButton: React.FC = () => {
       {isVisible && ( // Chỉ hiển thị nút khi isVisible là true
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 z-50 p-3 rounded-full bg-[#131417] text-[#E8B77C] shadow-md border border-[#E8B77C] hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-[#E8B77C] transition-opacity duration-300 ease-in-out"
+          className="fixed bottom-5 right-5 z-50 p-3 rounded-full bg-[#131417] text-[#E8B77C] shadow-md border border-[#E8B77C] lg:hover:bg-gray-800 focus:outline-none lg:focus:ring-1 lg:focus:ring-offset-1 lg:focus:ring-[#E8B77C] lg:transition-opacity lg:duration-300 lg:  ease-in-out"
           aria-label="Scroll to top" // Thêm aria-label cho accessibility
         >
           {/* Icon Up Arrow Outline (SVG) */}

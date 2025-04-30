@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence, useSpring} from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence} from 'framer-motion';
 import Button from '@/components/ui/Button';
 
 export default function IntroCollection() {
@@ -17,11 +17,13 @@ export default function IntroCollection() {
 
   // Thêm hook để kiểm tra kích thước màn hình
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Thêm useEffect để kiểm tra kích thước màn hình
+  // Thêm useEffect để kiểm tra cả hai kích thước màn hình
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768);
+      setIsDesktop(window.innerWidth >= 1024);
+      setIsMobile(window.innerWidth < 1024);
     };
     
     // Kiểm tra ban đầu
@@ -195,12 +197,12 @@ export default function IntroCollection() {
 
   // Thay đổi cardImages để render khác nhau dựa trên kích thước màn hình
   const cardImages = useMemo(() => (
-    <div className='relative flex justify-center items-center h-[340px] w-full bottom-[50px]'>
+    <div className={`relative ${isDesktop ? 'flex flex-col justify-center items-start' : 'flex justify-center items-center'} h-[340px] w-full bottom-[50px]`}>
       {/* Center button - hiển thị ở cả hai chế độ */}
       <motion.div 
-        className={`${isDesktop ? 'absolute bottom-[-60px]' : 'absolute'} z-20 flex justify-center items-center`}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+        className={`${isDesktop ? 'self-center mt-auto' : 'absolute'} z-20 flex justify-center items-center`}
+        whileHover={isMobile ? {} : { scale: 1.1 }}
+        whileTap={isMobile ? {} : { scale: 0.95 }}
       >
         <Button variant='third' size='small'>
           COLLECT TODAY
@@ -208,45 +210,26 @@ export default function IntroCollection() {
       </motion.div>
       
       {isDesktop ? (
-        // Desktop layout - flex row với scale effect
-        <div className="flex flex-row justify-center items-center gap-4 w-full">
-          {cardPositions.map((card, index) => {
-            // Tính toán scale dựa trên vị trí trong mảng
-            // Thẻ ở giữa sẽ lớn nhất, các thẻ hai bên sẽ nhỏ dần
-            const totalCards = cardPositions.length;
-            const middleIndex = Math.floor(totalCards / 2);
-            const distanceFromMiddle = Math.abs(index - middleIndex);
-            const maxDistance = Math.max(middleIndex, totalCards - middleIndex - 1);
-            
-            // Scale từ 1 (ở giữa) đến 0.7 (ở ngoài cùng)
-            const scaleValue = 1 - (distanceFromMiddle / maxDistance) * 0.3;
-            
-            // zIndex cao nhất ở giữa, thấp dần ra hai bên
-            const zIndexValue = 20 - distanceFromMiddle;
-            
-            return (
-              <motion.div
-                key={index}
+        // Desktop layout - flex column với justify-between và items-start
+        <div className="flex flex-col justify-between items-start w-full gap-6">
+          {cardPositions.map((card, index) => (
+            <motion.div
+              key={index}
+              className="transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Image 
+                src={card.src} 
+                width={150} 
+                height={170} 
+                alt={card.alt}
                 className="transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                style={{
-                  scale: scaleValue,
-                  zIndex: zIndexValue,
-                }}
-              >
-                <Image 
-                  src={card.src} 
-                  width={150} 
-                  height={170} 
-                  alt={card.alt}
-                  className="transition-all duration-300"
-                />
-              </motion.div>
-            );
-          })}
+              />
+            </motion.div>
+          ))}
         </div>
       ) : (
-        // Mobile layout - circular animation
+        // Mobile layout - giữ nguyên circular animation
         <>
           {cardPositions.map((card, index) => (
             <motion.div
@@ -276,7 +259,7 @@ export default function IntroCollection() {
         </>
       )}
     </div>
-  ), [cardPositions, isDesktop]);
+  ), [cardPositions, isDesktop, isMobile]);
 
   // return UI
   return (
@@ -290,7 +273,7 @@ export default function IntroCollection() {
       {/* Scroll Down Arrow */}
       <AnimatePresence>
         <motion.div 
-          className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[40px]"
+          className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[60px] sm:text-[80px]"
           style={{ opacity: arrowOpacity }}
           initial="initial"
           animate="animate"
