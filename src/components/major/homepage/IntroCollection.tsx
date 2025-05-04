@@ -53,27 +53,6 @@ export default function IntroCollection() {
     { clamp: true }
   );
 
-  // Arrow Animation
-  // --- Scroll Arrow Animation ---
-  const arrowOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.2],
-    [1, 0]
-  );
-
-  // Animation variants for the bouncing arrow - defined outside render for stability
-  const arrowVariants = useMemo(() => ({
-    initial: { y: -10 },
-    animate: {
-      y: 10,
-      transition: {
-        repeat: Infinity,
-        repeatType: "reverse" as const,
-        duration: 1,
-        ease: "easeInOut"
-      }
-    }
-  }), []);
 
   // Fix hydration mismatch by using client-side only rendering for the rotating cards
   const [isMounted, setIsMounted] = useState(false);
@@ -240,7 +219,7 @@ export default function IntroCollection() {
                 x: card.x, 
                 y: card.y, 
                 zIndex: card.zIndex,
-                transition: { duration: 0.1, ease: "linear" }
+                transition: { duration: 0.1, ease: "easeInOut" }
               }}
             >
               <Image 
@@ -250,7 +229,7 @@ export default function IntroCollection() {
                 alt={card.alt}
                 className="transition-all duration-300"
                 style={{
-                  scale: (card.zIndex - 10) / 10 * 0.3 + 0.7, // Scale based on z-index
+                  scale: (card.zIndex - 8) / 10 * 0.3 + 0.7, // Scale based on z-index
                   transform: 'translateZ(0)', // Hardware acceleration
                 }}
               />
@@ -271,9 +250,9 @@ export default function IntroCollection() {
       <div className="absolute w-full bg-[#000] h-full blur-[100px] z-1"></div>
 
       {/* Scroll Down Arrow */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         <motion.div 
-          className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[60px] sm:text-[80px]"
+          className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[80px] sm:text-[80px]"
           style={{ opacity: arrowOpacity }}
           initial="initial"
           animate="animate"
@@ -281,19 +260,19 @@ export default function IntroCollection() {
         >
           &dArr;
         </motion.div>
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Content Container */}
       <div className="relative w-full h-full flex flex-col-reverse justify-center items-center px-4 z-10 gap-20 md:gap-60">
         <div className='flex flex-col items-center gap-20 px-4'>
           <motion.p
-            className="text-[20px] text-center text-[#E8B77C] tracking-wide"
+            className="text-[25px] text-center text-[#E8B77C] tracking-wide"
           >
             Own the Legends <br/> Atemu OG Mint
           </motion.p>
           
-          <motion.p className='font-fe text-[16px] text-center tracking-wide leading-[22px]'
-                    initial={{ opacity: 0, y: 20 }}
+          <motion.p className='font-fe text-[16px] text-center tracking-wide leading-[22px] max-w-md'
+                    initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}>

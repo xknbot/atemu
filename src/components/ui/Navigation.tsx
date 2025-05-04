@@ -99,7 +99,7 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
             </button>
 
             {/* Navigation Links */}
-            <div className="flex flex-col items-center justify-center gap-6 mt-12">
+            <div className="flex flex-col items-center justify-center gap-6 mt-36">
               {links.map((link) => (
                 <Link
                   key={link.href}

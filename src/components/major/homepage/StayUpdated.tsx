@@ -48,8 +48,8 @@ const StayUpdated = () => {
         >
             {/* Background image with overlay */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-[url(/EgyptGOD.webp)] bg-center bg-cover bg-no-repeat"></div>
-                <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}></div> 
+                <div className="absolute inset-0 bg-[url(/AtemuArt.jpg)] bg-center bg-cover bg-no-repeat"></div>
+                <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}></div> 
             </div>
             
             {/* Content */}

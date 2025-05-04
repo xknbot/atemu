@@ -13,6 +13,7 @@ import LoadingOverlay from "@/components/ui/LoadingOverlay";
 
 // On the page where IntroAtemu is used (e.g., pages/index.tsx)
 import dynamic from 'next/dynamic';
+import OgCollection from '@/components/major/homepage/OgCollection';
 
 // Dynamically import IntroAtemu
 const IntroAtemu = dynamic(() => import('@/components/major/homepage/IntroAtemu'), {
@@ -66,8 +67,9 @@ export default function Home() {
     <main className="bg-[#000] w-screen h-full">
       <LoadingOverlay isLoading={isPageLoading} progress={loadingProgress} />
       <HeroSection />
-      <IntroCollection />
       <IntroAtemu />
+      <OgCollection/>
+      <IntroCollection />
       <CardShow />
       <Gameplay />
       <Partnership />

@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import Image from "next/image";
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Button from '@/components/ui/Button';
 
 // Define interfaces for clarity
@@ -105,7 +105,7 @@ const characterImages: CharacterData[] = [
     src: '/champ png/greek-legend-2.webp', 
     alt: 'Character 6',
     mobile: { 
-      top: '0%', left: '50%', translateX: '-85%', translateY: '18%', 
+      top: '0%', left: '50%', translateX: '-85%', translateY: '15%', 
       rotate: 0, zIndex: 7, width: 110, height: 150 
     },
     desktop: { 
@@ -251,14 +251,59 @@ const titleText = "The Genesis of Atemu";
 const introText = "Before the battles, before the realms, there was the spark: a legendary birth shrouded in celestial wonder and untold power, a tale waiting to be told...";
 
 export default function IntroAtemu() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const isDesktop = useScreenSize();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useScreenSize();
+  const [hasSeenAnimation, setHasSeenAnimation] = useState(true); // Default to true to prevent flash
+
+
+  // Add this useEffect to check localStorage when component mounts
+useEffect(() => {
+  // Check if running in browser
+  if (typeof window !== 'undefined') {
+    const hasVisited = localStorage.getItem('hasSeenOGAnimation');
+    setHasSeenAnimation(!!hasVisited);
+    
+    // If this is first visit, set the flag for future visits
+    if (!hasVisited) {
+      localStorage.setItem('hasSeenOGAnimation', 'true');
+    }
+  }
+}, []);
+
+  
+  // Add scroll tracking
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Arrow Animation
+  const arrowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2],
+    [2, 0]
+  );
+
+  // Animation variants for the bouncing arrow
+  const arrowVariants = useMemo(() => ({
+    initial: { y: -10 },
+    animate: {
+      y: 10,
+      transition: {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1,
+        ease: "easeInOut"
+      }
+    }
+  }), []);
+  
 
     // --- Character Images ---
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
-        <div className="text-[20px] text-center text-[#faf0fa] tracking-wide px-1 mt-30 -mb-15">
+        <div className="max-w-lg text-[25px] text-center text-[#faf0fa] tracking-wide px-1 mt-30 -mb-15">
             {titleText}
         </div>
     ), []);
@@ -303,9 +348,6 @@ export default function IntroAtemu() {
                               rotate: styles.rotate,
                               zIndex: styles.zIndex,
                               scaleX: styles.flipX ? -1 : 1,
-                              transformOrigin: 'center',
-                              willChange: 'transform, opacity',
-                              transform: 'translateZ(0)',
                           }}
 
                       >
@@ -315,9 +357,6 @@ export default function IntroAtemu() {
                               src={char.src}
                               alt={char.alt}
                               sizes={`(max-width: 1024px) ${styles.width * 0.8}px, ${styles.width}px`}
-                              style={{
-                                  transform: 'translateZ(0)',
-                              }}
                           />
                       </motion.div>
                   );
@@ -328,12 +367,58 @@ export default function IntroAtemu() {
     return (
         <section 
           ref={sectionRef} 
-          className="w-full relative h-[1100px] overflow-hidden"
+          className="w-full relative h-[1100px] overflow-hidden z-0"
           style={{ 
               transform: 'translateZ(0)',
               willChange: 'transform'
           }}
-        >
+      >
+        {/* <motion.div className='absolute z-10 bottom-0 text-[25px] text-center w-full flex flex-col items-center justify-center'>
+          <motion.span 
+            className="block text-[#E8B77C]"
+            initial={{ opacity: hasSeenAnimation ? 1 : 0, y: hasSeenAnimation ? 0 : -50 }}
+            animate={{ 
+              opacity: 1,
+              y: 0
+            }}
+            transition={{ 
+              duration: hasSeenAnimation ? 0 : 1.5,
+              ease: "easeOut"
+            }}
+          >
+            OG
+          </motion.span>
+          
+
+            <motion.span 
+              className="block text-[#E8B77C]"
+              initial={{ opacity: hasSeenAnimation ? 1 : 0, y: hasSeenAnimation ? 0 : 50 }}
+              animate={{ 
+                opacity: 1,
+                y: 0
+              }}
+              transition={{ 
+                duration: hasSeenAnimation ? 0 : 1.5,
+                delay: hasSeenAnimation ? 0 : 0.3, // Slight delay for second word
+                ease: "easeOut"
+              }}
+            >
+              COLLECTION
+            </motion.span>
+        </motion.div> */}
+
+        
+          {/* Add the arrow component */}
+          <motion.div 
+            className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[80px] sm:text-[80px]"
+            style={{ opacity: arrowOpacity }}
+            initial="initial"
+            animate="animate"
+            variants={arrowVariants}
+          >
+            &dArr;
+          </motion.div>
+        
           {/* Background Image Section */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -353,7 +438,7 @@ export default function IntroAtemu() {
             <div>
               {titleComponent}
             </div>
-            <div className="w-full max-w-full flex flex-col">
+            <div className="w-full max-w-lg flex flex-col">
                 {introComponent}
                 <Button size='small' className='self-center' variant='third'>
                   DISCOVER THE LORE

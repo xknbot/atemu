@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ancientGod.className} ${spaceGames.variable} ${deSwash.variable} ${fe.variable} ${inconsolata.variable} max-w-full`}>
       <body className={` antialiased`}>
-        <Header/>
+        <Header />
         {children}
         <ScrollToTopButton /> {/* Thêm nút Go to Top ở đây */}
         <Footer />

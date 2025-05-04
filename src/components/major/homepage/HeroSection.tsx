@@ -35,19 +35,22 @@ export default function HeroSection() {
   const [realIndex, setRealIndex] = useState(0);
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
   const autoplayPaused = useRef(false);
+  // Add this state near your other state declarations
 
 
   // State để buộc re-render khi trạng thái video thay đổi
   const [videoStateNonce, setVideoStateNonce] = useState(0);
   const [isVideoHovered, setIsVideoHovered] = useState(false); 
   const [isMobile, setIsMobile] = useState(false);
-  const [controlsExpanded, setControlsExpanded] = useState(false);
+  const [controlsExpanded, setControlsExpanded] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isInViewport, setIsInViewport] = useState(false);
 
   // Add this useEffect to handle viewport visibility
 useEffect(() => {
   if (!sectionRef.current) return;
+  
+  const sectionElement = sectionRef.current;
   
   const observer = new IntersectionObserver(
     (entries) => {
@@ -72,12 +75,10 @@ useEffect(() => {
     { threshold: 0.2 } // Trigger when at least 20% of the section is visible
   );
   
-  observer.observe(sectionRef.current);
+  observer.observe(sectionElement);
   
   return () => {
-    if (sectionRef.current) {
-      observer.unobserve(sectionRef.current);
-    }
+    observer.unobserve(sectionElement);
   };
 }, []);
 
@@ -102,28 +103,42 @@ useEffect(() => {
   // Memoize slide data to prevent recreation on each render
   const slidesData: HeroSlideData[] = useMemo(() => [
     {
-    id: 1,
+      id: 1,
+      type: 'image',
+      src: '/HellbornGOD.webp',
+      altText: 'Hell Born video slide' 
+    },
+    {
+    id: 2,
     type: 'image',
     src: HeroImage,
-    altText: 'Hero background 1' // Thêm altText rõ ràng
+    altText: 'Hero background 1' 
     },
-    {
-      id: 2,
-      type: 'video',
-      src: '/Hell Born.mp4',
-      altText: 'Hell Born video slide' // Thêm altText
-    },
+    
+    // {
+    //   id: 2,
+    //   type: 'video',
+    //   src: '/OG collection.mp4',
+    //   altText: 'OG collection video slide' 
+    // },
+    // {
+    //   id: 3,
+    //   type: 'video',
+    //   src: '/Hell Born.mp4',
+    //   altText: 'Hell Born video slide' 
+    // },
+    
     {
       id: 3,
-      type: 'video',
-      src: '/OG collection.mp4',
-      altText: 'OG collection video slide' // Thêm altText
+      type: 'image',
+      src: '/J1.png',
+      altText: 'Hell Born video slide' 
     },
     {
       id: 4,
       type: 'image',
-      src: '/J1.png',
-      altText: 'Hell Born video slide' // Thêm altText
+      src: '/E2.webp',
+      altText: 'Hell Born video slide' 
     },
     // Add other slides here
   ], []);
@@ -153,47 +168,71 @@ useEffect(() => {
 
   // Optimize effect to run only when necessary
   useEffect(() => {
-    if (!swiperInstance) return;
+    // Ensure swiper instance and slide data exist for the current index
+    if (!swiperInstance || !slidesData[realIndex]) return;
+
+    // This will run before handling the current slide
+    Object.entries(videoRefs.current).forEach(([indexStr, vidElement]) => {
+      const index = parseInt(indexStr, 10);
+      if (vidElement && index !== realIndex) {
+        // Pause and mute any video that isn't the current slide
+        if (!vidElement.paused) {
+          vidElement.pause();
+        }
+        vidElement.muted = true;
+        vidElement.currentTime = 0; // Reset to beginning
+      }
+    });
+
+    
 
     const currentSlideData = slidesData[realIndex];
     const videoElement = videoRefs.current[realIndex];
 
-    // Clean up function to handle all video elements
+    // --- Cleanup function: Runs when realIndex changes or component unmounts ---
     const cleanupVideos = () => {
-      Object.values(videoRefs.current).forEach(vidElement => {
+      Object.entries(videoRefs.current).forEach(([indexStr, vidElement]) => {
+        const index = parseInt(indexStr, 10);
         if (vidElement) {
+          // Always remove listeners added by this effect instance to prevent duplicates
           vidElement.removeEventListener('ended', handleVideoEnd);
-          vidElement.removeEventListener('play', forceVideoStateUpdate); // Dọn dẹp listener
-          vidElement.removeEventListener('pause', forceVideoStateUpdate); // Dọn dẹp listener
-          vidElement.removeEventListener('volumechange', forceVideoStateUpdate); // Dọn dẹp listener
-          if (!vidElement.paused) { // Chỉ pause nếu đang chạy
-             vidElement.pause();
+          vidElement.removeEventListener('play', forceVideoStateUpdate);
+          vidElement.removeEventListener('pause', forceVideoStateUpdate);
+          vidElement.removeEventListener('volumechange', forceVideoStateUpdate);
+
+          // Pause the video ONLY if it's NOT the currently active slide (realIndex)
+          // and if it's actually playing. This prevents pausing the video we might be about to play.
+          if (index !== realIndex && !vidElement.paused) {
+            vidElement.pause();
+            // console.log(`Cleanup: Paused video index ${index} (current is ${realIndex})`);
           }
         }
       });
     };
 
-    // Handle current slide based on type
+    // --- Handle the CURRENT active slide ---
     if (currentSlideData.type === 'video' && videoElement) {
-      // Stop autoplay for video slides
+      // Stop Swiper's autoplay when a video slide is active
       if (swiperInstance.autoplay?.running) {
+        // console.log(`Stopping Swiper autoplay for video slide ${realIndex}`);
         swiperInstance.autoplay.stop();
         autoplayPaused.current = true;
       }
 
-      // Set up video playback and event listeners
-      videoElement.removeEventListener('ended', handleVideoEnd); // Xóa listener cũ trước khi thêm mới
-      videoElement.addEventListener('ended', handleVideoEnd);
-
-      // Thêm listeners để cập nhật UI nút bấm
+      // --- Setup video playback and event listeners for the active video ---
+      // Ensure previous listeners are removed before adding new ones (belt-and-suspenders with cleanup)
+      videoElement.removeEventListener('ended', handleVideoEnd);
       videoElement.removeEventListener('play', forceVideoStateUpdate);
-      videoElement.addEventListener('play', forceVideoStateUpdate);
       videoElement.removeEventListener('pause', forceVideoStateUpdate);
-      videoElement.addEventListener('pause', forceVideoStateUpdate);
       videoElement.removeEventListener('volumechange', forceVideoStateUpdate);
+
+      // Add listeners for slide transition and UI updates
+      videoElement.addEventListener('ended', handleVideoEnd);
+      videoElement.addEventListener('play', forceVideoStateUpdate);
+      videoElement.addEventListener('pause', forceVideoStateUpdate);
       videoElement.addEventListener('volumechange', forceVideoStateUpdate);
 
-
+      // --- Core Logic: Reset and Play Every Time ---
       videoElement.currentTime = 0;
 
       // Use a promise with timeout to handle autoplay failures
@@ -201,22 +240,27 @@ useEffect(() => {
       if (playPromise !== undefined) {
         playPromise.catch(error => {
           console.error('Video autoplay failed:', error);
-          // Có thể không cần tự động chuyển slide ở đây nếu play lỗi
-          // setTimeout(handleVideoEnd, 100);
-          forceVideoStateUpdate(); // Cập nhật UI nút play/pause nếu play lỗi
+          // If autoplay fails (e.g., browser restriction), ensure the UI reflects the paused state.
+          forceVideoStateUpdate();
         });
+      } else {
+        // Fallback for browsers that don't return a promise, update UI just in case
+        forceVideoStateUpdate();
       }
-      // Cập nhật trạng thái ban đầu khi video được kích hoạt
+      // Ensure UI reflects the initial state (playing or attempting to play)
       forceVideoStateUpdate();
 
-    } else if (autoplayPaused.current && currentSlideData.type !== 'video') {
-      // Restart autoplay for image slides if it was paused
-      swiperInstance.autoplay?.start();
-      autoplayPaused.current = false;
+    } else if (currentSlideData.type === 'image') {
+      // If the new slide is an image and Swiper autoplay was paused by a previous video slide, restart it.
+      if (autoplayPaused.current) {
+        // console.log(`Restarting Swiper autoplay for image slide ${realIndex}`);
+        swiperInstance.autoplay?.start();
+        autoplayPaused.current = false;
+      }
     }
 
     return cleanupVideos;
-  }, [realIndex, swiperInstance, slidesData, handleVideoEnd, forceVideoStateUpdate]); // Thêm forceVideoStateUpdate vào dependencies
+  }, [realIndex, swiperInstance, slidesData, handleVideoEnd, forceVideoStateUpdate]);
 
   // Memoize static content to prevent unnecessary re-renders
   const staticContent = useMemo(() => (
@@ -226,25 +270,25 @@ useEffect(() => {
         width={300}
         height={111}
         alt="atemutextlogo"
-        className="-mt-20 mb-5 md:mb-10 lg:mb-2"
+        className=" w-100 max-w-100 h-auto mt-25 mb-10 md:mb-10 lg:mb-2"
       />
       <motion.p
-        className="text-[20px] tracking-wide md:text-xl text-white mb-3 max-w-xl"
+        className="max-w-sm text-[21px] tracking-wide text-white mb-5 md:text-xl"
       >
-        The First Fully On-Chain Card Game on Starknet
+        Mythically Deep, Strategically Thrilling, Endlessly Fun
       </motion.p>
       <motion.p
-        className="text-[16px] font-fe text-[#faf0fa] max-w-3xl tracking-wide leading-6 mb-10 lg:mb-10"
+        className="text-[16px] font-fe text-[#faf0fa] max-w-lg tracking-wide leading-6 mb-5 font-bold lg:mb-10"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1 }} // Giảm duration để không quá chậm
       >
-        Step into the battle of five legendary realms. Collect NFT cards and conquer! Join now!
+        Step into the battle of five legendary realms. Collect NFT cards and conquer!
       </motion.p>
       <div className='pointer-ev'>
         <Button variant="secondary" >
-          JOIN THE BETA
+          JOIN NOW
         </Button>
       </div>
     </div>
@@ -308,7 +352,7 @@ useEffect(() => {
             <SwiperSlide key={slide.id} className="relative">
               {slide.type === 'image' ? (
                 <Image
-                  src={slide.src} // Sử dụng slide.src thay vì HeroImage cố định
+                  src={slide.src} 
                   alt={slide.altText || `Hero background ${slide.id}`}
                   priority={index === realIndex} // Ưu tiên tải slide hiện tại
                   loading={index === realIndex ? "eager" : "lazy"}
@@ -337,9 +381,9 @@ useEffect(() => {
                     src={slide.src as string}
                     playsInline
                     preload="metadata" // Giữ metadata để lấy thông tin nhanh
-                    muted={false} // Bắt đầu không tắt tiếng (hoặc true tùy ý)
+                    muted={true} // Start muted to help with autoplay policies. User/Observer can unmute.
                     loop={false} // Không loop, để sự kiện 'ended' hoạt động
-                    className="absolute inset-0 z-0 h-full w-full object-cover lg:object-contain lg:object-top pointer-events-none"
+                    className="absolute inset-0 z-0 object-cover w-full h-full lg:object-contain lg:object-top pointer-events-none"
                     // onClick={() => { /* Ngăn click vào video tự play/pause */ }}
                     ></video>
 
@@ -353,13 +397,13 @@ useEffect(() => {
 
                   {/* Custom video controls - chỉ hiển thị khi slide này active */}
                   {realIndex === index && (isMobile || isVideoHovered) &&(
-                    <div className="absolute top-2 right-6 z-50 flex flex-col items-center gap-3 pointer-events-auto transition-opacity duration-300 opacity-100">
+                    <div className="absolute top-2.5 right-6 z-50 flex flex-col items-center gap-3 pointer-events-auto transition-opacity duration-300 opacity-100">
                       {/* Play/Pause Button */}
                       <button
                         className="w-8 h-8 rounded-full bg-transparent border border-[#E8B77C] flex items-center justify-center hover:bg-white/10 transition-colors"
                         onClick={(e) => {
                           e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
-                          setControlsExpanded(true);
+                          // setControlsExpanded(true);
                           const video = videoRefs.current[index];
                           if (video) {
                             if (video.paused) {
