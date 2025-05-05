@@ -29,9 +29,8 @@ export default function OgCollection() {
 
   // Ánh xạ scrollYProgress (0-1) sang translateY và opacity
   // Bắt đầu animation khi scrollYProgress đạt 0.5
-  const textY = useTransform(scrollYProgress, [0.8, 1], ["-50px", "-170px"]); // Từ dưới lên
-  const textOpacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]); // Mờ dần từ 0.5 đến 0.6
-  // --------------------------
+  const textY = useTransform(scrollYProgress, [0.2, 0.5], ["-200px", "-210px"]); // Từ dưới lên
+  const textOpacity = useTransform(scrollYProgress, [0.2, 1], [0, 2]); 
 
    // Hàm khởi tạo Particles
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -65,7 +64,7 @@ export default function OgCollection() {
     if (controlsTimeoutRef.current) {
       clearTimeout(controlsTimeoutRef.current);
     }
-    controlsTimeoutRef.current = setTimeout(hideControls, 3000); // Đặt timeout 3 giây để ẩn
+    controlsTimeoutRef.current = setTimeout(hideControls, 2000); // Đặt timeout 3 giây để ẩn
   }, [hideControls]); // Phụ thuộc vào hideControls
 
    // Effect để quản lý Intersection Observer
@@ -73,6 +72,13 @@ export default function OgCollection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting); // Cập nhật state khi visibility thay đổi
+        if (entry.isIntersecting) {
+          // Khi component vào view, hiển thị controls và bắt đầu timer ẩn
+          showControlsAndResetTimer();
+        } else {
+          // Khi component ra khỏi view, ẩn controls ngay lập tức và xóa timer
+          hideControls();
+        }
       },
       { threshold: 0.5 } // Kích hoạt khi 50% component hiển thị
     );
@@ -83,15 +89,7 @@ export default function OgCollection() {
     return () => { // Cleanup function
       if (currentSection) observer.unobserve(currentSection);
     };
-  }, []); // Chạy 1 lần khi component mount
-
-  // Effect để khởi tạo timer và cleanup
-  // useEffect(() => {
-  //   showControlsAndResetTimer(); // Hiển thị nút và bắt đầu timer khi mount
-  //   return () => { // Cleanup khi unmount
-  //     if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
-  //   };
-  // }, [showControlsAndResetTimer]); // Chạy khi hàm showControlsAndResetTimer thay đổi (chỉ 1 lần vì có useCallback)
+  }, [showControlsAndResetTimer, hideControls]); 
 
   // Effect chỉ để cleanup timeout khi component unmount
   useEffect(() => {
@@ -103,30 +101,40 @@ export default function OgCollection() {
   return (
     <section
       ref={sectionRef} // Gắn ref vào section
-      className="relative w-full h-[450px] bg-black overflow-hidden"
+      className="relative w-full h-[750px] bg-black overflow-hidden"
     >
       {/* Black background */}
       <div className="absolute inset-0 bg-black z-0"></div>
 
-      {/* Animated Text - Đặt sau background, trước Particles */}
+      <div className='absolute inset-0 flex justify-center items-start z-4'>
+        <Image src="/toriigate.webp" alt="torrigate" width={300} height={300} />
+      </div>
+
       <motion.div
-        className="absolute inset-0 flex justify-center items-center z-1" // z-index thấp hơn Particles (z-5)
+        className="absolute inset-0 flex justify-center items-center z-6" // z-index thấp hơn Particles (z-5)
         style={{
           // Áp dụng transform và opacity từ Framer Motion
           y: textY,
           opacity: textOpacity,
         }}
       >
-        <p className="text-[25px] text-white text-center px-4 font-deswash">
+        {/* <p className="max-w-2xl text-[25px] text-white text-center px-4 font-deswash tracking-wide">
           Strategic Mastery Forges Living Legends...
-        </p>
+        </p> */}
+         <div className="flex flex-col items-center">
+          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Strategic</p>
+          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Mastery</p>
+          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Forges</p>
+          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Living</p>
+          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Legends</p>
+        </div>
       </motion.div>
 
       {isInView && ( // Chỉ render Particles khi isInView là true
         <Particles
             id="tsparticles-og" // Đặt ID khác với header để tránh xung đột nếu cả hai cùng hiển thị
             init={particlesInit}
-            className="absolute top-0 left-0 w-full h-full z-5" // z-index thấp hơn video (z-10)
+            className="absolute top-0 left-0 w-full h-full z-1" // z-index thấp hơn video (z-10)
             options={{
                 // Bạn có thể sao chép và tùy chỉnh options từ Header.tsx
                 // Ví dụ đơn giản:
@@ -160,7 +168,7 @@ export default function OgCollection() {
                     },
                     links: {
                         enable: true, // Có thể bật liên kết nếu muốn
-                        distance: 30,
+                        distance: 50,
                         color: "#E8B77C", // Màu liên kết
                         opacity: 0.2,
                         width: 1
@@ -190,16 +198,20 @@ export default function OgCollection() {
 
 
       <div
-        className="relative z-10 w-full h-full flex justify-center items-center group"
-        onMouseMove={showControlsAndResetTimer}
-        onMouseLeave={hideControls}
+        className="relative z-10 w-full h-full flex justify-center items-center group mt-15"
+          
+        onMouseLeave={() => {
+          if (window.innerWidth >= 0) {
+            hideControls();
+          }
+        }}
       >
         {/* Thẻ video HTML5 */}
         <video
           ref={videoRef} // Thêm ref
           src="/OG collection.mp4" 
           poster="/V2.webp"
-          className="w-[90%] h-auto max-w-full rounded-lg shadow-lg cursor-pointer" // Áp dụng w-[90%], giữ tỷ lệ, bo góc, thêm bóng đổ
+          className="w-[90%] h-auto max-w-full shadow-lg cursor-pointer " // Áp dụng w-[90%], giữ tỷ lệ, bo góc, thêm bóng đổ
           // controls // Hiển thị nút điều khiển mặc định
           playsInline // Cho phép phát inline trên mobile
           muted={!isInView} // Tắt tiếng (quan trọng nếu muốn autoplay) - có thể bỏ nếu không cần autoplay
@@ -208,33 +220,35 @@ export default function OgCollection() {
            // Cập nhật state isPlaying khi video tự play/pause
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
-          onClick={() => videoRef.current?.play()} // Cho phép click vào video để play (tùy chọn)
+          // onClick={() => videoRef.current?.play()}
+          onClick={() => {
+            togglePlay(); // Gọi hàm togglePlay để play/pause
+            showControlsAndResetTimer(); // Hiển thị lại controls và reset timer khi click
+          }}
+          onMouseMove={showControlsAndResetTimer}
+          onTouchStart={() => {
+            showControlsAndResetTimer();
+          }}
         >
           {/* Fallback text nếu trình duyệt không hỗ trợ video */}
           Your browser does not support the video tag.
         </video>
 
+        <Image src="/video_frame.png" alt='videoframe' width={1920} height={1080} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-auto max-w-full pointer-events-none z-15'/>
+
          {/* Nút Play/Pause tùy chỉnh */}
         <div className={`
             absolute inset-0 flex items-center justify-center z-20
-            transition-opacity duration-300 bg-black/30 rounded-lg pointer-events-none
+            rounded-lg pointer-events-none
             ${isControlsVisible ? 'opacity-100' : 'opacity-0'} // Điều khiển opacity dựa trên state
           `}>
           <button
             onClick={(e) => {
-              // e.stopPropagation(); 
-              // const video = videoRef.current;
-              // if (video) {
-              //   if (video.paused || video.ended) {
-              //     video.play().catch(err => console.error("Play error:", err));
-              //   } else {
-              //     video.pause();
-              //   }
-              // }
                e.stopPropagation(); // Ngăn click lan ra video (nếu video cũng có onClick)
               togglePlay(); // Gọi hàm togglePlay
+              showControlsAndResetTimer();
             }}
-            className="p-3 rounded-full bg-[#131417] text-[#faf0fa] hover:bg-[#E8B77C] hover:text-[#131417] transition-colors pointer-events-auto" // <<<=== MÀU VÀNG Ở ĐÂY
+            className="p-3 rounded-full bg-[#131417] text-[#faf0fa] hover:bg-[#E8B77C] hover:text-[#131417] transition-colors pointer-events-auto"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? (

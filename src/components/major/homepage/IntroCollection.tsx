@@ -266,9 +266,9 @@ export default function IntroCollection() {
       <div className="relative w-full h-full flex flex-col-reverse justify-center items-center px-4 z-10 gap-20 md:gap-60">
         <div className='flex flex-col items-center gap-20 px-4'>
           <motion.p
-            className="text-[25px] text-center text-[#E8B77C] tracking-wide"
+            className="text-[25px] text-center text-[#E8B77C] tracking-wide font-deswash"
           >
-            Own the Legends <br/> Atemu OG Mint
+            OWN THE LEGENDS <br/> ATEMU OG MINT
           </motion.p>
           
           <motion.p className='font-fe text-[16px] text-center tracking-wide leading-[22px] max-w-md'

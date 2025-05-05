@@ -104,10 +104,16 @@ useEffect(() => {
   const slidesData: HeroSlideData[] = useMemo(() => [
     {
       id: 1,
-      type: 'image',
-      src: '/HellbornGOD.webp',
+      type: 'video',
+      src: '/Hell Born.mp4',
       altText: 'Hell Born video slide' 
     },
+    // {
+    //   id: 1,
+    //   type: 'image',
+    //   src: '/HellbornGOD.webp',
+    //   altText: 'Hell Born video slide' 
+    // },
     {
     id: 2,
     type: 'image',
@@ -121,12 +127,7 @@ useEffect(() => {
     //   src: '/OG collection.mp4',
     //   altText: 'OG collection video slide' 
     // },
-    // {
-    //   id: 3,
-    //   type: 'video',
-    //   src: '/Hell Born.mp4',
-    //   altText: 'Hell Born video slide' 
-    // },
+    
     
     {
       id: 3,
@@ -273,9 +274,9 @@ useEffect(() => {
         className=" w-100 max-w-100 h-auto mt-25 mb-10 md:mb-10 lg:mb-2"
       />
       <motion.p
-        className="max-w-sm text-[21px] tracking-wide text-white mb-5 md:text-xl"
+        className="max-w-sm text-[21px] tracking-wide text-white mb-5 md:text-xl font-deswash"
       >
-        Mythically Deep, Strategically Thrilling, Endlessly Fun
+        MYTHICALLY DEEP, STRATEGICALLY THRILLING, ENDLESSLY FUN
       </motion.p>
       <motion.p
         className="text-[16px] font-fe text-[#faf0fa] max-w-lg tracking-wide leading-6 mb-5 font-bold lg:mb-10"

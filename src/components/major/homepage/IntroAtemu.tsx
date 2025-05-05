@@ -247,7 +247,7 @@ function useScreenSize() {
 }
 
 
-const titleText = "The Genesis of Atemu";
+const titleText = "THE GENESIS OF ATEMU";
 const introText = "Before the battles, before the realms, there was the spark: a legendary birth shrouded in celestial wonder and untold power, a tale waiting to be told...";
 
 export default function IntroAtemu() {
@@ -303,7 +303,7 @@ useEffect(() => {
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
-        <div className="max-w-lg text-[25px] text-center text-[#faf0fa] tracking-wide px-1 mt-30 -mb-15">
+        <div className="max-w-lg text-[25px] text-center text-[#faf0fa] tracking-wide px-1 mt-30 -mb-15 font-deswash">
             {titleText}
         </div>
     ), []);

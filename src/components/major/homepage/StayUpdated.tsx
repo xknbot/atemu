@@ -61,8 +61,8 @@ const StayUpdated = () => {
                     viewport={{ once: true, amount: 1 }}
                     transition={{ duration: 0.7 }}
                 >
-                    <h2 className="text-[20px] font-bold text-[#faf0fa] mb-4">
-                        Stay Updated
+                    <h2 className="text-[25px] font-bold text-[#faf0fa] mb-4 font-deswash">
+                        STAY UPDATED
                     </h2>
                     <p className="text-[15px] text-[#faf0fa] mb-8 font-fe tracking-wide">
                         Subscribe to our newsletter for the latest news, updates, and exclusive offers.
@@ -84,8 +84,8 @@ const StayUpdated = () => {
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Your email address"
-                                    className="w-full px-4 py-3 bg-transparent border-b-2 border-[#E8B77C] text-[#faf0fa] focus:outline-none focus:border-b-2 focus:border-[#444656]] transition-colors"
+                                    placeholder="Your email address..."
+                                    className="placeholder:font-incon w-full px-4 py-3 bg-transparent border-b-2 border-[#E8B77C] text-[#faf0fa] focus:outline-none focus:border-b-2 focus:border-[#444656]] transition-colors"
                                     disabled={isSubmitting}
                                 />
                                 {error && (
