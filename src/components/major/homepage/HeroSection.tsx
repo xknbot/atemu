@@ -35,7 +35,6 @@ export default function HeroSection() {
   const [realIndex, setRealIndex] = useState(0);
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
   const autoplayPaused = useRef(false);
-  // Add this state near your other state declarations
 
 
   // State để buộc re-render khi trạng thái video thay đổi
@@ -46,7 +45,7 @@ export default function HeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isInViewport, setIsInViewport] = useState(false);
 
-  // Add this useEffect to handle viewport visibility
+// useEffect to handle sound on wwhen on viewport visibility 
 useEffect(() => {
   if (!sectionRef.current) return;
   
@@ -120,15 +119,6 @@ useEffect(() => {
     src: HeroImage,
     altText: 'Hero background 1' 
     },
-    
-    // {
-    //   id: 2,
-    //   type: 'video',
-    //   src: '/OG collection.mp4',
-    //   altText: 'OG collection video slide' 
-    // },
-    
-    
     {
       id: 3,
       type: 'image',
@@ -149,21 +139,46 @@ useEffect(() => {
     setVideoStateNonce(prev => prev + 1);
   }, []);
 
+  // Ref để ngăn handleVideoEnd chạy nhiều lần liên tiếp
+  const isHandlingVideoEnd = useRef(false);
+
   // Memoize the video end handler
   const handleVideoEnd = useMemo(() => {
     return () => {
-      console.log('Video ended, sliding next');
-      if (swiperInstance) {
-        swiperInstance.slideNext();
+      // Nếu đang xử lý rồi thì bỏ qua
+      if (isHandlingVideoEnd.current) {
+        // console.log('Video ended: Already handling, skipping.');
+        return;
+      }
+      isHandlingVideoEnd.current = true; // Đánh dấu là đang xử lý
+      // console.log(`Video ended: Handling.`);
 
-        // Only start autoplay if the next slide is not a video
-        if (slidesData[(realIndex + 1) % slidesData.length]?.type !== 'video') {
-          swiperInstance.autoplay?.start();
-          autoplayPaused.current = false; // Reset pause flag
+      const currentSlide = slidesData[realIndex]; // Lấy thông tin slide hiện tại
+
+      if (swiperInstance && currentSlide?.type === 'video') {
+        // Kiểm tra nếu video vừa kết thúc là video có id: 1
+        if (currentSlide.id === 1) {
+          // console.log(`Video ID 1 ended. Restarting Swiper autoplay to transition after its delay.`);
+          // Video có loop={false} nên sẽ không tự phát lại.
+          // Khởi động lại autoplay của Swiper để nó tự chuyển slide sau delay.
+          if (swiperInstance.autoplay && !swiperInstance.autoplay.running) {
+            swiperInstance.autoplay.start();
+            // Cập nhật lại trạng thái autoplayPaused vì Swiper autoplay giờ đã được chủ động bật lại
+            autoplayPaused.current = false; 
+          }
+          // KHÔNG gọi swiperInstance.slideNext() ở đây cho video id: 1
+        } else {
+          // Đối với các video khác, chuyển slide ngay như bình thường
+          // console.log(`Video ID ${currentSlide.id} ended. Calling slideNext().`);
+          swiperInstance.slideNext();
         }
       }
+      // Reset cờ sau một khoảng trễ nhỏ để cho phép state/effect cập nhật
+      setTimeout(() => {
+        isHandlingVideoEnd.current = false;
+      }, 100); // Giảm timeout, có thể điều chỉnh nếu cần
     };
-  }, [swiperInstance, realIndex, slidesData]);
+  }, [swiperInstance, realIndex, slidesData]); // Thêm realIndex và slidesData vào dependencies
 
   
 
@@ -274,7 +289,7 @@ useEffect(() => {
         className=" w-100 max-w-100 h-auto mt-25 mb-10 md:mb-10 lg:mb-2"
       />
       <motion.p
-        className="max-w-sm text-[21px] tracking-wide text-white mb-5 md:text-xl font-deswash"
+        className="max-w-md text-[25px] tracking-wide mb-5 md:text-xl font-deswash bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text"
       >
         MYTHICALLY DEEP, STRATEGICALLY THRILLING, ENDLESSLY FUN
       </motion.p>
@@ -285,7 +300,7 @@ useEffect(() => {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1 }} // Giảm duration để không quá chậm
       >
-        Step into the battle of five legendary realms. Collect NFT cards and conquer!
+        Step into the battle of five legendary realms. Ancient power meets tactical supremacy. Collect NFT cards and Conquer!
       </motion.p>
       <div className='pointer-ev'>
         <Button variant="secondary" >
@@ -297,7 +312,7 @@ useEffect(() => {
 
   // return UI
   return (
-    <div
+    <section
       ref={sectionRef}
       className='relative h-[1000px] w-full overflow-hidden lg:bg-linear-to-b lg:from-[#371D0B] lg:from-1% lg:to-[#131417] lg:to-80%'>
 
@@ -359,7 +374,7 @@ useEffect(() => {
                   loading={index === realIndex ? "eager" : "lazy"}
                   fill // Sử dụng fill thay cho width/height cố định để ảnh tự điều chỉnh
                   sizes="100vw"
-                  quality={80}
+                  quality={100}
                   style={{ objectFit: 'cover', objectPosition: 'center' }} // width/height 100% không cần thiết với fill
                   className="absolute inset-0 z-0" // Bỏ top-0
                 />
@@ -481,7 +496,7 @@ useEffect(() => {
                 </div>
               )}
               {/* Lớp phủ mờ và nội dung tĩnh không cần thiết trong từng slide nếu đã có ở ngoài */}
-              {/* <div className="absolute inset-0 bg-black/0 z-10"></div> */}
+              <div className="absolute inset-0 bg-black/20 z-10"></div>
               {/* <div className="relative z-20 h-full flex flex-col justify-center items-center px-4 text-center"></div> */}
             </SwiperSlide>
           );
@@ -497,6 +512,6 @@ useEffect(() => {
           {staticContent}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

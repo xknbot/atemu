@@ -176,7 +176,7 @@ export default function IntroCollection() {
 
   // Thay đổi cardImages để render khác nhau dựa trên kích thước màn hình
   const cardImages = useMemo(() => (
-    <div className={`relative ${isDesktop ? 'flex flex-col justify-center items-start' : 'flex justify-center items-center'} h-[340px] w-full bottom-[50px]`}>
+    <div className={`relative ${isDesktop ? 'flex flex-col justify-center items-start' : 'flex justify-center items-center'} h-[340px] w-full bottom-[0px]`}>
       {/* Center button - hiển thị ở cả hai chế độ */}
       <motion.div 
         className={`${isDesktop ? 'self-center mt-auto' : 'absolute'} z-20 flex justify-center items-center`}
@@ -263,26 +263,53 @@ export default function IntroCollection() {
       </AnimatePresence> */}
 
       {/* Content Container */}
-      <div className="relative w-full h-full flex flex-col-reverse justify-center items-center px-4 z-10 gap-20 md:gap-60">
-        <div className='flex flex-col items-center gap-20 px-4'>
+      <div className="relative w-full h-full flex flex-col-reverse justify-center items-center z-10 gap-20 md:gap-60">
+        <div className='flex flex-col items-center gap-15 max-w-full w-full'>
           <motion.p
-            className="text-[25px] text-center text-[#E8B77C] tracking-wide font-deswash"
+            className="text-[25px] text-center tracking-wide font-deswash bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text"
           >
             OWN THE LEGENDS <br/> ATEMU OG MINT
           </motion.p>
           
-          <motion.p className='font-fe text-[16px] text-center tracking-wide leading-[22px] max-w-md'
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}>
-            A finite collection, never to be seen again.
-            Inside awaits immense power: 50 cards from 5 legendary realms: Egypt, Greece, Japan, Viking, and Hellborn.
-            Seek only 1% chance for god-tier legends, boasting incredible strength and unique skills.
-            Each card is a unique NFT. Own it, collect it, trade it.
-          </motion.p>
+          {/* Wrapper cho văn bản và nền riêng biệt của nó */}
+          <div className="relative w-full max-w-full h-auto"> {/* Sử dụng max-w-md (hoặc kích thước mong muốn) cho container */}
+            {/* Phần tử nền */}
+            <motion.div
+              className="absolute inset-0 z-0 max-w-full" // inset-0 để lấp đầy parent, z-0 để nằm dưới text, rounded-md để bo góc nền
+              style={{
+                backgroundImage: "url('/theme_6.webp')",
+                backgroundSize: 'cover', // 'contain' để ảnh vừa vặn, 'cover' để che phủ hoàn toàn
+                backgroundPosition: '10% 50%',
+                backgroundRepeat: 'no-repeat',
+                boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,0.5)', // Lớp phủ mờ
+              }}
+              // Bạn có thể thêm props của motion ở đây nếu muốn nền có hiệu ứng riêng
+              // initial={{ opacity: 0 }}
+              // whileInView={{ opacity: 1 }}
+              // viewport={{ once: true }}
+              // transition={{ duration: 0.5, delay: 0.1 }} // Tùy chọn delay
+            />
+            {/* Phần tử văn bản */}
+            <motion.p
+              className='relative z-10 font-fe text-[16px] text-center tracking-wide leading-[22px] p-6 max-w-md mx-auto rounded-md' // z-10 để nằm trên nền, p-6 để có padding, loại bỏ h-[50%] và max-w-full nếu không cần thiết
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{
+                color: '#FFFFFF', // Màu chữ
+              }}
+            >
+              A finite collection, never to be seen again.
+              Inside awaits immense power: 50 cards from 5 legendary realms: Egypt, Greece, Japan, Viking, and Hellborn.
+              Seek only 1% chance for god-tier legends, boasting incredible strength and unique skills.
+              Each card is a unique NFT. Own it, collect it, trade it.
+            </motion.p>
 
-          {cardImages}
+            {cardImages}
+
+          </div>
+
         </div>
 
         {/* Animated Image Wrapper */}

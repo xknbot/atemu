@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoClose } from 'react-icons/io5';
 import classNames from 'classnames';
 import { createPortal } from 'react-dom';
@@ -71,15 +70,33 @@ const Navigation: React.FC<NavigationProps> = ({ links }) => {
   return (
     <> 
       {/* Hamburger Button */}
-      <button
+      <div
         onClick={toggleMenu}
-        className="text-[#E8B77C] relative z-50"
+        className="group relative z-50 w-13 h-[46px] cursor-pointer flex flex-col justify-between rounded-[10px] p-2"
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault(); // Prevent space from scrolling page
+            toggleMenu();
+          }
+        }}
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-        <GiHamburgerMenu className="w-6 h-6" />
-      </button>
+        {[...Array(3)].map((_, i) => (
+          <span
+            key={i}
+            className={
+              "w-full h-1 bg-linear-to-r from-[#1886F1] to-[#E9312b] " + // Base styles: width, height, initial background
+              "[clip-path:polygon(0_0,_20%_100%,_40%_0,_60%_100%,_80%_0,_100%_100%)] " + // Zigzag shape using clip-path
+              "" + // Smooth transition for all properties
+              "" 
+            }
+          />
+        ))}
+      </div>
 
       {/* Modal Portal */}
       {mounted && createPortal(

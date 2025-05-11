@@ -100,7 +100,7 @@ const Gameplay: React.FC = () => {
 
     return (
         <motion.section
-            className='bg-[#444656] w-full max-w-full relative overflow-hidden'
+            className='bg-[#131417] w-full max-w-full relative overflow-hidden'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -112,12 +112,12 @@ const Gameplay: React.FC = () => {
                 src="/marble_bg.webp" // Thay đổi đường dẫn ảnh theo nhu cầu của bạn
                 alt="Background texture"
                 fill
-                className="object-cover opacity-20 mix-blend-difference"
+                className="object-cover opacity-9 mix-blend-overlay"
                 priority
             />
             </div>
             
-            <p className="text-[20px] text-center text-[#faf0fa] tracking-wide py-20 font-deswash">CONQUER THE REALMS</p>
+            <p className="text-[25px] text-center bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text tracking-wide py-20 font-deswash">CONQUER THE REALMS</p>
             <div className='mx-auto flex justify-center items-center py-2'>
               <svg width="400" height="10" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
                 {/* Đường ngang bên trái */}
@@ -137,7 +137,7 @@ const Gameplay: React.FC = () => {
               </svg>
             </div>
             <motion.p
-                className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide leading-[20px] px-10 py-10"
+                className="font-fe text-[16px] text-center text-[#faf0fa] tracking-wide leading-[20px] px-10 py-10"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

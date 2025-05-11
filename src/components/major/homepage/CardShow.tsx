@@ -248,9 +248,9 @@ export default function CardShow() {
       </div>
 
       <div className="relative flex flex-col justify-center items-center w-full h-[400px] gap-3">
-        <p className="text-[25px] text-center tracking-wide mt-19 text-[#E8B77C] font-deswash">EXPERIENCE NEXT-GEN CARD GAMING</p>
-        <p className="text-[16px] text-center font-fe tracking-wide">Build, trade, and battle with your NFT deck</p>
-        <Button variant="third" size="small">
+        <p className="text-[25px] text-center mt-45 font-deswash bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text">EXPERIENCE NEXT-GEN CARD GAMING</p>
+        <p className="text-[16px] text-center font-fe tracking-wide mb-3">Build, trade, and battle with your NFT deck</p>
+        <Button variant="third" size="small" className="">
           EXPLORE
         </Button>
       </div>

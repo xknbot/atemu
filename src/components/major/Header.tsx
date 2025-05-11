@@ -133,9 +133,9 @@ const Header: React.FC = () => {
                         <Logo src="/LOGO.avif" alt="Atemu Logo" width={70} height={141} />
                     </Link>
                 </div>
-                <div className='relative flex items-center justify-center gap-5 z-20'>
+                <div className='relative flex items-center justify-center gap-3 z-20'>
                     <Button className="mx-auto">
-                        PLAY NOW
+                        PLAY FREE
                     </Button>
                     <div className='lg:hidden mt-1'>
                         <Navigation links={myNavLinks} />

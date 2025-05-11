@@ -78,7 +78,7 @@ const Partnership = () => {
 
             {/* Content - now with relative z-index to appear above the background */}
             <div className="relative z-10">
-                <p className='text-[25px] pb-20 flex justify-center text-center text-[#E8B77C] tracking-widest font-deswash'>OUR PARTNERS</p>
+                <p className='text-[25px] pb-20 flex justify-center text-center bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text tracking-widest font-deswash'>OUR PARTNERS</p>
 
                 {/* Row 1 - Moving Left to Right */}
                 <div className="relative w-full overflow-hidden mb-12">

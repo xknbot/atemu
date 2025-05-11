@@ -303,14 +303,14 @@ useEffect(() => {
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
-        <div className="max-w-lg text-[25px] text-center text-[#faf0fa] tracking-wide px-1 mt-30 -mb-15 font-deswash">
+        <div className="max-w-lg text-[25px] text-center bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text tracking-wide px-1 mt-30 -mb-15 font-deswash">
             {titleText}
         </div>
     ), []);
   
     const introComponent = useMemo(() => (
       <motion.div
-        className="font-fe text-[16px] text-center text-[#E8B77C] tracking-wide px-1 mt-20 mb-6 leading-5"
+        className="font-fe text-[16px] text-center text-[#faf0fa] tracking-wide px-1 mt-20 mb-6 leading-5"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}

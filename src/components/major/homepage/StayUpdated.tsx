@@ -61,7 +61,7 @@ const StayUpdated = () => {
                     viewport={{ once: true, amount: 1 }}
                     transition={{ duration: 0.7 }}
                 >
-                    <h2 className="text-[25px] font-bold text-[#faf0fa] mb-4 font-deswash">
+                    <h2 className="text-[25px] font-bold bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text mb-4 font-deswash">
                         STAY UPDATED
                     </h2>
                     <p className="text-[15px] text-[#faf0fa] mb-8 font-fe tracking-wide">
