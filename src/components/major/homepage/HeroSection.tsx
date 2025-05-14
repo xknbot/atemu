@@ -8,8 +8,7 @@ import TextLogo from '@/components/ui/AtemuTextLogo';
 
 import SwiperCore from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import styles from '@/styles/HeroSection.module.css';
 
 import { motion } from 'framer-motion';
@@ -30,7 +29,7 @@ interface HeroSlideData {
   altText?: string;
 }
 
-export default function HeroSection() {
+  export default function HeroSection() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
   const [realIndex, setRealIndex] = useState(0);
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
@@ -101,18 +100,18 @@ useEffect(() => {
 
   // Memoize slide data to prevent recreation on each render
   const slidesData: HeroSlideData[] = useMemo(() => [
-    {
-      id: 1,
-      type: 'video',
-      src: '/Hell Born.mp4',
-      altText: 'Hell Born video slide' 
-    },
     // {
     //   id: 1,
-    //   type: 'image',
-    //   src: '/HellbornGOD.webp',
+    //   type: 'video',
+    //   src: '/Hell Born.mp4',
     //   altText: 'Hell Born video slide' 
     // },
+    {
+      id: 1,
+      type: 'image',
+      src: '/HellbornGOD.webp',
+      altText: 'Hell Born video slide' 
+    },
     {
     id: 2,
     type: 'image',
@@ -138,49 +137,6 @@ useEffect(() => {
   const forceVideoStateUpdate = useCallback(() => {
     setVideoStateNonce(prev => prev + 1);
   }, []);
-
-  // Ref để ngăn handleVideoEnd chạy nhiều lần liên tiếp
-  const isHandlingVideoEnd = useRef(false);
-
-  // Memoize the video end handler
-  const handleVideoEnd = useMemo(() => {
-    return () => {
-      // Nếu đang xử lý rồi thì bỏ qua
-      if (isHandlingVideoEnd.current) {
-        // console.log('Video ended: Already handling, skipping.');
-        return;
-      }
-      isHandlingVideoEnd.current = true; // Đánh dấu là đang xử lý
-      // console.log(`Video ended: Handling.`);
-
-      const currentSlide = slidesData[realIndex]; // Lấy thông tin slide hiện tại
-
-      if (swiperInstance && currentSlide?.type === 'video') {
-        // Kiểm tra nếu video vừa kết thúc là video có id: 1
-        if (currentSlide.id === 1) {
-          // console.log(`Video ID 1 ended. Restarting Swiper autoplay to transition after its delay.`);
-          // Video có loop={false} nên sẽ không tự phát lại.
-          // Khởi động lại autoplay của Swiper để nó tự chuyển slide sau delay.
-          if (swiperInstance.autoplay && !swiperInstance.autoplay.running) {
-            swiperInstance.autoplay.start();
-            // Cập nhật lại trạng thái autoplayPaused vì Swiper autoplay giờ đã được chủ động bật lại
-            autoplayPaused.current = false; 
-          }
-          // KHÔNG gọi swiperInstance.slideNext() ở đây cho video id: 1
-        } else {
-          // Đối với các video khác, chuyển slide ngay như bình thường
-          // console.log(`Video ID ${currentSlide.id} ended. Calling slideNext().`);
-          swiperInstance.slideNext();
-        }
-      }
-      // Reset cờ sau một khoảng trễ nhỏ để cho phép state/effect cập nhật
-      setTimeout(() => {
-        isHandlingVideoEnd.current = false;
-      }, 100); // Giảm timeout, có thể điều chỉnh nếu cần
-    };
-  }, [swiperInstance, realIndex, slidesData]); // Thêm realIndex và slidesData vào dependencies
-
-  
 
   // Optimize effect to run only when necessary
   useEffect(() => {
@@ -211,10 +167,11 @@ useEffect(() => {
         const index = parseInt(indexStr, 10);
         if (vidElement) {
           // Always remove listeners added by this effect instance to prevent duplicates
-          vidElement.removeEventListener('ended', handleVideoEnd);
           vidElement.removeEventListener('play', forceVideoStateUpdate);
           vidElement.removeEventListener('pause', forceVideoStateUpdate);
           vidElement.removeEventListener('volumechange', forceVideoStateUpdate);
+          vidElement.removeEventListener('ended', handleVideoEnded);
+
 
           // Pause the video ONLY if it's NOT the currently active slide (realIndex)
           // and if it's actually playing. This prevents pausing the video we might be about to play.
@@ -224,6 +181,21 @@ useEffect(() => {
           }
         }
       });
+    };
+
+    // New function to handle when a video ends
+    const handleVideoEnded = () => {
+      // When video ends, restart Swiper autoplay and move to next slide
+      if (swiperInstance && autoplayPaused.current) {
+        swiperInstance.autoplay?.start();
+        autoplayPaused.current = false;
+
+        // Optional: Move to next slide after a short delay
+        setTimeout(() => {
+          swiperInstance.slideNext ();
+        }, 500);
+      }
+      forceVideoStateUpdate();
     };
 
     // --- Handle the CURRENT active slide ---
@@ -237,16 +209,18 @@ useEffect(() => {
 
       // --- Setup video playback and event listeners for the active video ---
       // Ensure previous listeners are removed before adding new ones (belt-and-suspenders with cleanup)
-      videoElement.removeEventListener('ended', handleVideoEnd);
       videoElement.removeEventListener('play', forceVideoStateUpdate);
       videoElement.removeEventListener('pause', forceVideoStateUpdate);
       videoElement.removeEventListener('volumechange', forceVideoStateUpdate);
+      videoElement.removeEventListener('ended', handleVideoEnded);
+
 
       // Add listeners for slide transition and UI updates
-      videoElement.addEventListener('ended', handleVideoEnd);
       videoElement.addEventListener('play', forceVideoStateUpdate);
       videoElement.addEventListener('pause', forceVideoStateUpdate);
       videoElement.addEventListener('volumechange', forceVideoStateUpdate);
+      videoElement.addEventListener('ended', handleVideoEnded);
+
 
       // --- Core Logic: Reset and Play Every Time ---
       videoElement.currentTime = 0;
@@ -276,7 +250,7 @@ useEffect(() => {
     }
 
     return cleanupVideos;
-  }, [realIndex, swiperInstance, slidesData, handleVideoEnd, forceVideoStateUpdate]);
+  }, [realIndex, swiperInstance, slidesData, forceVideoStateUpdate]);
 
   // Memoize static content to prevent unnecessary re-renders
   const staticContent = useMemo(() => (
@@ -288,25 +262,8 @@ useEffect(() => {
         alt="atemutextlogo"
         className=" w-100 max-w-100 h-auto mt-25 mb-10 md:mb-10 lg:mb-2"
       />
-      <motion.p
-        className="max-w-md text-[25px] tracking-wide mb-5 md:text-xl font-deswash bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text"
-      >
-        MYTHICALLY DEEP, STRATEGICALLY THRILLING, ENDLESSLY FUN
-      </motion.p>
-      <motion.p
-        className="text-[16px] font-fe text-[#faf0fa] max-w-lg tracking-wide leading-6 mb-5 font-bold lg:mb-10"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }} // Giảm duration để không quá chậm
-      >
-        Step into the battle of five legendary realms. Ancient power meets tactical supremacy. Collect NFT cards and Conquer!
-      </motion.p>
-      <div className='pointer-ev'>
-        <Button variant="secondary" >
-          JOIN NOW
-        </Button>
-      </div>
+
+      
     </div>
   ), []);
 
@@ -328,8 +285,10 @@ useEffect(() => {
         spaceBetween={0}
         loop={true}
         autoplay={{
-          delay: 5000,
+          delay: 7000,
           disableOnInteraction: false, // Giữ false để video không dừng autoplay khi bấm nút control
+          pauseOnMouseEnter: false, // Don't pause on mouse enter to make behavior consistent
+
         }}
         pagination={{ 
           dynamicBullets: true,
