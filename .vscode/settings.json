@@ -3,5 +3,6 @@
         "Atemu",
         "buộc"
     ],
-    "codium.codeCompletion.enable": false
+    "codium.codeCompletion.enable": false,
+    "workbench.settings.useSplitJSON": false
 }

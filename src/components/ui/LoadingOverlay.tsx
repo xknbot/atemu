@@ -129,7 +129,7 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ isLoading, progress = 0
           </div>
 
           {/* Lightning Bolt Progress Bar */}
-          <div className="w-64 h-6 relative">
+          <div className="w-64 h-6 relative hidden">
             {/* Lightning Flash Effect */}
             <svg width="100%" height="100%" viewBox="0 0 256 24" className="absolute inset-0">
               <defs>

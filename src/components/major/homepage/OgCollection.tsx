@@ -122,11 +122,11 @@ export default function OgCollection() {
           Strategic Mastery Forges Living Legends...
         </p> */}
          <div className="flex flex-col items-center">
-          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Strategic</p>
-          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Mastery</p>
-          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Forges</p>
-          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Living</p>
-          <p className="text-[25px] text-white text-center font-deswash tracking-wide">Legends</p>
+          <p className="text-[20px] text-white text-center font-deswash tracking-wide">Strategic</p>
+          <p className="text-[20px] text-white text-center font-deswash tracking-wide">Mastery</p>
+          <p className="text-[20px] text-white text-center font-deswash tracking-wide">Forges</p>
+          <p className="text-[20px] text-white text-center font-deswash tracking-wide">Living</p>
+          <p className="text-[20px] text-white text-center font-deswash tracking-wide">Legends</p>
         </div>
       </motion.div>
 

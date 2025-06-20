@@ -7,7 +7,7 @@
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@emnapi/core@^1.4.0":
+"@emnapi/core@^1.4.3":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@emnapi/core/-/core-1.4.3.tgz#9ac52d2d5aea958f67e52c40a065f51de59b77d6"
   integrity sha512-4m62DuCE07lw01soJwPiBGC0nAww0Q+RY70VZ+n49yDIO13yyinhbWCeNnaob0lakDtWQzSdtNWzJeOJt2ma+g==
@@ -15,7 +15,7 @@
     "@emnapi/wasi-threads" "1.0.2"
     tslib "^2.4.0"
 
-"@emnapi/runtime@^1.2.0", "@emnapi/runtime@^1.4.0":
+"@emnapi/runtime@^1.2.0", "@emnapi/runtime@^1.4.3":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@emnapi/runtime/-/runtime-1.4.3.tgz#c0564665c80dc81c448adac23f9dfbed6c838f7d"
   integrity sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==
@@ -237,12 +237,12 @@
   integrity sha512-MpY/o8/8kj+EcnxwvrP4aTJSWw/aZ7JIGR4aBeZkZw5B7/Jn+tY9/VNwtcoGmdT7GfggGIU4kygOMSbYnOrAbg==
 
 "@napi-rs/wasm-runtime@^0.2.7":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.9.tgz#7278122cf94f3b36d8170a8eee7d85356dfa6a96"
-  integrity sha512-OKRBiajrrxB9ATokgEQoG87Z25c67pCpYcCwmXYX8PBftC9pBfN18gnm/fh1wurSLEKIAt+QRFLFCQISrb66Jg==
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.10.tgz#f3b7109419c6670000b2401e0c778b98afc25f84"
+  integrity sha512-bCsCyeZEwVErsGmyPNSzwfwFn4OdxBj0mmv6hOFucB/k81Ojdu68RbZdxYsRQUPc9l6SU5F/cG+bXgWs3oUgsQ==
   dependencies:
-    "@emnapi/core" "^1.4.0"
-    "@emnapi/runtime" "^1.4.0"
+    "@emnapi/core" "^1.4.3"
+    "@emnapi/runtime" "^1.4.3"
     "@tybys/wasm-util" "^0.9.0"
 
 "@next/env@15.2.4":
@@ -440,14 +440,14 @@
 
 "@tanstack/react-virtual@^3.13.6":
   version "3.13.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.13.6.tgz#30243c8c3166673caf66bfbf5352e1b314a3a4cd"
+  resolved "https://registry.npmjs.org/@tanstack/react-virtual/-/react-virtual-3.13.6.tgz"
   integrity sha512-WT7nWs8ximoQ0CDx/ngoFP7HbQF9Q2wQe4nh2NB+u2486eX3nZRE40P9g6ccCVq7ZfTSH5gFOuCoVH5DLNS/aA==
   dependencies:
     "@tanstack/virtual-core" "3.13.6"
 
 "@tanstack/virtual-core@3.13.6":
   version "3.13.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.13.6.tgz#329f962f1596b3280736c266a982897ed2112157"
+  resolved "https://registry.npmjs.org/@tanstack/virtual-core/-/virtual-core-3.13.6.tgz"
   integrity sha512-cnQUeWnhNP8tJ4WsGcYiX24Gjkc9ALstLbHcBj1t3E7EimN6n6kHH+DPV4PpDnuw00NApQp+ViojMj1GRdwYQg==
 
 "@tsparticles/basic@3.8.1", "@tsparticles/basic@^3.7.1":
@@ -468,7 +468,7 @@
 
 "@tsparticles/engine@3.8.1", "@tsparticles/engine@^3.7.1", "@tsparticles/engine@^3.8.1":
   version "3.8.1"
-  resolved "https://registry.yarnpkg.com/@tsparticles/engine/-/engine-3.8.1.tgz#1dc538cdb043757c8b8a90bd03b1069c1801cc1e"
+  resolved "https://registry.npmjs.org/@tsparticles/engine/-/engine-3.8.1.tgz"
   integrity sha512-S8h10nuZfElY7oih//NUHnT5qf4v3/dnsU8CMs7dz5lBEGr3amrYrXk0V+YKPTIQwfdmJHUaSBoAqFiv4aEGIA==
 
 "@tsparticles/interaction-external-attract@3.8.1":
@@ -643,7 +643,7 @@
 
 "@tsparticles/preset-stars@^3.2.0":
   version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@tsparticles/preset-stars/-/preset-stars-3.2.0.tgz#fad23fcd23753128e9e2e678b796ba9ac07b06ac"
+  resolved "https://registry.npmjs.org/@tsparticles/preset-stars/-/preset-stars-3.2.0.tgz"
   integrity sha512-sCqqRD0/wq8YAJf/izu4Bv2Ol5SRMZtK3SVzRjaxNdhW5Wf0iw2aCt81Ve8YklIii2I6vYAPWjGtTPGUiyZpwg==
   dependencies:
     "@tsparticles/basic" "^3.7.1"
@@ -651,7 +651,7 @@
 
 "@tsparticles/react@^3.0.0":
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@tsparticles/react/-/react-3.0.0.tgz#d0a794ba53164eb39ce88a3961be723a636b37c0"
+  resolved "https://registry.npmjs.org/@tsparticles/react/-/react-3.0.0.tgz"
   integrity sha512-hjGEtTT1cwv6BcjL+GcVgH++KYs52bIuQGW3PWv7z3tMa8g0bd6RI/vWSLj7p//NZ3uTjEIeilYIUPBh7Jfq/Q==
 
 "@tsparticles/shape-circle@3.8.1":
@@ -1857,7 +1857,7 @@ framer-motion@^12.6.3:
 
 framer-motion@^12.7.4:
   version "12.7.4"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.7.4.tgz#50aeb8b5b5a672dea931bdb74956d7b526bf0b4b"
+  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-12.7.4.tgz"
   integrity sha512-jX0bPsTmU0oPZTYz/dVyD0dmOyEOEJvdn0TaZBE5I8g2GvVnnQnW9f65cJnoVfUkY3WZWNXGXnPbVA9YnaIfVA==
   dependencies:
     motion-dom "^12.7.4"
@@ -1967,6 +1967,16 @@ graphemer@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/graphemer/-/graphemer-1.4.0.tgz"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
+
+gsap@^3.13.0:
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.13.0.tgz#597d4e019a2bb487785387d91296adebf92db9dd"
+  integrity sha512-QL7MJ2WMjm1PHWsoFrAQH/J8wUeqZvMtHO58qdekHpCfhvhSL4gSiz6vJf5EeMP0LOn3ZCprL2ki/gjED8ghVw==
+
+hamburger-react@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/hamburger-react/-/hamburger-react-2.5.2.tgz#6224277593a03904b315d32a18a5fba0c04d8dc1"
+  integrity sha512-xsv/I7wQX1RDaulDnvMVCXMMRXnkwnUnkE8seD5eNVZJ4nIrjtK5LLA20l5x/pJ+mPWOzlFxW32VJ86Gbo2Njw==
 
 has-bigints@^1.0.2:
   version "1.1.0"
@@ -2458,7 +2468,7 @@ motion-dom@^12.7.3:
 
 motion-dom@^12.7.4:
   version "12.7.4"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.7.4.tgz#80f5f8d706e94bc29f6f4f4afa300ff9e1f976a2"
+  resolved "https://registry.npmjs.org/motion-dom/-/motion-dom-12.7.4.tgz"
   integrity sha512-1ZUHAoSUMMxP6jPqyxlk9XUfb6NxMsnWPnH2YGhrOhTURLcXWbETi6eemoKb60Pe32NVJYduL4B62VQSO5Jq8Q==
   dependencies:
     motion-utils "^12.7.2"
@@ -2470,7 +2480,7 @@ motion-utils@^12.7.2:
 
 motion@^12.7.4:
   version "12.7.4"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-12.7.4.tgz#d0a6032ccc6323e996caf0bc2ba6d0262fcc6214"
+  resolved "https://registry.npmjs.org/motion/-/motion-12.7.4.tgz"
   integrity sha512-MBGrMbYageHw4iZJn+pGTr7abq5n53jCxYkhFC1It3vYukQPRWg5zij46MnwYGpLR8KG465MLHSASXot9edYOw==
   dependencies:
     framer-motion "^12.7.4"
@@ -2684,6 +2694,16 @@ prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+
+prettier-plugin-tailwindcss@^0.6.12:
+  version "0.6.12"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.6.12.tgz#280cf901facf18014c79b8641f69623892006f0b"
+  integrity sha512-OuTQKoqNwV7RnxTPwXWzOFXy6Jc4z8oeRZYGuMpRyG3WbuR3jjXdQFK8qFBMBx8UHWdHrddARz2fgUenild6aw==
+
+prettier@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.3.tgz#4fc2ce0d657e7a02e602549f053b239cb7dfe1b5"
+  integrity sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==
 
 prop-types@^15.8.1:
   version "15.8.1"

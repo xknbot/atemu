@@ -21,6 +21,8 @@ import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
+import FlameButton from '@/components/ui/FlameButton';
+
 // Define the data for each slide
 interface HeroSlideData {
   id: number;
@@ -116,20 +118,32 @@ useEffect(() => {
     id: 2,
     type: 'image',
     src: HeroImage,
-    altText: 'Hero background 1' 
+    altText: 'Greece background ' 
     },
     {
       id: 3,
       type: 'image',
-      src: '/J1.png',
-      altText: 'Hell Born video slide' 
+      src: '/JapanGOD.webp',
+      altText: 'Shinto video slide' 
     },
     {
       id: 4,
       type: 'image',
       src: '/E2.webp',
-      altText: 'Hell Born video slide' 
+      altText: 'Egypt video slide' 
     },
+    {
+      id: 5,
+      type: 'video',
+      src: '/VikingGOD.mp4',
+      altText: 'Viking video slide' 
+    },
+    // {
+    //   id: 6,
+    //   type: 'image',
+    //   src: '/VikingGOD.webp',
+    //   altText: 'Viking video slide' 
+    // },
     // Add other slides here
   ], []);
 
@@ -255,13 +269,28 @@ useEffect(() => {
   // Memoize static content to prevent unnecessary re-renders
   const staticContent = useMemo(() => (
     <div className="h-full flex flex-col items-center justify-center relative z-10 pointer-events-auto">
-      <TextLogo
-        src="/ATEMU-TEXT.png"
-        width={300}
-        height={111}
-        alt="atemutextlogo"
-        className=" w-100 max-w-100 h-auto mt-25 mb-10 md:mb-10 lg:mb-2"
-      />
+      {/* <Button 
+        variant="primary" 
+        size="large"
+        onClick={() => {
+          // Add your play action here
+          console.log('Play Now clicked!');
+          // Example: window.location.href = '/play';
+        }}
+        className="mt-4 lg:hover:scale-105 transition-transform duration-500"
+      >
+        PLAY NOW
+      </Button> */}
+
+      <FlameButton 
+      onClick={() => {
+        console.log('Play Now clicked!');
+        // Example: window.location.href = '/play';
+      }}
+      className="mt-4"
+    >
+      PLAY NOW
+    </FlameButton>
 
       
     </div>
@@ -285,7 +314,7 @@ useEffect(() => {
         spaceBetween={0}
         loop={true}
         autoplay={{
-          delay: 7000,
+          delay: 6000,
           disableOnInteraction: false, // Giữ false để video không dừng autoplay khi bấm nút control
           pauseOnMouseEnter: false, // Don't pause on mouse enter to make behavior consistent
 
@@ -455,7 +484,7 @@ useEffect(() => {
                 </div>
               )}
               {/* Lớp phủ mờ và nội dung tĩnh không cần thiết trong từng slide nếu đã có ở ngoài */}
-              <div className="absolute inset-0 bg-black/20 z-10"></div>
+              <div className="absolute inset-0 z-10"></div>
               {/* <div className="relative z-20 h-full flex flex-col justify-center items-center px-4 text-center"></div> */}
             </SwiperSlide>
           );
@@ -465,7 +494,7 @@ useEffect(() => {
       {/* Di chuyển nội dung tĩnh ra ngoài Swiper để nó luôn hiển thị */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 text-center pointer-events-none">
         {/* Lớp phủ nhẹ để tăng độ tương phản cho text */}
-        <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 inset-0 bg-gradient-to-t from-black/100 to-transparent z-0 pointer-events-none"></div>
         {/* Render nội dung tĩnh đã được memoize */}
         <div className="pointer-events-none">
           {staticContent}

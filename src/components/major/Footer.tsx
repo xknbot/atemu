@@ -53,14 +53,14 @@ const Footer = () => {
                 </Link>
                 <div className="grid grid-cols-2 grid-rows-3 gap-10 text-[15px] font-deswash md:grid-cols-3 md:grid-rows-3">
                     <Link href={'/'} className='text-left md:text-center'>About</Link>
-                    <Link href={'/'} className="text-right md:text-center">Marketplace</Link>
-                    <Link href={'/'} className='text-left md:text-center'>Terms of Use</Link>
+                    <Link href={'/'} className="text-right md:textcenter">Marketplace</Link>
+                    <Link href={'/'} className='text-left md:text-center'>Terms o   f Use</Link>
                     <Link href={'/'} className="text-right md:text-center">Support</Link>
                     <Link href={'/'} className='text-left md:text-center'>Community</Link>
                     <Link href={'/'} className="text-right md:text-center">Privacy Policy</Link>
                 
                 </div>
-                <p className="text-center text-[15px] font-fe">© 2025 Atemu. All Right Reserved</p>
+                <p className="text-center text-[15px] font-fe">© 2025 ATEMU. RYG.Labs</p>
             </div>
         </footer>
     )

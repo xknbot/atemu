@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import 'normalize.css';
+
 
 
 :root {
@@ -32,6 +32,33 @@ h1 { /* Example heading style */
 
 /* --- Existing Animations --- */
 
+/* Radial gradient effect */
+.bg-radial-gradient {
+  background-image: radial-gradient(
+    circle at center,
+    var(--tw-gradient-from),
+    var(--tw-gradient-to)
+  );
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.glow-animation {
+  animation: glow-pulse 10s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
 
 @keyframes fade-in-up {
   from {
@@ -49,12 +76,16 @@ h1 { /* Example heading style */
 
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Fix the fade-in-rotate keyframes syntax */
+@keyframes fade-in-rotate {
+  from { opacity: 0; transform: rotate(90deg) translateY(-50px); }
+  to { opacity: 1; transform: rotate(0deg) translateY(0px); }
 }
+
+/* Fix animation class */
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+  animation: fade-in-rotate 1s ease-out forwards;
+  animation-delay: var(--animation-delay, 0ms);
 }
 
 
@@ -174,13 +205,4 @@ h1 { /* Example heading style */
 
 .video-controls-container input[type="range"]::-webkit-slider-thumb {
   background: #E8B77C;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
 }

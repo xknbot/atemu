@@ -72,7 +72,6 @@ export default function Home() {
       <IntroCollection />
       <CardShow />
       <Gameplay />
-      <Partnership />
       <StayUpdated/>
     </main>
   );

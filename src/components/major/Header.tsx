@@ -1,27 +1,27 @@
 'use client'
 
 import React, { useCallback } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import Button from '../ui/Button';
 import Logo from '@/components/ui/AtemuLogo';
 import Navigation from '@/components/ui/Navigation';
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import type { Engine } from "tsparticles-engine";
+import HamburgerMenu from '../ui/HamburgerMenu';
+
 
 
 
 const Header: React.FC = () => {
-    const myNavLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/cards', label: 'Cards' },
-    { href: '/lore', label: 'Lore' },
-    { href: '/gameplay', label: 'Gameplay' },
-    { href: '/marketplace', label: 'Marketplace' },
-    { href: '/community', label: 'Community' },
+    // const myNavLinks = [
+    // { href: '/', label: 'Home' },
+    // { href: '/howtoplay', label: 'How to Play' },
+    // { href: '/cards', label: 'Cards' },
+    // { href: '/marketplace', label: 'Marketplace' },
+    // { href: '/community', label: 'Community' },
+    // { href: '/supportnnews', label: 'Support & News' },
     
-    ];
+    // ];
 
     const particlesInit = useCallback(async (engine: Engine) => {
         await loadSlim(engine);
@@ -33,18 +33,20 @@ const Header: React.FC = () => {
 
         <header className='sticky top-0 z-50 w-full'>
 
-            {/* row 1: Partner */}
-            <div className=' flex justify-center items-center gap-3 w-full bg-gradient-to-b from-[#131417] from-10% to-[#444656] to-100% px-10 py-1'>
-                <p className='text-[16px] font-incon'>POWERED BY</p>
-                <Image src='/STARKNET-LOGO.avif' width={99} height={34} alt='starknetlogo'/>
-            </div>
-
             {/* row 2: Header */}
-            <div className=' relative flex justify-between items-center w-full h-15 bg-[#131417]/90 backdrop-blur-md px-7 z-40'>
+            <div className='relative flex items-center w-full h-20 bg-[#131417]/90 backdrop-blur-md px-7 z-0 border-b-1 border-[#E8B77C]/60'>
+                <div className="absolute inset-0 w-full h-full z-10">
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-32 
+                                    bg-gradient-to-t from-[#E9312B]/20 via-[#1886F1]/20 to-transparent 
+                                    rounded-full blur-2xl mix-blend-soft-light glow-animation" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-24 
+                                    bg-radial-gradient(circle_at_center, #1886F1/20 0%, transparent 70%) 
+                                    blur-xl mix-blend-soft-light glow-animation" />
+                    </div>
                 <Particles
                     id="tsparticles"
                     init={particlesInit}
-                    className="absolute top-0 left-0 w-full h-full"
+                    className="absolute top-0 left-0 w-full h-full z-20"
                     options={{
                         background: {
                             color: "transparent"
@@ -128,20 +130,24 @@ const Header: React.FC = () => {
                         detectRetina: true
                     }}
                 />
-                <div className='z-20'>
+                <div className='relative flex items-center justify-start gap-3 z-50 ml-auto'>
+                    <div className='lg:hidden mt-1'>
+                        <HamburgerMenu className='' />
+                    </div>
+
+                </div>
+                
+  
+                {/* Centered Logo */}
+                <div className='z-30 absolute left-1/2 -translate-x-1/2 translate-y-4.5'>
                     <Link href={'/'}>
-                        <Logo src="/LOGO.avif" alt="Atemu Logo" width={70} height={141} />
+                    <Logo src="/ATEMU-TEXT.png" alt="Atemu Logo" width={70} height={141} className='w-45 h-auto'/>
                     </Link>
                 </div>
-                <div className='relative flex items-center justify-center gap-3 z-20'>
-                    <Button className="mx-auto">
-                        PLAY FREE
-                    </Button>
-                    <div className='lg:hidden mt-1'>
-                        <Navigation links={myNavLinks} />
-                    </div>
-        
-                </div>
+
+                {/* Right-aligned Navigation */}
+                
+                <div className="flex-1"></div>
             </div>
 
         </header>
