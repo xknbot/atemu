@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "../styles/globals.css";
-import Header from "../components/major/Header"
-import Footer from "../components/major/Footer";
+import Header from "../components/layout/Header"
+import Footer from "../components/layout/Footer";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
 export const viewport = {
@@ -13,6 +13,7 @@ export const viewport = {
 const ancientGod = localFont({
   src: './fonts/Ancient God.woff2',
   display: 'swap',
+  variable: '--font-ancientGod',
 })
 
 const deSwash = localFont({
@@ -50,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ancientGod.className} ${spaceGames.variable} ${deSwash.variable} ${fe.variable} ${inconsolata.variable} max-w-full`}>
+    <html lang="en" className={`${inconsolata.className} ${spaceGames.variable} ${deSwash.variable} ${fe.variable} ${ancientGod.variable} w-full`}>
       <body className={` antialiased`}>
         <Header />
         {children}

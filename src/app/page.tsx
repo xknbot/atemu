@@ -1,22 +1,22 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import HeroSection from "@/components/major/homepage/HeroSection";
-import IntroCollection from "@/components/major/homepage/IntroCollection";
-import CardShow from "@/components/major/homepage/CardShow";
-import Gameplay from "@/components/major/homepage/Gameplay";
-import Partnership from "@/components/major/homepage/Partnership";
-import StayUpdated from "@/components/major/homepage/StayUpdated";
+import HeroSection from "@/components/layout/homepage/HeroSection";
+import IntroCollection from "@/components/layout/homepage/IntroCollection";
+import CardShow from "@/components/layout/homepage/CardShow";
+import Gameplay from "@/components/layout/homepage/Gameplay";
+import Partnership from "@/components/layout/homepage/Partnership";
+import StayUpdated from "@/components/layout/homepage/StayUpdated";
 import LoadingOverlay from "@/components/ui/LoadingOverlay";
 
 
 
 // On the page where IntroAtemu is used (e.g., pages/index.tsx)
 import dynamic from 'next/dynamic';
-import OgCollection from '@/components/major/homepage/OgCollection';
+import OgCollection from '@/components/layout/homepage/OgCollection';
 
 // Dynamically import IntroAtemu
-const IntroAtemu = dynamic(() => import('@/components/major/homepage/IntroAtemu'), {
+const IntroAtemu = dynamic(() => import('@/components/layout/homepage/IntroAtemu'), {
   // Optional: Add a loading component while IntroAtemu is loading
   loading: () => <p>Loading...</p>,
   // Optional: Disable SSR if it relies heavily on browser APIs not available server-side
@@ -56,20 +56,20 @@ export default function Home() {
       setTimeout(() => setIsPageLoading(false), 500); // Give time for 100% to show
       observer.disconnect();
     }, minLoadingTime);
-    
-    return () => {
-      clearTimeout(timer);
-      observer.disconnect();
+    h
+
+   ‘, mn`  
+   ` 
     };
   }, []);
   
   return (
-    <main className="bg-[#000] w-screen h-full">
+    <main className="bg-[#000] w-full h-full">
       <LoadingOverlay isLoading={isPageLoading} progress={loadingProgress} />
       <HeroSection />
       <IntroAtemu />
-      <OgCollection/>
-      <IntroCollection />
+      {/* <OgCollection/> */}
+      {/* <IntroCollection /> */}
       <CardShow />
       <Gameplay />
       <StayUpdated/>

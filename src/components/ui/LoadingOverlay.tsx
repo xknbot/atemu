@@ -72,14 +72,14 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ isLoading, progress = 0
                 )`
               }}
             />
-          </div> */}
+          </div>  */}
 
             
           
           {/* Loading Text with Lightning Fill Effect */}
           <div className="relative mt-6 mb-2 flex justify-center">
             {/* Base Text */}
-            <p className="text-3xl text-[#E8B77C] opacity-30">ATEMU</p>
+            <p className="text-3xl text-[#E8B77C] opacity-30 font-aG">ATEMU</p>
             
             {/* Lightning Fill Container with Mask */}
             <div 
@@ -100,7 +100,7 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ isLoading, progress = 0
             >
               {/* Filled Text with Glow */}
               <motion.p 
-                className="text-3xl text-[#E8B77C]"
+                className="text-3xl text-[#E8B77C] font-aG"
                 animate={{ 
                   textShadow: [
                     '0 0 3px rgba(232, 183, 124, 0.7)',

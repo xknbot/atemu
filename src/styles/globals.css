@@ -3,8 +3,10 @@
 
 
 :root {
-  --background: #131417;
-  --foreground: #fafafa;
+  --background: #131417; /* black color */
+  --foreground: #fafafa; /* white color */
+
+  
   /* Example: Define different font sizes */
   --base-font-size: 16px;
   --heading-font-size: 3rem;
@@ -17,6 +19,7 @@
   --font-deswash: var(--font-deSwash);
   --font-fe: var(--font-fe);
   --font-incon: var(--font-incon);
+  --font-aG: var(--font-ancientGod);
 
 }
 
@@ -47,7 +50,7 @@ h1 { /* Example heading style */
 }
 
 .glow-animation {
-  animation: glow-pulse 10s ease-in-out infinite;
+  animation: glow-pulse 20s ease-in-out infinite;
 }
 
 @keyframes fadeIn {
