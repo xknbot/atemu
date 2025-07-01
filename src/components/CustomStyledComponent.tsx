@@ -14,7 +14,7 @@ const CustomStyledComponent = () => {
 
       {/* Button with inline styles if needed */}
       <div className="flex gap-4">
-        <Button className="flex-1" variant="secondary">
+        <Button className="flex-1" variant="third">
           Full Width
         </Button>
         <Button className="w-32" variant="third">
