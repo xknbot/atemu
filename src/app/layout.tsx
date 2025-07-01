@@ -5,6 +5,8 @@ import Header from "../components/layout/Header"
 import Footer from "../components/layout/Footer";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
+import { Analytics } from "@vercel/analytics/next"
+
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
