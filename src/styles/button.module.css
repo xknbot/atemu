@@ -1,4 +1,4 @@
-/* Keep all your existing base styles (.button, .button--primary, etc.) */
+/* default button base style */
 .button {
   border-radius: 10px;
   cursor: pointer;
@@ -7,6 +7,7 @@
   box-shadow: 0px 3px 5px #131417;
 }
 
+/* button primary style */
 .button--primary {
   background: linear-gradient(0deg, #E9312B 0%, #851D1A 9%, #E9312B 100%);
   color: #faf0fa;
@@ -14,13 +15,7 @@
   /* text-shadow: 1px 1px 2px black; */
 }
 
-.button--secondary {
-  background: linear-gradient(45deg, #E9312B 100%, #E8B77C 0%);
-  color: #faf0fa;
-  transition: all 0.5s ease-in-out;
-  border: 1px solid #faf0fa;
-}
-
+/* button third style */
 .button--third {
   background: linear-gradient(45deg, #E9312B 100%, #E8B77C 0%);
   color: #faf0fa;
@@ -48,33 +43,31 @@
   animation-play-state: running;
 }
 
-/* Keep size, disabled, loading, spinner styles */
+/* default small button size */
 .button--small {
   padding: 6px 15px;
   font-size: 14px;
 }
 
-.button--medium {
-  font-size: 18px;
-  padding: 8px 15px;
-  font-weight: bold;
-}
-
+/* default large button size */
 .button--large {
   padding: 10px 130px;
   font-size: 20px;
 }
 
+/* default button disabled state */
 .button--disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
+/* default button loading state */
 .button--loading {
   position: relative;
   cursor: wait;
 }
 
+/* default button spinner state */
 .spinner {
   display: inline-block;
   width: 16px;
@@ -85,48 +78,6 @@
   animation: spin 1s linear infinite;
 }
 
-/* Keep keyframes */
-@keyframes flash {
-  0% {
-    left: -150%;
-  }
-  20%, 100% {
-    left: 150%;
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* --- Media Query for Hover Effects --- */
-/* Apply hover styles ONLY on screens 1024px and wider */
-@media (min-width: 1024px) {
-  .button--primary:hover {
-    color: #131417;
-    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
-  }
-
-  .button--secondary:hover {
-    color: #131417;
-    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
-    box-shadow: inset 0 0 4px #000;
-  }
-
-  .button--third:hover {
-    color: #131417;
-    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
-  }
-
-  .button--third:hover::before {
-    /* Pauses the flash animation on hover only on larger screens */
-    animation-play-state: paused;
-  }
-
-}
-
 /* Keep .no-hover outside if it's for disabled state regardless of screen size */
 .no-hover:hover {
   /* Loại bỏ hiệu ứng hover khi disabled */
@@ -134,6 +85,7 @@
   cursor: not-allowed !important; /* Đảm bảo con trỏ không thay đổi */
 }
 
+/* button with flame effect */
 .button--flame {
   position: relative;
   overflow: hidden;
@@ -164,11 +116,49 @@
   mix-blend-mode: screen;
 } 
 
+/* keyframes */
+@keyframes flash {
+  0% {
+    left: -150%;
+  }
+  20%, 100% {
+    left: 150%;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Media Query for Hover Effects --- */
+/* Apply hover styles ONLY on screens 1024px and wider */
 @media (min-width: 1024px) {
+  .button--primary:hover {
+    color: #131417;
+    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
+  }
+
+
+  .button--third:hover {
+    color: #131417;
+    background: linear-gradient(45deg, #E9312B 30%, #E8B77C 100%);
+  }
+
+  .button--third:hover::before {
+    /* Pauses the flash animation on hover only on larger screens */
+    animation-play-state: paused;
+  }
+
   .button--flame:hover::before {
     top: -10%;
     left: 120%;
     opacity: 1;
     filter: blur(10px);
   }
+
 }
+
+
+

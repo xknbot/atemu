@@ -292,7 +292,7 @@ useEffect(() => {
             </div>
             <div className="w-full max-w-lg flex flex-col">
                 {introComponent}
-                <Button size='small' className='' variant='third'>
+                <Button size='large' variant='primary' isFlameEffect={true} className=''>
                   DISCOVER THE LORE
                 </Button>
             </div>

@@ -280,7 +280,7 @@ export default function CardShow() {
           >
             <div
               ref={column1Ref}
-              className="h-full overflow-auto"
+              className="h-full"
               style={{
                 willChange: 'transform',
                 overscrollBehavior: 'none',

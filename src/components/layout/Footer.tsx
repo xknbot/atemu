@@ -67,7 +67,7 @@ const Footer = () => {
 
                         <div className='hidden lg:flex lg:justify-between lg:items-center lg:w-[35%] lg:h-[17%]'>
                             <Image src="/partnership/strkfoundation.avif" alt="brand1" width={50} height={50} />
-                            <Image src="/partnership/TheRootNetwork-Origin.webp" alt="brand2" width={90} height={50} />
+                            
 
                         </div>
                     </div>

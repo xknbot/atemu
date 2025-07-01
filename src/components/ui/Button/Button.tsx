@@ -8,8 +8,8 @@ import styles from '@/styles/button.module.css'; // Giả định có file CSS M
 interface ButtonProps {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'third';
-  size?: 'small' | 'medium' | 'large';
+  variant?: 'primary' | 'third';
+  size?: 'small' | 'large';
   disabled?: boolean;
   loading?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   type = 'button',
   variant = 'primary',
-  size = 'medium',
+  size = 'large',
   disabled = false,
   loading = false,
   onClick,
