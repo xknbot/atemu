@@ -56,10 +56,10 @@ export default function Home() {
       setTimeout(() => setIsPageLoading(false), 500); // Give time for 100% to show
       observer.disconnect();
     }, minLoadingTime);
-    h
-
-   ‘, mn`  
-   ` 
+    
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
     };
   }, []);
   

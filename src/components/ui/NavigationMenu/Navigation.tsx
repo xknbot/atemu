@@ -1,7 +1,13 @@
 "use client";
 
 // import section
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import Link from "next/link";
 import Logo from "../AtemuLogo";
 
@@ -14,10 +20,8 @@ import { TfiSearch } from "react-icons/tfi";
 
 import Form from "next/form";
 
-
 import gsap from "gsap";
 import { hover } from "framer-motion";
-
 
 // Define the structure for navigation items
 interface NavItem {
@@ -33,14 +37,13 @@ interface NavigationProps {
   hoveredIndex: number | null;
   setHoveredIndex: (index: number | null) => void;
   indexOffset?: number;
-
 }
 
 // Default navigation items
 const defaultNavItems: NavItem[] = [
   {
     label: "Play",
-    href: "#forbeginner",
+    href: "https://atemu.xyz",
     subItems: [
       {
         label: "Cards Database",
@@ -69,7 +72,7 @@ const defaultNavItems: NavItem[] = [
     label: "Store",
     href: "#store",
     subItems: [
-      { label: "Flex Marketplace", href: "#flexmarketplace" },
+      { label: "Flex Marketplace", href: "https://hyperflex.market/" },
       { label: "Transactions History", href: "#transactionshistory" },
     ],
   },
@@ -85,10 +88,7 @@ const defaultNavItems: NavItem[] = [
   {
     label: "Events",
     href: "#events",
-    subItems: [
-      { label: "Coming soon", href: "#comingsoon" },
-
-    ],
+    subItems: [{ label: "Coming soon", href: "#comingsoon" }],
   },
 ];
 
@@ -111,7 +111,6 @@ const Navigation: React.FC<NavigationProps> = ({
   const navRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<(HTMLLIElement | null)[]>([]);
 
-
   // Toggle menu
   const toggleMenu = useCallback(() => {
     // setIsOpen((prev) => !prev);
@@ -125,17 +124,20 @@ const Navigation: React.FC<NavigationProps> = ({
   }, []);
 
   // Toggle accordion
-  const handleAccordionToggle = useCallback((index: number) => {
-    setOpenAccordionIndex(openAccordionIndex === index ? null : index);
-  }, [openAccordionIndex]);
+  const handleAccordionToggle = useCallback(
+    (index: number) => {
+      setOpenAccordionIndex(openAccordionIndex === index ? null : index);
+    },
+    [openAccordionIndex],
+  );
 
-    // Set up GSAP time   lines
-    const menuTl = useRef(gsap.timeline({
-        paused: true
-    }));
-  
-  
-    
+  // Set up GSAP time   lines
+  const menuTl = useRef(
+    gsap.timeline({
+      paused: true,
+    }),
+  );
+
   // initial GSAP setup whole menu animation
   useEffect(() => {
     // Reset timeline
@@ -143,8 +145,17 @@ const Navigation: React.FC<NavigationProps> = ({
 
     // Create a new timeline for menu animations
     menuTl.current
-      .to(overlayRef.current, { autoAlpha: 1,duration: 0.4,ease: "power2.inOut",willChange: 'opacity'})
-      .to(navRef.current,{x: 0,duration: 0.8,ease: "power2.out",willChange: 'transform'},"-=0.1")
+      .to(overlayRef.current, {
+        autoAlpha: 1,
+        duration: 0.4,
+        ease: "power2.inOut",
+        willChange: "opacity",
+      })
+      .to(
+        navRef.current,
+        { x: 0, duration: 0.8, ease: "power2.out", willChange: "transform" },
+        "-=0.1",
+      )
       .fromTo(
         menuItemsRef.current.filter((item) => item !== null), // filter out null items
         { x: -20, autoAlpha: 0 }, // Start state
@@ -155,14 +166,17 @@ const Navigation: React.FC<NavigationProps> = ({
           stagger: 0.2,
           duration: 0.3,
           ease: "power2.out",
-          willChange: 'transform, opacity',
+          willChange: "transform, opacity",
         },
         "-=0.1",
       );
     // Set initial states
-    gsap.set(overlayRef.current, { autoAlpha: 0, willChange: 'opacity' });
-    gsap.set(navRef.current, { x: "-100%", willChange: 'transform' });
-    gsap.set(menuItemsRef.current.filter((item) => item !== null),{ autoAlpha: 0 });
+    gsap.set(overlayRef.current, { autoAlpha: 0, willChange: "opacity" });
+    gsap.set(navRef.current, { x: "-100%", willChange: "transform" });
+    gsap.set(
+      menuItemsRef.current.filter((item) => item !== null),
+      { autoAlpha: 0 },
+    );
 
     // Capture the ref value here
     const menuTimeline = menuTl.current;
@@ -171,8 +185,6 @@ const Navigation: React.FC<NavigationProps> = ({
       menuTimeline.kill();
     };
   }, [navItems]);
-
-  
 
   // Play/reverse animation when menu state changes
   useEffect(() => {
@@ -186,8 +198,6 @@ const Navigation: React.FC<NavigationProps> = ({
       document.body.style.overflow = "";
     }
   }, [isOpen]);
-
-  
 
   // Nested Accordion component for sub-items
   const NestedAccordion = ({ items }: { items: NavItem[] }) => {
@@ -356,7 +366,9 @@ const Navigation: React.FC<NavigationProps> = ({
               {navItems.map((item, index) => (
                 <li
                   key={item.label + index}
-                  ref={(el) => { menuItemsRef.current[index] = el }}
+                  ref={(el) => {
+                    menuItemsRef.current[index] = el;
+                  }}
                 >
                   {item.subItems ? (
                     // Accordion header for items with subItems
@@ -437,7 +449,7 @@ const Navigation: React.FC<NavigationProps> = ({
       <nav className="hidden lg:block">
         <ul className="flex space-x-8">
           {memoizedNavItems.map((item, index) => {
-            const uniqueIndex =  index + indexOffset;
+            const uniqueIndex = index + indexOffset;
 
             return (
               <li
@@ -449,34 +461,39 @@ const Navigation: React.FC<NavigationProps> = ({
                   href={item.href}
                   className="text-[20px] text-[#faf0fa] group"
                   onMouseEnter={() => setHoveredIndex(uniqueIndex)}
-
                 >
                   <span className="relative inline-block">
                     {item.label}
-                    <span className={`absolute -bottom-1 left-0 block w-0 h-[1px] bg-[#e8b77c] transition-all duration-700 ease-in-out ${hoveredIndex === uniqueIndex ? 'w-full' : 'w-0'}`}></span>
+                    <span
+                      className={`absolute -bottom-1 left-0 block w-0 h-[1px] bg-[#e8b77c] transition-all duration-700 ease-in-out ${hoveredIndex === uniqueIndex ? "w-full" : "w-0"}`}
+                    ></span>
                   </span>
                 </Link>
-                
+
                 {item.subItems && (
                   <div className="absolute top-full left-0 pt-3">
-                    <ul className={`bg-[#131417] p-4 w-max pt-6 transition-all duration-700 ease-in-out
-                    ${hoveredIndex === uniqueIndex ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}>
+                    <ul
+                      className={`bg-[#131417] p-4 w-max pt-6 transition-all duration-700 ease-in-out
+                    ${hoveredIndex === uniqueIndex ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
+                    >
                       {item.subItems?.map((subItem, subIndex) => (
-                          <li key={subIndex} className="">
-                            <Link href={subItem.href} className="block py-3 px-4 text-gray-300 transition-all duration-700 ease-in-out hover:text-[#faf0fa] group">
-                              <span className="relative inline-block">
-                                {subItem.label}
-                                <span className="absolute -bottom-1 left-0 block w-0 h-[1px] bg-[#393939] transition-all duration-700 ease-in-out group-hover:w-full"></span>
-                              </span>
-                            </Link>
-                          </li>
-                        )
-                      )}
+                        <li key={subIndex} className="">
+                          <Link
+                            href={subItem.href}
+                            className="block py-3 px-4 text-gray-300 transition-all duration-700 ease-in-out hover:text-[#faf0fa] group"
+                          >
+                            <span className="relative inline-block">
+                              {subItem.label}
+                              <span className="absolute -bottom-1 left-0 block w-0 h-[1px] bg-[#393939] transition-all duration-700 ease-in-out group-hover:w-full"></span>
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 )}
               </li>
-            )
+            );
           })}
         </ul>
       </nav>
