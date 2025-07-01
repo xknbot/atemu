@@ -144,7 +144,7 @@ useEffect(() => {
         repeat: Infinity,
         repeatType: "reverse" as const,
         duration: 1,
-        ease: "easeInOut"
+        ease: "easeInOut" as const,
       }
     }
   }), []);

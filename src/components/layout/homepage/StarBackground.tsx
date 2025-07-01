@@ -36,7 +36,8 @@ const StarBackground = () => {
             value: 100, // Số lượng sao
             density: {
               enable: true,
-              value_area: 800,
+              width: 1920,
+              height: 1080
             },
           },
           opacity: {
