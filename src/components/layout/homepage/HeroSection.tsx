@@ -27,6 +27,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styles from "@/styles/HeroSection.module.css";
 
+// Define the data for each slide
+interface HeroSlideData {
+  id: number;
+  type: "image" | "video";
+  src: string | StaticImageData;
+  altText?: string;
+}
+
 export default function HeroSection() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
   const [realIndex, setRealIndex] = useState(0);
@@ -94,8 +102,7 @@ export default function HeroSection() {
   }, []);
 
   // Memoize slide data to prevent recreation on each render
-  const slidesData: HeroSlideData[] = useMemo(
-    () => [
+  const slidesData: HeroSlideData[] = useMemo(() => [
       {
         id: 1,
         type: "image",
