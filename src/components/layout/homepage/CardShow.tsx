@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
@@ -60,7 +60,6 @@ const nftCards = [
   { id: 50, src: "/nftcards/Zeus.webp", alt: "NFT Card 50" },
 ];
 
-
 // Optimized shuffling functions
 function shuffleArrayForColumn1<T>(array: T[]): T[] {
   const newArray = [...array];
@@ -82,7 +81,7 @@ function shuffleArrayForColumn2<T>(array: T[]): T[] {
 }
 
 // Define a type for our card data
-type CardType = typeof nftCards[0];
+type CardType = (typeof nftCards)[0];
 
 export default function CardShow() {
   // Refs for scrolling containers
@@ -109,7 +108,7 @@ export default function CardShow() {
 
   // Create virtual lists
   const CARD_HEIGHT = 300; // Height of each card + margins
-  const OVERSCAN = 5;     // Number of additional items to render
+  const OVERSCAN = 5; // Number of additional items to render
 
   // Create duplicate arrays for seamless scrolling - memoized
   const createSeamlessArray = useCallback((cards: typeof nftCards) => {
@@ -123,14 +122,14 @@ export default function CardShow() {
   }, []);
 
   // Memoize seamless arrays to avoid recreating them on every render
-  const seamlessColumn1Cards = useMemo(() =>
-    column1Cards.length > 0 ? createSeamlessArray(column1Cards) : [],
-    [column1Cards, createSeamlessArray]
+  const seamlessColumn1Cards = useMemo(
+    () => (column1Cards.length > 0 ? createSeamlessArray(column1Cards) : []),
+    [column1Cards, createSeamlessArray],
   );
 
-  const seamlessColumn2Cards = useMemo(() =>
-    column2Cards.length > 0 ? createSeamlessArray(column2Cards) : [],
-    [column2Cards, createSeamlessArray]
+  const seamlessColumn2Cards = useMemo(
+    () => (column2Cards.length > 0 ? createSeamlessArray(column2Cards) : []),
+    [column2Cards, createSeamlessArray],
   );
 
   // Create virtualized lists with memoized seamless arrays
@@ -194,8 +193,10 @@ export default function CardShow() {
     }
 
     return () => {
-      if (animationFrameRef1.current) cancelAnimationFrame(animationFrameRef1.current);
-      if (animationFrameRef2.current) cancelAnimationFrame(animationFrameRef2.current);
+      if (animationFrameRef1.current)
+        cancelAnimationFrame(animationFrameRef1.current);
+      if (animationFrameRef2.current)
+        cancelAnimationFrame(animationFrameRef2.current);
     };
   }, [column1Cards, column2Cards, animateColumn1, animateColumn2]);
 
@@ -229,50 +230,61 @@ export default function CardShow() {
   }, []);
 
   // Get card data for virtualized rendering - optimized to use memoized arrays
-  const getCardData = useCallback((index: number, seamlessArray: typeof nftCards) => {
-    return seamlessArray[index % seamlessArray.length];
-  }, []);
+  const getCardData = useCallback(
+    (index: number, seamlessArray: typeof nftCards) => {
+      return seamlessArray[index % seamlessArray.length];
+    },
+    [],
+  );
 
   return (
     <section className="relative h-[900px] w-full overflow-hidden">
       {/* Background with inset shadow */}
       <div className="absolute w-full h-[300px]">
         {/* Main background image */}
-        <div className="absolute inset-0 bg-[url(/NFT-banner.avif)] w-full h-full bg-cover bg-center bg-no-repeat"></div>
+        <div className="absolute inset-0 bg-[url(/NFT-banner.avif)] w-full h-full bg-cover bg-center lg:bg-top bg-no-repeat"></div>
 
         {/* Top inset shadow overlay */}
-        <div className="absolute inset-x-0 top-0 h-[70px] bg-gradient-to-b from-black to-transparent opacity-100"></div>
+        <div className="absolute inset-x-0 top-0 h-[70px] lg:h-[100px] bg-gradient-to-b from-black to-transparent opacity-100"></div>
 
         {/* Bottom inset shadow overlay */}
         <div className="absolute inset-x-0 bottom-0 h-[120px] bg-gradient-to-t from-black to-transparent opacity-100"></div>
       </div>
 
-      <div className="relative flex flex-col justify-center items-center w-full h-[400px] gap-3">
-        <p className="text-[25px] text-center mt-45 font-deswash bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text">EXPERIENCE NEXT-GEN CARD GAMING</p>
-        <p className="text-[16px] text-center font-fe tracking-wide mb-3">Build, trade, and battle with your NFT deck</p>
-        <Button variant="third" size="small" className=""
+      <div className="relative flex flex-col justify-center items-center w-full h-[600px] gap-3">
+        <p className="text-[25px] text-center mt-45 font-deswash bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text">
+          EXPERIENCE NEXT-GEN CARD GAMING
+        </p>
+        <p className="text-[16px] text-center font-fe tracking-wide mb-3">
+          Build, trade, and battle with your NFT deck
+        </p>
+        <Button
+          variant="third"
+          size="large"
           onClick={() => {
-            console.log('Play Now clicked!');
-            window.location.href = "https://hyperflex.market/"
-      }}
+            console.log("Play Now clicked!");
+            window.location.href = "https://hyperflex.market/";
+          }}
+          className="mt-5"
+          aria-label="Explore Market"
         >
           EXPLORE MARKET
         </Button>
       </div>
 
       {/* NFT Cards Scrolling Columns */}
-      <div className="relative w-full bg-[#000] flex justify-center">
+      <div className="relative w-full h-full bg-[#000] flex justify-center">
         {/* Two columns side by side */}
         <div className="relative flex h-[400px] overflow-hidden">
           {/* Top blur edge */}
-          <div className="absolute top-0 left-0 right-0 h-[25px] bg-gradient-to-b from-[#000] to-transparent z-10 backdrop-blur-xs"></div>
+          <div className="z-10 absolute top-0 left-0 right-0 h-[25px] bg-gradient-to-b from-[#000] to-transparent not-visited: backdrop-blur-xs"></div>
 
           {/* Bottom blur edge */}
-          <div className="absolute bottom-0 left-0 right-0 h-[25px] bg-gradient-to-t from-[#000] to-transparent z-10 backdrop-blur-xs"></div>
+          <div className="z-20 absolute bottom-12 left-0 right-0 h-[55px] bg-gradient-to-t from-[#000]  to-transparent  backdrop-blur-xs"></div>
 
           {/* First column - Top to Bottom */}
           <div
-            className="relative h-full overflow-hidden w-[200px]"
+            className="relative h-[100%] overflow-hidden w-[210px]"
             onMouseEnter={handleTouchStart}
             onMouseLeave={handleTouchEnd}
             onTouchStart={handleTouchStart}
@@ -282,20 +294,23 @@ export default function CardShow() {
               ref={column1Ref}
               className="h-full"
               style={{
-                willChange: 'transform',
-                overscrollBehavior: 'none',
+                willChange: "transform",
+                overscrollBehavior: "none",
               }}
             >
               {seamlessColumn1Cards.length > 0 ? (
                 <div
                   style={{
                     height: `${column1Virtualizer.getTotalSize()}px`,
-                    width: '100%',
-                    position: 'relative',
+                    width: "100%",
+                    position: "relative",
                   }}
                 >
                   {column1Virtualizer.getVirtualItems().map((virtualItem) => {
-                    const card = getCardData(virtualItem.index, seamlessColumn1Cards);
+                    const card = getCardData(
+                      virtualItem.index,
+                      seamlessColumn1Cards,
+                    );
                     return (
                       <div
                         key={`col1-${card.id}-${virtualItem.index}`}
@@ -337,22 +352,25 @@ export default function CardShow() {
           >
             <div
               ref={column2Ref}
-              className="h-full overflow-auto"
+              className="h-full overflow-hidden"
               style={{
-                willChange: 'transform',
-                overscrollBehavior: 'none',
+                willChange: "transform",
+                overscrollBehavior: "none",
               }}
             >
               {seamlessColumn2Cards.length > 0 ? (
                 <div
                   style={{
                     height: `${column2Virtualizer.getTotalSize()}px`,
-                    width: '100%',
-                    position: 'relative',
+                    width: "100%",
+                    position: "relative",
                   }}
                 >
                   {column2Virtualizer.getVirtualItems().map((virtualItem) => {
-                    const card = getCardData(virtualItem.index, seamlessColumn2Cards);
+                    const card = getCardData(
+                      virtualItem.index,
+                      seamlessColumn2Cards,
+                    );
                     return (
                       <div
                         key={`col2-${card.id}-${virtualItem.index}`}

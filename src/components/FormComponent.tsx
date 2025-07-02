@@ -28,7 +28,7 @@ const FormComponent = () => {
       </Button>
 
       {/* Reset button */}
-      <Button type="reset" variant="secondary">
+      <Button type="reset" variant="primary">
         Reset
       </Button>
     </form>

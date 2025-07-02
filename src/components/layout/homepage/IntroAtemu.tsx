@@ -154,14 +154,14 @@ useEffect(() => {
 
     // Memoize the title component - now static without animation
     const titleComponent = useMemo(() => (
-        <div className="max-w-lg text-[25px] text-center bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text tracking-wide px-1 mt-30 -mb-15 lg:mb-1 font-deswash">
+        <div className="max-w-lg text-[25px] text-center bg-gradient-to-r from-[#E8B77C] to-[#E9312B] text-transparent bg-clip-text tracking-wide px-1 mt-10 lg:mt-30 -mb-15 lg:mb-1 font-deswash">
             {titleText}
         </div>
     ), []);
   
     const introComponent = useMemo(() => (
       <motion.div
-        className="font-fe text-[16px] text-center text-[#faf0fa] tracking-wide px-1 mt-20 mb-6 lg:mt-0 leading-5" initial={{ opacity: 0, y: 20 }}
+        className="font-fe mx-auto w-21 h-42 text-[19px] text-center [#faf0fa] mt-20 mb-6 lg:mt-0 leading-6" initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.7 }}
@@ -216,90 +216,64 @@ useEffect(() => {
           </div>
         );}, [isDesktop]);
 
-    return (
-        <section 
-          ref={sectionRef} 
-          className="w-full relative h-[1100px] overflow-hidden z-0"
-          style={{ 
-              transform: 'translateZ(0)',
-              willChange: 'transform'
-          }}
-      >
-        {/* <motion.div className='absolute z-10 bottom-0 text-[25px] text-center w-full flex flex-col items-center justify-center'>
-          <motion.span 
-            className="block text-[#E8B77C]"
-            initial={{ opacity: hasSeenAnimation ? 1 : 0, y: hasSeenAnimation ? 0 : -50 }}
-            animate={{ 
-              opacity: 1,
-              y: 0
-            }}
-            transition={{ 
-              duration: hasSeenAnimation ? 0 : 1.5,
-              ease: "easeOut"
-            }}
-          >
-            OG
-          </motion.span>
-          
+            return (
+                <section 
+                  ref={sectionRef} 
+                  className="w-full relative h-[1000px] overflow-hidden z-0 p-5"
+                  style={{ 
+                      transform: 'translateZ(0)',
+                      willChange: 'transform'
+                }}>
 
-            <motion.span 
-              className="block text-[#E8B77C]"
-              initial={{ opacity: hasSeenAnimation ? 1 : 0, y: hasSeenAnimation ? 0 : 50 }}
-              animate={{ 
-                opacity: 1,
-                y: 0
-              }}
-              transition={{ 
-                duration: hasSeenAnimation ? 0 : 1.5,
-                delay: hasSeenAnimation ? 0 : 0.3, // Slight delay for second word
-                ease: "easeOut"
-              }}
-            >
-              COLLECTION
-            </motion.span>
-        </motion.div> */}
+                
+                  {/* Add the arrow component */}
+                  <motion.div 
+                    className="fixed -top-10 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[80px] sm:text-[80px]"
+                    style={{ opacity: arrowOpacity }}
+                    initial="initial"
+                    animate="animate"
+                    variants={arrowVariants}
+                  >
+                    &dArr;
+                  </motion.div>
+                
+                  {/* Background Image Section */}
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      src="/bg-1.avif" 
+                      alt="Background"
+                      fill 
+                      style={{ objectFit: 'cover' }} 
+                      sizes="100vw"
+                      quality={100}
+                    />
+                    {/* Top inset shadow overlay */}
+                    <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100 z-10"></div>
+                  </div>
 
-        
-          {/* Add the arrow component */}
-          <motion.div 
-            className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40 flex flex-col items-center text-[#E8B77C] text-[80px] sm:text-[80px]"
-            style={{ opacity: arrowOpacity }}
-            initial="initial"
-            animate="animate"
-            variants={arrowVariants}
-          >
-            &dArr;
-          </motion.div>
-        
-          {/* Background Image Section */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/bg-1.avif" 
-              alt="Background"
-              fill 
-              style={{ objectFit: 'cover' }} 
-              sizes="100vw"
-              quality={100}
-            />
-            {/* Top inset shadow overlay */}
-            <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100 z-10"></div>
-          </div>
+                  {/* Content Container - Positioned above background */}
+                  <div className="relative z-10 flex flex-col items-center justify-start gap-4 pt-1 px-4">
 
-          {/* Content Container - Positioned above background */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-start gap-20 pt-20 px-4">
-            <div>
-              {titleComponent}
-            </div>
-            <div className="w-full max-w-lg flex flex-col">
-                {introComponent}
-                <Button size='large' variant='primary' isFlameEffect={true} className=''>
-                  DISCOVER THE LORE
-                </Button>
-            </div>
-            <div className='w-full max-w-full'>
-              {characterImagesComponent}
-            </div>
-          </div>
-        </section> 
-      );
-}
+                    {titleComponent}
+
+                    <div className="w-[100%] flex flex-col items-center justify-center gap-30">
+                      <div className=''>
+                        {introComponent}
+                      </div>
+                      <div className='w-full h-full max-w-full'>
+                        {characterImagesComponent}
+                    </div>
+                    <div>
+                      <Button 
+                        size='large'
+                        variant='third'
+                        className='mt-5'
+                      >
+                        EXPLORE ATEMU
+                      </Button>
+                    </div>
+                    </div>
+                  </div>
+                </section> 
+              );
+        }

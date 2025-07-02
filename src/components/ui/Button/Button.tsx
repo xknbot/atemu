@@ -9,7 +9,7 @@ interface ButtonProps {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
   variant?: 'primary' | 'third';
-  size?: 'small' | 'large';
+  size?: 'small' | 'large' | 'medium';
   disabled?: boolean;
   loading?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   type = 'button',
   variant = 'primary',
-  size = 'large',
+  size = 'small',
   disabled = false,
   loading = false,
   onClick,
