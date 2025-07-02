@@ -282,8 +282,14 @@ export default function CardShow() {
           {/* Bottom blur edge */}
           <div className="z-20 absolute bottom-12 left-0 right-0 h-[55px] bg-gradient-to-t from-[#000]  to-transparent  backdrop-blur-xs"></div>
 
-          <div className="absolute -left-18.5  -top-4 z-30 pointer-events-none">
-            <Image src="/ancient-frame.webp" alt="frame" width={500} height={500} className="w-81" />
+          <div className="absolute -left-17.5 -top-4 z-30 pointer-events-none">
+            <Image
+              src="/ancient-frame.webp"
+              alt="frame"
+              width={500}
+              height={500}
+              className="w-70"
+            />
           </div>
 
           {/* First column - Top to Bottom */}
@@ -294,7 +300,6 @@ export default function CardShow() {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            
             <div
               ref={column1Ref}
               className="h-full"
