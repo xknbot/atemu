@@ -283,9 +283,9 @@ export default function IntroAtemu() {
       <div className="relative z-10 flex flex-col items-center justify-start gap-4 pt-1 px-4">
         {titleComponent}
 
-        <div className="w-[100%] flex flex-col items-center justify-center gap-42">
+        <div className="w-[100%] flex flex-col items-center justify-center gap-42 lg:gap-32">
           <div className="">{introComponent}</div>
-          <div className="w-full h-full max-w-full">
+          <div className="w-full h-full">
             {characterImagesComponent}
           </div>
           <div>
