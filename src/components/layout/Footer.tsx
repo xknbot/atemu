@@ -126,7 +126,7 @@ const Footer = () => {
                 alt="brand1"
                 width={150}
                 height={50}
-                className="mr-1.5"
+                className="mr-3"
               />
             </div>
           </div>
