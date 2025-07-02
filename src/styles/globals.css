@@ -209,3 +209,41 @@ h1 { /* Example heading style */
 .video-controls-container input[type="range"]::-webkit-slider-thumb {
   background: #E8B77C;
 }
+
+/* Hide default Swiper arrow text */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+/* Custom styles for navigation buttons */
+.swiper-button-prev,
+.swiper-button-next {
+  width: 88px; /* Adjust size as needed */
+  height: 88px; /* Adjust size as needed */
+  top: 54%;
+  transform: translateY(-50%);
+  z-index: 50; /* Ensure they are above other content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.swiper-button-prev {
+  left: 1px; /* Adjust as needed */
+}
+
+.swiper-button-next {
+  right: 1px; /* Adjust as needed */
+}
+
+@media (min-width: 1024px) {
+  .swiper-button-prev {
+  left: 210px; /* Adjust as needed */
+}
+
+.swiper-button-next {
+  right: 210px; /* Adjust as needed */
+}
+}
