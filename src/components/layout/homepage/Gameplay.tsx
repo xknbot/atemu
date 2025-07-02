@@ -174,26 +174,46 @@ const Gameplay: React.FC = () => {
 
       {/* Carousel Container */}
       <div className="relative w-full max-w-full mx-auto py-20 overflow-hidden">
-        {/* Navigation Arrows
-                <button
-                    onClick={handlePrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-[#E8B77C]/20 hover:bg-[#E8B77C]/40 rounded-full p-3 transition-colors"
-                    aria-label="Previous card"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
+        {/* Navigation Arrows */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-[#E8B77C]/20 hover:bg-[#E8B77C]/40 rounded-full p-3 transition-colors"
+          aria-label="Previous card"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
 
-                <button
-                    onClick={handleNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-[#E8B77C]/20 hover:bg-[#E8B77C]/40 rounded-full p-3 transition-colors"
-                    aria-label="Next card"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 18l6-6-6-6" />
-                    </svg>
-                </button> */}
+        <button
+          onClick={handleNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-[#E8B77C]/20 hover:bg-[#E8B77C]/40 rounded-full p-3 transition-colors"
+          aria-label="Next card"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
 
         {/* Cards Container */}
         <div className="flex justify-center items-center h-[520px] px-4">
@@ -260,7 +280,7 @@ const Gameplay: React.FC = () => {
                     <Button
                       variant="third"
                       size="large"
-                      className="!rounded-none h-[20%]"
+                      className="!rounded-none h-[30%]"
                     >
                       {card.buttonText}
                     </Button>
