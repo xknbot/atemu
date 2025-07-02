@@ -203,6 +203,10 @@ const Header: React.FC = () => {
         <div className="z-25 self-end">
           <Link href={"/"}>
             <Logo
+              onClick={() => {
+                console.log("Home clicked!");
+                window.location.href = "https://atemu.vercel.app/";
+              }}
               src="/ATEMU-TEXT.png"
               alt="Atemu Logo"
               width={70}
