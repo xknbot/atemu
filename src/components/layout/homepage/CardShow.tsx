@@ -275,7 +275,7 @@ export default function CardShow() {
       
 
       {/* NFT Cards Scrolling Columns */}
-      <div className="relative w-full h-full bg-[#000] flex justify-center">
+      <div className="relative w-full h-auto bg-[#000] flex justify-center">
         {/* Two columns side by side */}
 
         
@@ -283,7 +283,7 @@ export default function CardShow() {
         <div className="z-10 absolute top-0 left-0 right-0 h-[25px] bg-gradient-to-b from-[#000] to-transparent not-visited: backdrop-blur-xs"></div>
 
         {/* Bottom blur edge */}
-        <div className="z-20 absolute bottom-12 left-0 right-0 h-[55px] bg-gradient-to-t from-[#000]  to-transparent  backdrop-blur-xs"></div>
+        <div className="z-20 absolute top-62 left-0 right-0 h-[55px] bg-gradient-to-t from-[#000]  to-transparent  backdrop-blur-xs"></div>
         <div className="relative flex h-[420px] w-auto x-auto overflow-visible">
 
           {/* First column - Top to Bottom */}
@@ -318,7 +318,7 @@ export default function CardShow() {
                     return (
                       <div
                         key={`col1-${card.id}-${virtualItem.index}`}
-                        className="mx-auto my-5 transform transition-transform duration-300 cursor-pointer absolute top-0 left-0 right-0"
+                        className="mx-6 my-5 transform transition-transform duration-300 cursor-pointer absolute top-2 left-0 right-0"
                         style={{
                           height: `${virtualItem.size}px`,
                           transform: `translateY(${virtualItem.start}px)`,
@@ -328,7 +328,7 @@ export default function CardShow() {
                         <Image
                           src={card.src}
                           alt={card.alt}
-                          width={180}
+                          width={170}
                           height={250}
                           loading="lazy"
                           decoding="async"
