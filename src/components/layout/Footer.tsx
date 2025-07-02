@@ -62,10 +62,11 @@ const Footer = () => {
           <div className="flex items-center justify-end gap-5">
             <p></p>
             <Image
-              src="/partnership/strkfoundation.avif"
+              src="/SN.webp"
               alt="brand1"
-              width={50}
+              width={120}
               height={50}
+              className="mt-15"
             />
           </div>
           <Link href={"/"} className="text-left ">
@@ -112,12 +113,13 @@ const Footer = () => {
             </p>
 
             <div className="hidden lg:flex lg:justify-between lg:items-center lg:w-[35%] lg:h-[17%]">
-                <p></p>
+              <p></p>
               <Image
-                src="/partnership/strkfoundation.avif"
+                src="/SN.webp"
                 alt="brand1"
-                width={50}
+                width={150}
                 height={50}
+                className="mr-1.5"
               />
             </div>
           </div>
