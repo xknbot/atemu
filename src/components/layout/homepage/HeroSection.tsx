@@ -27,6 +27,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styles from "@/styles/HeroSection.module.css";
 
+
 // Define the data for each slide
 interface HeroSlideData {
   id: number;

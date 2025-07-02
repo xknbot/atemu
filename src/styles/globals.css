@@ -213,37 +213,37 @@ h1 { /* Example heading style */
 /* Hide default Swiper arrow text */
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  display: none;
+  display: none !important; /* Hide the default text */
 }
 
 /* Custom styles for navigation buttons */
 .swiper-button-prev,
 .swiper-button-next {
-  width: 88px; /* Adjust size as needed */
-  height: 88px; /* Adjust size as needed */
-  top: 54%;
-  transform: translateY(-50%);
-  z-index: 50; /* Ensure they are above other content */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  width: 88px !important; /* Adjust size as needed */
+  height: 88px !important; /* Adjust size as needed */
+  top: 54% !important; /* Center vertically */
+  transform: translateY(-50%) !important; /* Center vertically */
+  z-index: 50 !important; /* Ensure they are above other content */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
 }
 
 .swiper-button-prev {
-  left: 1px; /* Adjust as needed */
+  left: 1px !important; /* Adjust as needed */
 }
 
 .swiper-button-next {
-  right: 1px; /* Adjust as needed */
+  right: 1px !important; /* Adjust as needed */
 }
 
 @media (min-width: 1024px) {
   .swiper-button-prev {
-  left: 210px; /* Adjust as needed */
+  left: 210px !important; /* Adjust as needed */
 }
 
 .swiper-button-next {
-  right: 210px; /* Adjust as needed */
+  right: 210px !important; /* Adjust as needed */
 }
 }
