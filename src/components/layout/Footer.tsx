@@ -35,7 +35,7 @@ const Footer = () => {
             <FaXTwitter className="text-[40px] lg:text-[35px]" />
           </Link>
           <Link
-            href={"/"}
+            href="https://discord.gg/ZJXMJtYztA"
             aria-label="Discord"
             className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center"
           >
