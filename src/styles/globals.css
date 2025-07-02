@@ -223,7 +223,7 @@ h1 { /* Example heading style */
   height: 88px !important; /* Adjust size as needed */
   top: 54% !important; /* Center vertically */
   transform: translateY(-50%) !important; /* Center vertically */
-  z-index: 50 !important; /* Ensure they are above other content */
+  z-index: 29 !important; /* Ensure they are above other content */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
