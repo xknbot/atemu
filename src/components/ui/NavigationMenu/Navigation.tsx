@@ -471,7 +471,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 </Link>
 
                 {item.subItems && (
-                  <div className="absolute top-full left-0 pt-3">
+                  <div className="absolute top-full left-0 pt-2">
                     <ul
                       className={`bg-[#131417] p-4 w-max pt-6 transition-all duration-700 ease-in-out
                     ${hoveredIndex === uniqueIndex ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
