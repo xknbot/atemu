@@ -275,21 +275,26 @@ export default function CardShow() {
       {/* NFT Cards Scrolling Columns */}
       <div className="relative w-full h-full bg-[#000] flex justify-center">
         {/* Two columns side by side */}
-        <div className="relative flex h-[400px] overflow-hidden">
+        <div className="relative flex h-[400px] overflow-visible">
           {/* Top blur edge */}
           <div className="z-10 absolute top-0 left-0 right-0 h-[25px] bg-gradient-to-b from-[#000] to-transparent not-visited: backdrop-blur-xs"></div>
 
           {/* Bottom blur edge */}
           <div className="z-20 absolute bottom-12 left-0 right-0 h-[55px] bg-gradient-to-t from-[#000]  to-transparent  backdrop-blur-xs"></div>
 
+          <div className="absolute -left-18.5  -top-4 z-30 pointer-events-none">
+            <Image src="/ancient-frame.webp" alt="frame" width={500} height={500} className="w-81" />
+          </div>
+
           {/* First column - Top to Bottom */}
           <div
-            className="relative h-[100%] overflow-hidden w-[210px]"
+            className="relative h-[100%] overflow-visible w-[230px]"
             onMouseEnter={handleTouchStart}
             onMouseLeave={handleTouchEnd}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
+            
             <div
               ref={column1Ref}
               className="h-full"

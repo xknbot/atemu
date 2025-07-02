@@ -35,3 +35,41 @@
   left: 50% !important;
   transform: translateX(-50%) !important;
 }
+
+/* Hide default Swiper arrow text */
+:global(.swiper-button-prev::after),
+:global(.swiper-button-next::after) {
+  display: none;
+}
+
+/* Custom styles for navigation buttons */
+:global(.swiper-button-prev),
+:global(.swiper-button-next) {
+  width: 88px; /* Adjust size as needed */
+  height: 88px; /* Adjust size as needed */
+  top: 54%;
+  transform: translateY(-50%);
+  z-index: 50; /* Ensure they are above other content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+:global(.swiper-button-prev) {
+  left: 1px; /* Adjust as needed */
+}
+
+:global(.swiper-button-next) {
+  right: 1px; /* Adjust as needed */
+}
+
+@media (min-width: 1024px) {
+  :global(.swiper-button-prev) {
+  left: 210px; /* Adjust as needed */
+}
+
+:global(.swiper-button-next) {
+  right: 210px; /* Adjust as needed */
+}
+}

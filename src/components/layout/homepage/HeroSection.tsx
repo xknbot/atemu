@@ -14,9 +14,8 @@ import TextLogo from "@/components/ui/AtemuTextLogo";
 
 import SwiperCore from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
-import styles from "@/styles/HeroSection.module.css";
-
+import { Autoplay, EffectFade, Pagination, Navigation } from "swiper/modules";
+import "swiper/css/navigation";
 import { motion } from "framer-motion";
 
 // Import hero images statically
@@ -25,14 +24,8 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
-
-// Define the data for each slide
-interface HeroSlideData {
-  id: number;
-  type: "image" | "video";
-  src: string | StaticImageData;
-  altText?: string;
-}
+import "swiper/css/navigation";
+import styles from "@/styles/HeroSection.module.css";
 
 export default function HeroSection() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
@@ -295,7 +288,7 @@ export default function HeroSection() {
         key={slidesData.length}
         onSwiper={setSwiperInstance}
         onSlideChange={(swiper) => setRealIndex(swiper.realIndex)}
-        modules={[Autoplay, EffectFade, Pagination]}
+        modules={[Autoplay, EffectFade, Pagination, Navigation]}
         slidesPerView={1}
         spaceBetween={0}
         loop={true}
@@ -310,7 +303,11 @@ export default function HeroSection() {
           horizontalClass: styles.paginationHorizontal,
           el: `.${styles.customPagination}`,
         }}
-        navigation={true} // Có thể bỏ nếu không dùng nút prev/next của Swiper
+        
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         touchEventsTarget="container" // Changed from "wrapper" to "container" for better touch detection
@@ -372,7 +369,7 @@ export default function HeroSection() {
                     muted={true} // Start muted to help with autoplay policies. User/Observer can unmute.
                     loop={false} // Không loop, để sự kiện 'ended' hoạt động
                     className="absolute inset-0 z-0 object-cover w-full h-full lg:object-contain lg:object-top pointer-events-none"
-                  // onClick={() => { /* Ngăn click vào video tự play/pause */ }}
+                    // onClick={() => { /* Ngăn click vào video tự play/pause */ }}
                   >
                     <source src="/VikingGOD.webm" type="video/webm" />
                     <source src="VikingGOD.mp4" type="video/mp4" />
@@ -529,6 +526,14 @@ export default function HeroSection() {
           );
         })}
       </Swiper>
+
+      {/* Add Swiper navigation buttons */}
+      <div className="swiper-button-prev">
+        <Image src="/arrow-left.png" alt="Previous" width={52} height={52} />
+      </div>
+      <div className="swiper-button-next">
+        <Image src="/arrow-right.png" alt="Next" width={52} height={52} />
+      </div>
 
       {/* Di chuyển nội dung tĩnh ra ngoài Swiper để nó luôn hiển thị */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 text-center pointer-events-none">

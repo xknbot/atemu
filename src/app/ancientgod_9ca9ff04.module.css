@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'ancientGod';
+    src: url('@vercel/turbopack-next/internal/font/local/font?{%22path%22:%22./fonts/Ancient%20God.woff2%22,%22preload%22:true,%22has_size_adjust%22:true}') format('woff2');
+    font-display: swap;
+    
+}
+
+@font-face {
+    font-family: 'ancientGod Fallback';
+    src: local("Arial");
+    ascent-override: 274.72%;
+descent-override: 44.55%;
+line-gap-override: 163.85%;
+size-adjust: 32.99%;
+
+}
+
+.className {
+    font-family: 'ancientGod', 'ancientGod Fallback';
+    
+}
+.variable {
+    --font-ancientGod: 'ancientGod', 'ancientGod Fallback';
+}
+
