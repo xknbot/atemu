@@ -7,6 +7,7 @@ interface LogoProps {
   width?: number;
   height?: number;
   className?: string;
+  onClick?: () => void;
 }
 
 const Logo: React.FC<LogoProps> = ({ src, alt, width = 100, height = 141, className }) => {
