@@ -9,7 +9,7 @@ if (typeof registerPaint !== "undefined") {
       ctx.strokeStyle = gradient;
       ctx.lineWidth = 10;
 
-      ctx.strokeRect(0, 0, size.width, size.height);
+      // ctx.strokeRect(0, 0, size.width, size.height);
     }
   }
 
