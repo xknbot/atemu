@@ -2,7 +2,7 @@
  * Socket.IO configuration and event management
  */
 
-import { WEBSOCKET_CONFIG, SOCKET_EVENTS } from '@/lib/constants';
+import { SOCKET_CONFIG, SOCKET_EVENTS } from '@/lib/constants';
 
 // Socket connection states
 export enum SocketState {
