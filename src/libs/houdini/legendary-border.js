@@ -6,10 +6,10 @@ if (typeof registerPaint !== "undefined") {
       gradient.addColorStop(0, "purple");
       gradient.addColorStop(0, "cyan");
 
-      ctx.strokeStyle; = gradient;
+      ctx.strokeStyle = gradient;
       ctx.lineWidth = 10;
 
-      ctx.strokeRect(0,0, size.width, size.height)
+      ctx.strokeRect(0, 0, size.width, size.height);
     }
   }
 
