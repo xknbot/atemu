@@ -16,35 +16,35 @@ const Footer = () => {
           <Link
             href={"/"}
             aria-label="Facebook"
-            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center"
+            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-sm lg:hover:shadow-amber-200"
           >
             <TiSocialFacebookCircular className="text-[50px] lg:text-[35px]" />
           </Link>
           <Link
             href={"/"}
             aria-label="Instagram"
-            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center"
+            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-sm lg:hover:shadow-amber-200"
           >
             <FaInstagram className="text-[40px] lg:text-[35px]" />
           </Link>
           <Link
             href="https://x.com/Atemu_world"
             aria-label="Twitter"
-            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-md lg:hover:shadow-amber-200"
+            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-sm lg:hover:shadow-amber-200"
           >
             <FaXTwitter className="text-[40px] lg:text-[35px]" />
           </Link>
           <Link
             href="https://discord.gg/ZJXMJtYztA"
             aria-label="Discord"
-            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center"
+            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-sm lg:hover:shadow-amber-200"
           >
             <RxDiscordLogo className="text-[40px] lg:text-[35px]" />
           </Link>
           <Link
             href={"/"}
             aria-label="Telegram"
-            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center"
+            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-sm lg:hover:shadow-amber-200"
           >
             <LiaTelegramPlane className="text-[40px] lg:text-[35px]" />
           </Link>

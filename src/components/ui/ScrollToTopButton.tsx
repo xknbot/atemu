@@ -1,7 +1,7 @@
 // src/components/ui/ScrollToTopButton.tsx
-'use client'; // Cần thiết vì component này sử dụng hooks (useState, useEffect)
+"use client"; // Cần thiết vì component này sử dụng hooks (useState, useEffect)
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const ScrollToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,17 +20,17 @@ const ScrollToTopButton: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // Tạo hiệu ứng cuộn mượt
+      behavior: "smooth", // Tạo hiệu ứng cuộn mượt
     });
   };
 
   // Thêm và xóa event listener khi component mount và unmount
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
 
     // Cleanup function để xóa listener khi component unmount
     return () => {
-      window.removeEventListener('scroll', toggleVisibility);
+      window.removeEventListener("scroll", toggleVisibility);
     };
   }, []); // Mảng dependency rỗng đảm bảo effect chỉ chạy 1 lần khi mount
 
@@ -39,7 +39,7 @@ const ScrollToTopButton: React.FC = () => {
       {isVisible && ( // Chỉ hiển thị nút khi isVisible là true
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 z-50 p-3 rounded-full bg-[#131417] text-[#E8B77C] shadow-md border border-[#E8B77C] lg:hover:bg-gray-800 focus:outline-none lg:focus:ring-1 lg:focus:ring-offset-1 lg:focus:ring-[#E8B77C] lg:transition-opacity lg:duration-300 lg:  ease-in-out"
+          className="fixed bottom-5 right-5 z-50 p-3 rounded-full bg-[#131417] text-[#E8B77C] shadow-md border border-[#E8B77C] lg:hover:inset-shadow-sm transition-all duration-700 ease-in-out lg:inset-shadow-amber-200 focus:outline-none lg:focus:ring-1 lg:focus:ring-offset-1 lg:focus:ring-[#E8B77C]"
           aria-label="Scroll to top" // Thêm aria-label cho accessibility
         >
           {/* Icon Up Arrow Outline (SVG) */}
