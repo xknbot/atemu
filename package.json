@@ -20,6 +20,7 @@
     "gsap": "^3.13.0",
     "hamburger-react": "^2.5.2",
     "init": "^0.1.2",
+    "mongodb": "^6.17.0",
     "motion": "^12.7.4",
     "next": "15.2.4",
     "normalize.css": "^8.0.1",

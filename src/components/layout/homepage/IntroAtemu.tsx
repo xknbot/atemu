@@ -93,7 +93,7 @@ const characterImages: CharacterData[] = [
   },
 ].map((char, index) => ({
   ...char,
-  priority: index < 5, // Set priority true for first 5 characters
+  priority: index < 2, // Set priority true for first 2 characters
 }));
 
 // Custom hook to detect screen size with debounce
@@ -273,7 +273,8 @@ export default function IntroAtemu() {
           fill
           style={{ objectFit: "cover" }}
           sizes="100vw"
-          quality={100}
+          quality={80}
+          priority
         />
         {/* Top inset shadow overlay */}
         <div className="absolute inset-x-0 top-0 h-[100px] bg-gradient-to-b from-black to-transparent opacity-100 z-10"></div>
@@ -285,9 +286,7 @@ export default function IntroAtemu() {
 
         <div className="w-[100%] flex flex-col items-center justify-center gap-42 lg:gap-32">
           <div className="">{introComponent}</div>
-          <div className="w-full h-full">
-            {characterImagesComponent}
-          </div>
+          <div className="w-full h-full">{characterImagesComponent}</div>
           <div>
             <Button size="large" variant="third" className="">
               EXPLORE ATEMU

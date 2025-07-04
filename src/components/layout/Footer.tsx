@@ -30,7 +30,7 @@ const Footer = () => {
           <Link
             href="https://x.com/Atemu_world"
             aria-label="Twitter"
-            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center"
+            className="bg-[#131417] text-[#E8B77C] w-15 h-15 lg:w-10 lg:h-10 rounded-3xl flex justify-center items-center transition-all duration-700 ease-in-out lg:hover:shadow-md lg:hover:shadow-amber-200"
           >
             <FaXTwitter className="text-[40px] lg:text-[35px]" />
           </Link>
@@ -86,30 +86,27 @@ const Footer = () => {
             </p>
 
             <div className="hidden lg:flex lg:flex-col lg:gap-2 lg:w-[30%] lg:h-[30%]">
-              <Link
-                href={"/"}
-                className="text-left relative group"
-              >
+              <Link href={"/"} className="text-left relative group">
                 About
-                <span className="absolute bottom-0 left-0 w-[30%] h-[1px] bg-[#e8b77c] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+                <span
+                  className="absolute bottom-0 left-0 w-[30%] h-[1px] bg-[#e8b77c] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+                />
               </Link>
-              
-              <Link
-                href={"/"}
-                className="text-left relative group"
-              >
+
+              <Link href={"/"} className="text-left relative group">
                 Support
-                <span className="absolute bottom-0 left-0 w-[40%] h-[1px] bg-[#e8b77c] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+                <span
+                  className="absolute bottom-0 left-0 w-[40%] h-[1px] bg-[#e8b77c] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+                />
               </Link>
-              <Link
-                href={"/"}
-                className="relative group"
-              >
+              <Link href={"/"} className="relative group">
                 Contact us
-                <span className="absolute bottom-0 left-0 w-[58%] h-[1px] bg-[#e8b77c] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+                <span
+                  className="absolute bottom-0 left-0 w-[58%] h-[1px] bg-[#e8b77c] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+                />
               </Link>
             </div>
           </div>
@@ -139,37 +136,33 @@ const Footer = () => {
 
         {/* security */}
         <div className="flex items-center gap-10 text-[15px] text-center text-[#faf0fa]/30">
-          <Link
-            href={"/"}
-            className=" relative group"
-          >
+          <Link href={"/"} className=" relative group">
             PRIVACY CENTER
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+            <span
+              className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+            />
           </Link>
-          <Link
-            href={"/"}
-            className=" relative group"
-          >
+          <Link href={"/"} className=" relative group">
             CODE OF CONDUCT
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+            <span
+              className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+            />
           </Link>
-          <Link
-            href={"/"}
-            className=" relative group"
-          >
+          <Link href={"/"} className=" relative group">
             TERMS OF USE
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+            <span
+              className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+            />
           </Link>
-          <Link
-            href={"/"}
-            className="relative group"
-          >
+          <Link href={"/"} className="relative group">
             COOKIE POLICY
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform 
-     duration-300 ease-out" />
+            <span
+              className="absolute bottom-0 left-0 w-full h-[1px] bg-[#393939] transform scale-x-0 group-hover:scale-x-100 transition-transform
+     duration-300 ease-out"
+            />
           </Link>
         </div>
       </div>

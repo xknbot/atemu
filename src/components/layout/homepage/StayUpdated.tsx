@@ -25,14 +25,25 @@ const StayUpdated = () => {
     }
 
     try {
-      // Simulate API call - replace with your actual API endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      // Success state
-      setIsSuccess(true);
-      setEmail("");
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSuccess(true);
+        setEmail('');
+      } else {
+        setError(data.message || 'Failed to subscribe. Please try again.');
+      }
     } catch (err) {
-      setError("Failed to subscribe. Please try again later.");
+      console.error('Subscription fetch error:', err);
+      setError('Failed to subscribe due to a network error. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }

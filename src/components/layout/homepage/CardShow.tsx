@@ -318,13 +318,15 @@ export default function CardShow() {
                     return (
                       <div
                         key={`col1-${card.id}-${virtualItem.index}`}
-                        className="mx-6 my-5 transform transition-transform duration-300 cursor-pointer absolute top-2 left-0 right-0"
+                        className="relative z-0 mx-6 my-5 transform transition-transform duration-300 cursor-pointer top-2 left-0 right-0"
                         style={{
                           height: `${virtualItem.size}px`,
                           transform: `translateY(${virtualItem.start}px)`,
                         }}
                         onClick={() => handleCardSelect(card)}
                       >
+                        <div className="absolute w-full h-auto inset-[-10px] -z-10 animate-spin-slow bg-gradient-conic from-yellow-400/80 via-transparent to-transparent blur-2xl">
+                        </div>
                         <Image
                           src={card.src}
                           alt={card.alt}

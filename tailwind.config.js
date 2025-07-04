@@ -50,6 +50,9 @@ module.exports = {
       // }
 
       // Add other theme customizations here (breakpoints, etc.)
+      animation: {
+            'spin-slow': 'spin 5s linear infinite',
+          }
     },
   },
 
