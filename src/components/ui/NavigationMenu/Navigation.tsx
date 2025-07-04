@@ -419,14 +419,14 @@ const Navigation: React.FC<NavigationProps> = ({
                   <FaInstagram className="text-[30px]" />
                 </Link>
                 <Link
-                  href={"/"}
+                  href="https://x.com/Atemu_world"
                   aria-label="Twitter"
                   className="bg-[#131417] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center"
                 >
                   <FaXTwitter className="text-[30px]" />
                 </Link>
                 <Link
-                  href={"/"}
+                  href="https://discord.gg/ZJXMJtYztA"
                   aria-label="Discord"
                   className="bg-[#131417] text-[#E8B77C] w-12 h-12 rounded-3xl flex justify-center items-center"
                 >

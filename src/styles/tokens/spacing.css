@@ -1,0 +1,40 @@
+/* Design Tokens - Spacing */
+:root {
+  /* Base Spacing Scale (4px base) */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;  /* 4px */
+  --spacing-2: 0.5rem;   /* 8px */
+  --spacing-3: 0.75rem;  /* 12px */
+  --spacing-4: 1rem;     /* 16px */
+  --spacing-5: 1.25rem;  /* 20px */
+  --spacing-6: 1.5rem;   /* 24px */
+  --spacing-8: 2rem;     /* 32px */
+  --spacing-10: 2.5rem;  /* 40px */
+  --spacing-12: 3rem;    /* 48px */
+  --spacing-16: 4rem;    /* 64px */
+  --spacing-20: 5rem;    /* 80px */
+  --spacing-24: 6rem;    /* 96px */
+  --spacing-32: 8rem;    /* 128px */
+  --spacing-40: 10rem;   /* 160px */
+  --spacing-48: 12rem;   /* 192px */
+  --spacing-56: 14rem;   /* 224px */
+  --spacing-64: 16rem;   /* 256px */
+
+  /* Component Spacing */
+  --spacing-button-sm: var(--spacing-2) var(--spacing-4);
+  --spacing-button-md: var(--spacing-3) var(--spacing-6);
+  --spacing-button-lg: var(--spacing-4) var(--spacing-8);
+  --spacing-button-xl: var(--spacing-5) var(--spacing-10);
+
+  /* Layout Spacing */
+  --spacing-section-sm: var(--spacing-12);
+  --spacing-section-md: var(--spacing-16);
+  --spacing-section-lg: var(--spacing-24);
+  --spacing-section-xl: var(--spacing-32);
+
+  /* Container Spacing */
+  --spacing-container-sm: var(--spacing-4);
+  --spacing-container-md: var(--spacing-6);
+  --spacing-container-lg: var(--spacing-8);
+  --spacing-container-xl: var(--spacing-12);
+}

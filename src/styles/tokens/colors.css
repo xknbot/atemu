@@ -1,0 +1,61 @@
+/* Design Tokens - Colors */
+:root {
+  /* Brand Colors */
+  --color-primary-50: #fef7f0;
+  --color-primary-100: #fdeee0;
+  --color-primary-200: #fbdcc2;
+  --color-primary-300: #f8c194;
+  --color-primary-400: #f4a065;
+  --color-primary-500: #E8B77C; /* Main brand color */
+  --color-primary-600: #d4a366;
+  --color-primary-700: #b8895a;
+  --color-primary-800: #936d47;
+  --color-primary-900: #6b4f34;
+
+  /* Accent Colors */
+  --color-accent-50: #fef2f2;
+  --color-accent-100: #fde4e4;
+  --color-accent-200: #fbcdcd;
+  --color-accent-300: #f8a5a5;
+  --color-accent-400: #f47171;
+  --color-accent-500: #E9312B; /* Main accent color */
+  --color-accent-600: #d42b25;
+  --color-accent-700: #b8241f;
+  --color-accent-800: #931d19;
+  --color-accent-900: #851D1A; /* Dark accent */
+
+  /* Neutral Colors */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  /* Background Colors */
+  --color-background-primary: #131417;
+  --color-background-secondary: #1a1a1a;
+  --color-background-tertiary: #262626;
+  --color-background-glass: rgba(19, 20, 23, 0.8);
+  
+  /* Text Colors */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a3a3a3;
+  --color-text-tertiary: #737373;
+  --color-text-inverse: #131417;
+
+  /* Semantic Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Legacy Support */
+  --background: var(--color-background-primary);
+  --foreground: var(--color-text-primary);
+}
