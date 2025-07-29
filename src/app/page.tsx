@@ -2,10 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import HeroSection from "@/components/layout/homepage/HeroSection";
-import IntroCollection from "@/components/layout/homepage/IntroCollection";
 import CardShow from "@/components/layout/homepage/CardShow";
 import Gameplay from "@/components/layout/homepage/Gameplay";
-import Partnership from "@/components/layout/homepage/Partnership";
 import StayUpdated from "@/components/layout/homepage/StayUpdated";
 import LoadingOverlay from "@/components/ui/LoadingOverlay";
 
@@ -13,7 +11,6 @@ import LoadingOverlay from "@/components/ui/LoadingOverlay";
 
 // On the page where IntroAtemu is used (e.g., pages/index.tsx)
 import dynamic from 'next/dynamic';
-import OgCollection from '@/components/layout/homepage/OgCollection';
 
 // Dynamically import IntroAtemu
 const IntroAtemu = dynamic(() => import('@/components/layout/homepage/IntroAtemu'), {
@@ -68,8 +65,6 @@ export default function Home() {
       <LoadingOverlay isLoading={isPageLoading} progress={loadingProgress} />
       <HeroSection />
       <IntroAtemu />
-      {/* <OgCollection/> */}
-      {/* <IntroCollection /> */}
       <CardShow />
       <Gameplay />
       <StayUpdated/>

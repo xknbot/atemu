@@ -24,11 +24,6 @@ const deSwash = localFont({
   variable: "--font-deSwash",
 });
 
-const spaceGames = localFont({
-  src: "./fonts/Space Games.woff2",
-  display: "swap",
-  variable: "--font-spaceGames",
-});
 
 const fe = localFont({
   src: "./fonts/FeFCrm2.woff2",
@@ -55,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inconsolata.className} ${spaceGames.variable} ${deSwash.variable} ${fe.variable} ${ancientGod.variable} w-full`}
+      className={`${inconsolata.className} ${deSwash.variable} ${fe.variable} ${ancientGod.variable} w-full`}
     >
       <body className={` antialiased`}>
         <Header />
